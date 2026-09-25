@@ -1,0 +1,2607 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>أجمل الهدايا | إدارة الديون</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    font-family:Arial,Tahoma,sans-serif;
+}
+
+:root{
+    --bg:#f5f7fb;
+    --card:#ffffff;
+    --text:#172033;
+    --muted:#7b8497;
+    --primary:#6c5ce7;
+    --primary2:#8e7dff;
+    --green:#16a085;
+    --red:#e74c3c;
+    --orange:#f39c12;
+    --border:#e8eaf0;
+    --shadow:0 12px 35px rgba(30,40,80,.08);
+}
+
+body.dark{
+    --bg:#0f1220;
+    --card:#181c2d;
+    --text:#f5f7ff;
+    --muted:#9ba3b8;
+    --border:#292e43;
+    --shadow:0 12px 35px rgba(0,0,0,.25);
+}
+
+body{
+    background:var(--bg);
+    color:var(--text);
+    min-height:100vh;
+    transition:.3s;
+}
+
+button,input{
+    font-family:inherit;
+}
+
+button{
+    cursor:pointer;
+    border:0;
+}
+
+.hidden{
+    display:none!important;
+}
+
+/* ================= LOGIN ================= */
+
+#authScreen{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+    overflow:hidden;
+    position:relative;
+    background:
+    radial-gradient(circle at 10% 20%,rgba(108,92,231,.35),transparent 35%),
+    radial-gradient(circle at 90% 80%,rgba(22,160,133,.25),transparent 35%),
+    #0d1020;
+}
+
+.blob{
+    position:absolute;
+    width:220px;
+    height:220px;
+    border-radius:50%;
+    filter:blur(5px);
+    opacity:.45;
+    animation:float 7s ease-in-out infinite;
+}
+
+.blob.one{
+    background:#6c5ce7;
+    top:-60px;
+    left:-60px;
+}
+
+.blob.two{
+    background:#00cec9;
+    bottom:-70px;
+    right:-50px;
+    animation-delay:2s;
+}
+
+@keyframes float{
+    0%,100%{transform:translate(0,0) scale(1)}
+    50%{transform:translate(25px,-25px) scale(1.12)}
+}
+
+.authBox{
+    width:100%;
+    max-width:430px;
+    background:rgba(255,255,255,.09);
+    border:1px solid rgba(255,255,255,.15);
+    backdrop-filter:blur(25px);
+    padding:30px 22px;
+    border-radius:30px;
+    position:relative;
+    z-index:2;
+    box-shadow:0 25px 80px rgba(0,0,0,.35);
+    animation:authIn .8s ease;
+}
+
+@keyframes authIn{
+    from{
+        opacity:0;
+        transform:translateY(40px) scale(.96);
+    }
+    to{
+        opacity:1;
+        transform:none;
+    }
+}
+
+.logo{
+    text-align:center;
+    margin-bottom:25px;
+}
+
+.logoIcon{
+    width:75px;
+    height:75px;
+    margin:auto;
+    border-radius:24px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:35px;
+    background:linear-gradient(135deg,#6c5ce7,#00cec9);
+    box-shadow:0 15px 35px rgba(108,92,231,.35);
+    animation:pulse 2.5s infinite;
+}
+
+@keyframes pulse{
+    0%,100%{box-shadow:0 15px 35px rgba(108,92,231,.25)}
+    50%{box-shadow:0 15px 50px rgba(108,92,231,.6)}
+}
+
+.logo h1{
+    color:white;
+    margin-top:14px;
+    font-size:25px;
+}
+
+.logo p{
+    color:#b8bfd3;
+    margin-top:7px;
+}
+
+.authTitle{
+    color:white;
+    text-align:center;
+    margin-bottom:20px;
+}
+
+.inputGroup{
+    position:relative;
+    margin-bottom:14px;
+}
+
+.inputGroup input{
+    width:100%;
+    padding:16px 18px;
+    border-radius:15px;
+    border:1px solid rgba(255,255,255,.13);
+    background:rgba(255,255,255,.08);
+    color:white;
+    outline:none;
+    font-size:15px;
+}
+
+.inputGroup input::placeholder{
+    color:#aab0c2;
+}
+
+.inputGroup input:focus{
+    border-color:#8e7dff;
+    box-shadow:0 0 0 3px rgba(142,125,255,.12);
+}
+
+.passwordToggle{
+    position:absolute;
+    left:15px;
+    top:14px;
+    color:#bbb;
+    background:none;
+    font-size:18px;
+}
+
+.mainBtn{
+    width:100%;
+    padding:16px;
+    border-radius:15px;
+    color:white;
+    font-size:16px;
+    font-weight:bold;
+    background:linear-gradient(135deg,#6c5ce7,#8e7dff);
+    box-shadow:0 10px 25px rgba(108,92,231,.25);
+    transition:.25s;
+}
+
+.mainBtn:hover{
+    transform:translateY(-2px);
+}
+
+.switchAuth{
+    text-align:center;
+    margin-top:18px;
+    color:#aeb5c8;
+    font-size:14px;
+}
+
+.switchAuth span{
+    color:#9c8fff;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+/* ================= WELCOME ================= */
+
+#welcome{
+    position:fixed;
+    inset:0;
+    background:linear-gradient(135deg,#0d1020,#211c52);
+    z-index:9999;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:white;
+}
+
+.welcomeContent{
+    text-align:center;
+    animation:welcomeIn 1s ease;
+}
+
+@keyframes welcomeIn{
+    from{
+        opacity:0;
+        transform:scale(.7) translateY(30px);
+    }
+    to{
+        opacity:1;
+        transform:none;
+    }
+}
+
+.welcomeEmoji{
+    font-size:65px;
+    animation:wave 1.5s infinite;
+}
+
+@keyframes wave{
+    0%,100%{transform:rotate(0)}
+    25%{transform:rotate(12deg)}
+    50%{transform:rotate(-8deg)}
+    75%{transform:rotate(8deg)}
+}
+
+.welcomeContent h1{
+    font-size:30px;
+    margin-top:15px;
+}
+
+.welcomeContent p{
+    color:#bfc5d9;
+    margin-top:10px;
+}
+
+.loader{
+    width:45px;
+    height:5px;
+    background:rgba(255,255,255,.15);
+    border-radius:20px;
+    margin:25px auto 0;
+    overflow:hidden;
+}
+
+.loader:after{
+    content:"";
+    display:block;
+    height:100%;
+    width:40%;
+    background:#8e7dff;
+    animation:load 1.4s infinite;
+}
+
+@keyframes load{
+    from{transform:translateX(-150%)}
+    to{transform:translateX(300%)}
+}
+
+/* ================= APP ================= */
+
+#app{
+    min-height:100vh;
+    padding-bottom:85px;
+}
+
+.topbar{
+    padding:18px 16px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    background:var(--card);
+    border-bottom:1px solid var(--border);
+    position:sticky;
+    top:0;
+    z-index:50;
+}
+
+.brand{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.brandIcon{
+    width:42px;
+    height:42px;
+    border-radius:13px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:linear-gradient(135deg,var(--primary),var(--primary2));
+    color:white;
+}
+
+.brandText h2{
+    font-size:17px;
+}
+
+.brandText small{
+    color:var(--muted);
+}
+
+.iconBtn{
+    width:42px;
+    height:42px;
+    border-radius:13px;
+    background:var(--bg);
+    color:var(--text);
+    font-size:19px;
+}
+
+.page{
+    display:none;
+    padding:18px 15px;
+    animation:pageIn .35s ease;
+}
+
+.page.active{
+    display:block;
+}
+
+@keyframes pageIn{
+    from{
+        opacity:0;
+        transform:translateY(12px);
+    }
+    to{
+        opacity:1;
+        transform:none;
+    }
+}
+
+.greeting{
+    margin:5px 0 20px;
+}
+
+.greeting p{
+    color:var(--muted);
+    font-size:14px;
+}
+
+.greeting h1{
+    font-size:25px;
+    margin-top:5px;
+}
+
+/* cards */
+
+.stats{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+}
+
+.stat{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:20px;
+    padding:17px;
+    box-shadow:var(--shadow);
+    transition:.25s;
+}
+
+.stat:hover{
+    transform:translateY(-3px);
+}
+
+.statIcon{
+    font-size:22px;
+}
+
+.stat h3{
+    font-size:23px;
+    margin:12px 0 5px;
+}
+
+.stat p{
+    color:var(--muted);
+    font-size:13px;
+}
+
+.sectionTitle{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin:25px 0 13px;
+}
+
+.sectionTitle h2{
+    font-size:18px;
+}
+
+.sectionTitle button{
+    background:none;
+    color:var(--primary);
+    font-weight:bold;
+}
+
+.card{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:20px;
+    padding:17px;
+    box-shadow:var(--shadow);
+    margin-bottom:12px;
+}
+
+/* customer */
+
+.customer{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.avatar{
+    width:48px;
+    height:48px;
+    border-radius:16px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:linear-gradient(135deg,#6c5ce7,#00cec9);
+    color:white;
+    font-weight:bold;
+    flex-shrink:0;
+}
+
+.customerInfo{
+    flex:1;
+}
+
+.customerInfo h3{
+    font-size:15px;
+    margin-bottom:5px;
+}
+
+.customerInfo p{
+    color:var(--muted);
+    font-size:12px;
+}
+
+.amount{
+    text-align:left;
+    font-weight:bold;
+}
+
+.amount.debt{
+    color:var(--red);
+}
+
+.amount.paid{
+    color:var(--green);
+}
+
+/* search */
+
+.search{
+    display:flex;
+    gap:8px;
+    margin-bottom:15px;
+}
+
+.search input,
+.formInput{
+    width:100%;
+    padding:14px 15px;
+    background:var(--card);
+    border:1px solid var(--border);
+    color:var(--text);
+    border-radius:14px;
+    outline:none;
+}
+
+.search input:focus,
+.formInput:focus{
+    border-color:var(--primary);
+}
+
+/* buttons */
+
+.primary{
+    background:linear-gradient(135deg,var(--primary),var(--primary2));
+    color:white;
+    padding:13px 16px;
+    border-radius:13px;
+    font-weight:bold;
+}
+
+.success{
+    background:var(--green);
+    color:white;
+    padding:11px 14px;
+    border-radius:12px;
+}
+
+.danger{
+    background:var(--red);
+    color:white;
+    padding:11px 14px;
+    border-radius:12px;
+}
+
+.outline{
+    background:transparent;
+    border:1px solid var(--border);
+    color:var(--text);
+    padding:11px 14px;
+    border-radius:12px;
+}
+
+/* transaction */
+
+.transaction{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.transactionIcon{
+    width:42px;
+    height:42px;
+    border-radius:13px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:var(--bg);
+}
+
+.transactionInfo{
+    flex:1;
+}
+
+.transactionInfo h4{
+    font-size:14px;
+}
+
+.transactionInfo p{
+    color:var(--muted);
+    font-size:12px;
+    margin-top:4px;
+}
+
+.transactionAmount{
+    font-weight:bold;
+}
+
+/* bottom nav */
+
+.bottomNav{
+    position:fixed;
+    bottom:0;
+    left:0;
+    right:0;
+    height:72px;
+    background:var(--card);
+    border-top:1px solid var(--border);
+    display:flex;
+    justify-content:space-around;
+    align-items:center;
+    z-index:100;
+}
+
+.navItem{
+    background:none;
+    color:var(--muted);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:5px;
+    font-size:11px;
+}
+
+.navItem span:first-child{
+    font-size:20px;
+}
+
+.navItem.active{
+    color:var(--primary);
+}
+
+/* floating */
+
+.fab{
+    position:fixed;
+    bottom:88px;
+    left:18px;
+    width:57px;
+    height:57px;
+    border-radius:19px;
+    background:linear-gradient(135deg,var(--primary),var(--primary2));
+    color:white;
+    font-size:28px;
+    box-shadow:0 12px 30px rgba(108,92,231,.35);
+    z-index:90;
+}
+
+/* modal */
+
+.modal{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.55);
+    backdrop-filter:blur(5px);
+    display:none;
+    align-items:flex-end;
+    justify-content:center;
+    z-index:500;
+}
+
+.modal.show{
+    display:flex;
+}
+
+.modalBox{
+    width:100%;
+    max-width:520px;
+    background:var(--card);
+    border-radius:28px 28px 0 0;
+    padding:22px;
+    animation:modalIn .35s ease;
+    max-height:90vh;
+    overflow:auto;
+}
+
+@keyframes modalIn{
+    from{
+        transform:translateY(100%);
+    }
+    to{
+        transform:none;
+    }
+}
+
+.modalHeader{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:20px;
+}
+
+.close{
+    width:38px;
+    height:38px;
+    border-radius:12px;
+    background:var(--bg);
+    color:var(--text);
+    font-size:20px;
+}
+
+.formGroup{
+    margin-bottom:13px;
+}
+
+.formGroup label{
+    display:block;
+    font-size:13px;
+    margin-bottom:7px;
+    color:var(--muted);
+}
+
+.full{
+    width:100%;
+}
+
+/* toast */
+
+.toast{
+    position:fixed;
+    top:85px;
+    right:15px;
+    left:15px;
+    padding:14px 16px;
+    background:var(--text);
+    color:var(--card);
+    border-radius:15px;
+    z-index:2000;
+    transform:translateY(-120px);
+    opacity:0;
+    transition:.35s;
+    text-align:center;
+}
+
+.toast.show{
+    transform:none;
+    opacity:1;
+}
+
+/* reports */
+
+.reportBar{
+    margin-top:10px;
+}
+
+.barLabel{
+    display:flex;
+    justify-content:space-between;
+    font-size:13px;
+    margin-bottom:6px;
+}
+
+.bar{
+    height:10px;
+    background:var(--bg);
+    border-radius:20px;
+    overflow:hidden;
+}
+
+.bar div{
+    height:100%;
+    border-radius:20px;
+    background:linear-gradient(90deg,var(--primary),var(--primary2));
+}
+
+/* settings */
+
+.setting{
+    display:flex;
+    align-items:center;
+    gap:13px;
+    padding:16px 0;
+    border-bottom:1px solid var(--border);
+}
+
+.setting:last-child{
+    border-bottom:0;
+}
+
+.settingIcon{
+    width:43px;
+    height:43px;
+    border-radius:14px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:var(--bg);
+    font-size:20px;
+}
+
+.settingInfo{
+    flex:1;
+}
+
+.settingInfo h3{
+    font-size:14px;
+}
+
+.settingInfo p{
+    color:var(--muted);
+    font-size:12px;
+    margin-top:4px;
+}
+
+.switch{
+    width:48px;
+    height:27px;
+    border-radius:20px;
+    background:#aaa;
+    padding:3px;
+    transition:.3s;
+}
+
+.switch i{
+    width:21px;
+    height:21px;
+    display:block;
+    border-radius:50%;
+    background:white;
+    transition:.3s;
+}
+
+.switch.on{
+    background:var(--primary);
+}
+
+.switch.on i{
+    transform:translateX(-21px);
+}
+
+/* empty */
+
+.empty{
+    text-align:center;
+    padding:35px 10px;
+    color:var(--muted);
+}
+
+.empty div{
+    font-size:42px;
+    margin-bottom:10px;
+}
+
+/* responsive */
+
+@media(min-width:700px){
+    .page{
+        max-width:900px;
+        margin:auto;
+    }
+
+    .bottomNav{
+        max-width:900px;
+        left:50%;
+        transform:translateX(-50%);
+        border-radius:22px 22px 0 0;
+    }
+
+    .fab{
+        left:calc(50% - 430px);
+    }
+
+    .modal{
+        align-items:center;
+    }
+
+    .modalBox{
+        border-radius:25px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- ================= AUTH ================= -->
+
+<section id="authScreen">
+
+    <div class="blob one"></div>
+    <div class="blob two"></div>
+
+    <div class="authBox">
+
+        <div class="logo">
+            <div class="logoIcon">🎁</div>
+            <h1>أجمل الهدايا</h1>
+            <p>إدارة الديون والعملاء بسهولة</p>
+        </div>
+
+        <!-- Login -->
+        <div id="loginForm">
+
+            <h2 class="authTitle">تسجيل الدخول</h2>
+
+            <div class="inputGroup">
+                <input id="loginUsername" type="text" placeholder="اسم المستخدم">
+            </div>
+
+            <div class="inputGroup">
+                <input id="loginPassword" type="password" placeholder="كلمة المرور">
+                <button class="passwordToggle" onclick="togglePassword('loginPassword')">👁</button>
+            </div>
+
+            <button class="mainBtn" onclick="login()">دخول إلى الحساب</button>
+
+            <div class="switchAuth">
+                ليس لديك حساب؟
+                <span onclick="showRegister()">إنشاء حساب</span>
+            </div>
+
+        </div>
+
+        <!-- Register -->
+        <div id="registerForm" class="hidden">
+
+            <h2 class="authTitle">إنشاء حساب جديد</h2>
+
+            <div class="inputGroup">
+                <input id="registerName" type="text" placeholder="الاسم">
+            </div>
+
+            <div class="inputGroup">
+                <input id="registerUsername" type="text" placeholder="اسم المستخدم">
+            </div>
+
+            <div class="inputGroup">
+                <input id="registerPassword" type="password" placeholder="كلمة المرور">
+            </div>
+
+            <div class="inputGroup">
+                <input id="registerPassword2" type="password" placeholder="تأكيد كلمة المرور">
+            </div>
+
+            <button class="mainBtn" onclick="register()">إنشاء الحساب</button>
+
+            <div class="switchAuth">
+                لديك حساب بالفعل؟
+                <span onclick="showLogin()">تسجيل الدخول</span>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+
+<!-- ================= WELCOME ================= -->
+
+<section id="welcome" class="hidden">
+    <div class="welcomeContent">
+        <div class="welcomeEmoji">👋</div>
+        <h1 id="welcomeName">مرحبًا يا بشمهندس يوسف</h1>
+        <p>جاري تجهيز لوحة التحكم الخاصة بك...</p>
+        <div class="loader"></div>
+    </div>
+</section>
+
+
+<!-- ================= APP ================= -->
+
+<div id="app" class="hidden">
+
+    <header class="topbar">
+
+        <div class="brand">
+            <div class="brandIcon">🎁</div>
+
+            <div class="brandText">
+                <h2>أجمل الهدايا</h2>
+                <small>إدارة الديون</small>
+            </div>
+        </div>
+
+        <button class="iconBtn" onclick="toggleDark()">🌙</button>
+
+    </header>
+
+
+    <!-- HOME -->
+
+    <section id="home" class="page active">
+
+        <div class="greeting">
+            <p>صباح الخير 👋</p>
+            <h1 id="homeGreeting">يا بشمهندس يوسف</h1>
+        </div>
+
+        <div class="stats">
+
+            <div class="stat">
+                <div class="statIcon">💰</div>
+                <h3 id="totalDebt">0 ج.م</h3>
+                <p>إجمالي الديون</p>
+            </div>
+
+            <div class="stat">
+                <div class="statIcon">💵</div>
+                <h3 id="totalPaid">0 ج.م</h3>
+                <p>إجمالي المدفوع</p>
+            </div>
+
+            <div class="stat">
+                <div class="statIcon">📌</div>
+                <h3 id="remainingDebt">0 ج.م</h3>
+                <p>المتبقي</p>
+            </div>
+
+            <div class="stat">
+                <div class="statIcon">👥</div>
+                <h3 id="customersCount">0</h3>
+                <p>العملاء</p>
+            </div>
+
+        </div>
+
+
+        <div class="sectionTitle">
+            <h2>آخر العملاء</h2>
+            <button onclick="openPage('customers')">عرض الكل</button>
+        </div>
+
+        <div id="recentCustomers"></div>
+
+
+        <div class="sectionTitle">
+            <h2>آخر العمليات</h2>
+        </div>
+
+        <div id="recentTransactions"></div>
+
+    </section>
+
+
+    <!-- CUSTOMERS -->
+
+    <section id="customers" class="page">
+
+        <div class="sectionTitle">
+            <h2>👥 العملاء</h2>
+            <button class="primary" onclick="openCustomerModal()">+ عميل</button>
+        </div>
+
+        <div class="search">
+            <input id="customerSearch"
+                   placeholder="ابحث عن عميل..."
+                   oninput="renderCustomers()">
+        </div>
+
+        <div id="customersList"></div>
+
+    </section>
+
+
+    <!-- DEBTS -->
+
+    <section id="debts" class="page">
+
+        <div class="sectionTitle">
+            <h2>💰 الديون</h2>
+            <button class="primary" onclick="openTransactionModal('debt')">+ دين</button>
+        </div>
+
+        <div id="debtsList"></div>
+
+    </section>
+
+
+    <!-- REMINDERS -->
+
+    <section id="reminders" class="page">
+
+        <div class="sectionTitle">
+            <h2>🔔 التذكيرات</h2>
+        </div>
+
+        <div id="remindersList"></div>
+
+    </section>
+
+
+    <!-- REPORTS -->
+
+    <section id="reports" class="page">
+
+        <div class="sectionTitle">
+            <h2>📊 التقارير</h2>
+        </div>
+
+        <div class="card">
+
+            <h3>ملخص الحساب</h3>
+
+            <div class="reportBar">
+
+                <div class="barLabel">
+                    <span>المدفوع</span>
+                    <span id="paidPercent">0%</span>
+                </div>
+
+                <div class="bar">
+                    <div id="paidBar" style="width:0%"></div>
+                </div>
+
+            </div>
+
+            <div class="reportBar">
+
+                <div class="barLabel">
+                    <span>المتبقي</span>
+                    <span id="remainingPercent">0%</span>
+                </div>
+
+                <div class="bar">
+                    <div id="remainingBar" style="width:0%"></div>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="stats">
+
+            <div class="stat">
+                <div class="statIcon">👥</div>
+                <h3 id="reportCustomers">0</h3>
+                <p>عدد العملاء</p>
+            </div>
+
+            <div class="stat">
+                <div class="statIcon">🧾</div>
+                <h3 id="reportTransactions">0</h3>
+                <p>عدد العمليات</p>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- SETTINGS -->
+
+    <section id="settings" class="page">
+
+        <div class="sectionTitle">
+            <h2>⚙️ الإعدادات</h2>
+        </div>
+
+        <div class="card">
+
+            <div class="setting">
+
+                <div class="settingIcon">🌙</div>
+
+                <div class="settingInfo">
+                    <h3>الوضع الليلي</h3>
+                    <p>تغيير مظهر الموقع</p>
+                </div>
+
+                <button id="darkSwitch"
+                        class="switch"
+                        onclick="toggleDark()">
+                    <i></i>
+                </button>
+
+            </div>
+
+
+            <div class="setting">
+
+                <div class="settingIcon">👤</div>
+
+                <div class="settingInfo">
+                    <h3 id="accountName">المستخدم</h3>
+                    <p id="accountUsername">@username</p>
+                </div>
+
+            </div>
+
+
+            <div class="setting">
+
+                <div class="settingIcon">💾</div>
+
+                <div class="settingInfo">
+                    <h3>نسخة احتياطية</h3>
+                    <p>حفظ بياناتك على جهازك</p>
+                </div>
+
+                <button class="outline" onclick="backup()">تصدير</button>
+
+            </div>
+
+
+            <div class="setting">
+
+                <div class="settingIcon">🚪</div>
+
+                <div class="settingInfo">
+                    <h3>تسجيل الخروج</h3>
+                    <p>الخروج من الحساب الحالي</p>
+                </div>
+
+                <button class="danger" onclick="logout()">خروج</button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- BOTTOM NAV -->
+
+    <nav class="bottomNav">
+
+        <button class="navItem active" onclick="openPage('home',this)">
+            <span>🏠</span>
+            الرئيسية
+        </button>
+
+        <button class="navItem" onclick="openPage('customers',this)">
+            <span>👥</span>
+            العملاء
+        </button>
+
+        <button class="navItem" onclick="openPage('debts',this)">
+            <span>💰</span>
+            الديون
+        </button>
+
+        <button class="navItem" onclick="openPage('reminders',this)">
+            <span>🔔</span>
+            التذكيرات
+        </button>
+
+        <button class="navItem" onclick="openPage('settings',this)">
+            <span>⚙️</span>
+            الإعدادات
+        </button>
+
+    </nav>
+
+
+    <button class="fab" onclick="openCustomerModal()">+</button>
+
+</div>
+
+
+<!-- ================= MODALS ================= -->
+
+<div id="customerModal" class="modal">
+
+    <div class="modalBox">
+
+        <div class="modalHeader">
+            <h2>إضافة عميل</h2>
+            <button class="close" onclick="closeModal('customerModal')">×</button>
+        </div>
+
+        <div class="formGroup">
+            <label>اسم العميل</label>
+            <input id="customerName"
+                   class="formInput"
+                   placeholder="مثال: أحمد محمد">
+        </div>
+
+        <div class="formGroup">
+            <label>رقم الهاتف</label>
+            <input id="customerPhone"
+                   class="formInput"
+                   type="tel"
+                   placeholder="01xxxxxxxxx">
+        </div>
+
+        <div class="formGroup">
+            <label>ملاحظات</label>
+            <input id="customerNote"
+                   class="formInput"
+                   placeholder="ملاحظات اختيارية">
+        </div>
+
+        <button class="primary full"
+                onclick="addCustomer()">
+            إضافة العميل
+        </button>
+
+    </div>
+
+</div>
+
+
+<div id="transactionModal" class="modal">
+
+    <div class="modalBox">
+
+        <div class="modalHeader">
+            <h2 id="transactionTitle">إضافة دين</h2>
+            <button class="close"
+                    onclick="closeModal('transactionModal')">
+                ×
+            </button>
+        </div>
+
+        <div class="formGroup">
+
+            <label>العميل</label>
+
+            <select id="transactionCustomer"
+                    class="formInput">
+            </select>
+
+        </div>
+
+        <div class="formGroup">
+
+            <label>المبلغ</label>
+
+            <input id="transactionAmount"
+                   class="formInput"
+                   type="number"
+                   placeholder="0">
+        </div>
+
+        <div class="formGroup">
+
+            <label>التاريخ</label>
+
+            <input id="transactionDate"
+                   class="formInput"
+                   type="date">
+
+        </div>
+
+        <div class="formGroup">
+
+            <label>ملاحظة</label>
+
+            <input id="transactionNote"
+                   class="formInput"
+                   placeholder="مثال: شراء منتجات">
+
+        </div>
+
+        <button class="primary full"
+                onclick="saveTransaction()">
+            حفظ العملية
+        </button>
+
+    </div>
+
+</div>
+
+
+<div id="customerDetailsModal" class="modal">
+
+    <div class="modalBox">
+
+        <div class="modalHeader">
+
+            <h2 id="detailsName">العميل</h2>
+
+            <button class="close"
+                    onclick="closeModal('customerDetailsModal')">
+                ×
+            </button>
+
+        </div>
+
+        <div id="customerDetails"></div>
+
+        <div style="display:flex;gap:8px;margin-top:15px">
+
+            <button class="danger full"
+                    onclick="openTransactionFromDetails('debt')">
+                + دين
+            </button>
+
+            <button class="success full"
+                    onclick="openTransactionFromDetails('payment')">
+                + دفعة
+            </button>
+
+        </div>
+
+        <button class="outline full"
+                style="margin-top:10px"
+                onclick="sendWhatsApp()">
+            💬 تذكير واتساب
+        </button>
+
+    </div>
+
+</div>
+
+
+<div id="toast" class="toast"></div>
+
+
+<script>
+
+/* ================= DATA ================= */
+
+let currentUser = null;
+let currentCustomerId = null;
+let transactionType = "debt";
+
+function getAccounts(){
+    return JSON.parse(localStorage.getItem("agmal_accounts") || "[]");
+}
+
+function saveAccounts(accounts){
+    localStorage.setItem("agmal_accounts",JSON.stringify(accounts));
+}
+
+function getCustomers(){
+    return JSON.parse(
+        localStorage.getItem("customers_"+currentUser.username) || "[]"
+    );
+}
+
+function saveCustomers(data){
+    localStorage.setItem(
+        "customers_"+currentUser.username,
+        JSON.stringify(data)
+    );
+}
+
+function getTransactions(){
+    return JSON.parse(
+        localStorage.getItem("transactions_"+currentUser.username) || "[]"
+    );
+}
+
+function saveTransactions(data){
+    localStorage.setItem(
+        "transactions_"+currentUser.username,
+        JSON.stringify(data)
+    );
+}
+
+
+/* ================= AUTH ================= */
+
+function showRegister(){
+
+    document.getElementById("loginForm").classList.add("hidden");
+    document.getElementById("registerForm").classList.remove("hidden");
+
+}
+
+function showLogin(){
+
+    document.getElementById("registerForm").classList.add("hidden");
+    document.getElementById("loginForm").classList.remove("hidden");
+
+}
+
+function register(){
+
+    const name =
+        document.getElementById("registerName").value.trim();
+
+    const username =
+        document.getElementById("registerUsername").value.trim();
+
+    const password =
+        document.getElementById("registerPassword").value;
+
+    const password2 =
+        document.getElementById("registerPassword2").value;
+
+    if(!name || !username || !password){
+        toast("من فضلك املأ كل البيانات");
+        return;
+    }
+
+    if(password !== password2){
+        toast("كلمتا المرور غير متطابقتين");
+        return;
+    }
+
+    let accounts = getAccounts();
+
+    if(accounts.some(a=>a.username === username)){
+        toast("اسم المستخدم موجود بالفعل");
+        return;
+    }
+
+    const account = {
+        name:name,
+        username:username,
+        password:password
+    };
+
+    accounts.push(account);
+
+    saveAccounts(accounts);
+
+    toast("تم إنشاء الحساب بنجاح 🎉");
+
+    document.getElementById("loginUsername").value=username;
+    document.getElementById("loginPassword").value=password;
+
+    showLogin();
+}
+
+
+function login(){
+
+    const username =
+        document.getElementById("loginUsername").value.trim();
+
+    const password =
+        document.getElementById("loginPassword").value;
+
+    const account =
+        getAccounts().find(
+            a=>a.username===username && a.password===password
+        );
+
+    if(!account){
+        toast("اسم المستخدم أو كلمة المرور غير صحيحة");
+        return;
+    }
+
+    currentUser=account;
+
+    localStorage.setItem(
+        "agmal_current_user",
+        JSON.stringify(account)
+    );
+
+    startWelcome();
+
+}
+
+
+function startWelcome(){
+
+    document.getElementById("authScreen")
+        .classList.add("hidden");
+
+    const welcome =
+        document.getElementById("welcome");
+
+    welcome.classList.remove("hidden");
+
+    let name=currentUser.name;
+
+    if(name.includes("يوسف")){
+        name="بشمهندس يوسف";
+    }
+
+    document.getElementById("welcomeName").textContent =
+        "مرحبًا يا "+name+" 👋";
+
+    setTimeout(()=>{
+
+        welcome.classList.add("hidden");
+
+        document.getElementById("app")
+            .classList.remove("hidden");
+
+        updateUserUI();
+        refreshAll();
+
+    },2300);
+
+}
+
+
+function logout(){
+
+    localStorage.removeItem("agmal_current_user");
+
+    currentUser=null;
+
+    document.getElementById("app")
+        .classList.add("hidden");
+
+    document.getElementById("authScreen")
+        .classList.remove("hidden");
+
+    showLogin();
+
+    toast("تم تسجيل الخروج");
+
+}
+
+
+/* ================= PASSWORD ================= */
+
+function togglePassword(id){
+
+    const input=document.getElementById(id);
+
+    input.type =
+        input.type==="password"
+        ? "text"
+        : "password";
+
+}
+
+
+/* ================= NAVIGATION ================= */
+
+function openPage(id,btn){
+
+    document.querySelectorAll(".page")
+        .forEach(p=>p.classList.remove("active"));
+
+    document.getElementById(id)
+        .classList.add("active");
+
+    document.querySelectorAll(".navItem")
+        .forEach(n=>n.classList.remove("active"));
+
+    if(btn){
+        btn.classList.add("active");
+    }else{
+
+        const nav=
+            [...document.querySelectorAll(".navItem")]
+            .find(n=>n.getAttribute("onclick")?.includes("'"+id+"'"));
+
+        if(nav) nav.classList.add("active");
+    }
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+
+    refreshAll();
+
+}
+
+
+/* ================= CUSTOMERS ================= */
+
+function openCustomerModal(){
+
+    document.getElementById("customerName").value="";
+    document.getElementById("customerPhone").value="";
+    document.getElementById("customerNote").value="";
+
+    document.getElementById("customerModal")
+        .classList.add("show");
+
+}
+
+function addCustomer(){
+
+    const name=
+        document.getElementById("customerName")
+        .value.trim();
+
+    const phone=
+        document.getElementById("customerPhone")
+        .value.trim();
+
+    const note=
+        document.getElementById("customerNote")
+        .value.trim();
+
+    if(!name){
+        toast("اكتب اسم العميل");
+        return;
+    }
+
+    let customers=getCustomers();
+
+    customers.push({
+        id:Date.now(),
+        name:name,
+        phone:phone,
+        note:note,
+        created:new Date().toISOString()
+    });
+
+    saveCustomers(customers);
+
+    closeModal("customerModal");
+
+    toast("تم إضافة العميل بنجاح 🎉");
+
+    refreshAll();
+
+}
+
+
+function renderCustomers(){
+
+    const container=
+        document.getElementById("customersList");
+
+    const search=
+        (document.getElementById("customerSearch")?.value || "")
+        .toLowerCase();
+
+    const customers=
+        getCustomers()
+        .filter(c=>
+            c.name.toLowerCase().includes(search) ||
+            c.phone.includes(search)
+        );
+
+    if(!customers.length){
+
+        container.innerHTML=`
+            <div class="card empty">
+                <div>👥</div>
+                لا يوجد عملاء حتى الآن
+            </div>
+        `;
+
+        return;
+    }
+
+    container.innerHTML=
+        customers.map(customerCard).join("");
+
+}
+
+
+function customerCard(c){
+
+    const balance=getCustomerBalance(c.id);
+
+    return `
+    <div class="card"
+         onclick="showCustomer(${c.id})"
+         style="cursor:pointer">
+
+        <div class="customer">
+
+            <div class="avatar">
+                ${getInitial(c.name)}
+            </div>
+
+            <div class="customerInfo">
+
+                <h3>${escapeHTML(c.name)}</h3>
+
+                <p>${c.phone || "لا يوجد رقم هاتف"}</p>
+
+            </div>
+
+            <div class="amount ${balance>0?'debt':'paid'}">
+                ${money(balance)}
+            </div>
+
+        </div>
+
+    </div>
+    `;
+}
+
+
+function getInitial(name){
+
+    return name.trim().charAt(0) || "؟";
+
+}
+
+
+/* ================= CUSTOMER DETAILS ================= */
+
+function showCustomer(id){
+
+    currentCustomerId=id;
+
+    const customer=
+        getCustomers().find(c=>c.id===id);
+
+    if(!customer) return;
+
+    document.getElementById("detailsName")
+        .textContent=customer.name;
+
+    const balance=
+        getCustomerBalance(id);
+
+    const transactions=
+        getTransactions()
+        .filter(t=>t.customerId===id)
+        .sort((a,b)=>b.date.localeCompare(a.date));
+
+    document.getElementById("customerDetails")
+        .innerHTML=`
+
+        <div class="stats">
+
+            <div class="stat">
+                <div class="statIcon">💰</div>
+                <h3>${money(balance)}</h3>
+                <p>المتبقي</p>
+            </div>
+
+            <div class="stat">
+                <div class="statIcon">📱</div>
+                <h3 style="font-size:15px">
+                    ${customer.phone || "غير موجود"}
+                </h3>
+                <p>الهاتف</p>
+            </div>
+
+        </div>
+
+        <div class="sectionTitle">
+            <h3>سجل العمليات</h3>
+        </div>
+
+        ${
+            transactions.length
+            ?
+            transactions.map(transactionHTML).join("")
+            :
+            `<div class="empty">لا توجد عمليات</div>`
+        }
+
+        `;
+
+    document.getElementById("customerDetailsModal")
+        .classList.add("show");
+
+}
+
+
+function transactionHTML(t){
+
+    return `
+    <div class="card">
+
+        <div class="transaction">
+
+            <div class="transactionIcon">
+                ${t.type==="debt"?"💸":"💵"}
+            </div>
+
+            <div class="transactionInfo">
+
+                <h4>
+                    ${t.type==="debt"?"دين":"دفعة"}
+                </h4>
+
+                <p>
+                    ${t.date}
+                    ${t.note ? " • "+escapeHTML(t.note) : ""}
+                </p>
+
+            </div>
+
+            <div class="transactionAmount"
+                 style="color:${t.type==="debt"?"var(--red)":"var(--green)"}">
+
+                ${t.type==="debt"?"+":"-"}${money(t.amount)}
+
+            </div>
+
+        </div>
+
+    </div>
+    `;
+
+}
+
+
+/* ================= TRANSACTIONS ================= */
+
+function openTransactionModal(type){
+
+    transactionType=type;
+
+    const customers=getCustomers();
+
+    if(!customers.length){
+        toast("أضف عميلًا أولًا");
+        return;
+    }
+
+    document.getElementById("transactionTitle")
+        .textContent=
+        type==="debt"
+        ? "إضافة دين"
+        : "تسجيل دفعة";
+
+    const select=
+        document.getElementById("transactionCustomer");
+
+    select.innerHTML=
+        customers.map(c=>
+            `<option value="${c.id}">
+                ${escapeHTML(c.name)}
+            </option>`
+        ).join("");
+
+    document.getElementById("transactionAmount").value="";
+    document.getElementById("transactionDate").value=
+        new Date().toISOString().split("T")[0];
+
+    document.getElementById("transactionNote").value="";
+
+    document.getElementById("transactionModal")
+        .classList.add("show");
+
+}
+
+
+function openTransactionFromDetails(type){
+
+    closeModal("customerDetailsModal");
+
+    openTransactionModal(type);
+
+    setTimeout(()=>{
+
+        document.getElementById("transactionCustomer")
+            .value=currentCustomerId;
+
+    },50);
+
+}
+
+
+function saveTransaction(){
+
+    const customerId=
+        Number(
+            document.getElementById("transactionCustomer").value
+        );
+
+    const amount=
+        Number(
+            document.getElementById("transactionAmount").value
+        );
+
+    const date=
+        document.getElementById("transactionDate").value;
+
+    const note=
+        document.getElementById("transactionNote").value.trim();
+
+    if(!amount || amount<=0){
+        toast("اكتب مبلغًا صحيحًا");
+        return;
+    }
+
+    if(!date){
+        toast("اختر التاريخ");
+        return;
+    }
+
+    if(transactionType==="payment"){
+
+        const balance=getCustomerBalance(customerId);
+
+        if(amount>balance){
+            toast("الدفعة أكبر من الدين المتبقي");
+            return;
+        }
+
+    }
+
+    let transactions=getTransactions();
+
+    transactions.push({
+
+        id:Date.now(),
+
+        customerId:customerId,
+
+        type:transactionType,
+
+        amount:amount,
+
+        date:date,
+
+        note:note
+
+    });
+
+    saveTransactions(transactions);
+
+    closeModal("transactionModal");
+
+    toast(
+        transactionType==="debt"
+        ? "تم تسجيل الدين 💰"
+        : "تم تسجيل الدفعة 💵"
+    );
+
+    refreshAll();
+
+}
+
+
+/* ================= DEBTS PAGE ================= */
+
+function renderDebts(){
+
+    const container=
+        document.getElementById("debtsList");
+
+    const customers=getCustomers();
+
+    const withDebt=
+        customers.filter(c=>getCustomerBalance(c.id)>0);
+
+    if(!withDebt.length){
+
+        container.innerHTML=`
+            <div class="card empty">
+                <div>🎉</div>
+                لا توجد ديون متبقية
+            </div>
+        `;
+
+        return;
+    }
+
+    container.innerHTML=
+        withDebt.map(c=>`
+
+        <div class="card">
+
+            <div class="customer">
+
+                <div class="avatar">
+                    ${getInitial(c.name)}
+                </div>
+
+                <div class="customerInfo">
+                    <h3>${escapeHTML(c.name)}</h3>
+                    <p>${c.phone || "لا يوجد رقم"}</p>
+                </div>
+
+                <div class="amount debt">
+                    ${money(getCustomerBalance(c.id))}
+                </div>
+
+            </div>
+
+            <div style="display:flex;gap:8px;margin-top:13px">
+
+                <button class="success full"
+                    onclick="payCustomer(${c.id})">
+                    💵 دفع
+                </button>
+
+                <button class="outline full"
+                    onclick="showCustomer(${c.id})">
+                    التفاصيل
+                </button>
+
+            </div>
+
+        </div>
+
+    `).join("");
+
+}
+
+
+function payCustomer(id){
+
+    currentCustomerId=id;
+
+    openTransactionModal("payment");
+
+    setTimeout(()=>{
+
+        document.getElementById("transactionCustomer")
+            .value=id;
+
+    },50);
+
+}
+
+
+/* ================= REMINDERS ================= */
+
+function renderReminders(){
+
+    const container=
+        document.getElementById("remindersList");
+
+    const customers=
+        getCustomers()
+        .filter(c=>getCustomerBalance(c.id)>0);
+
+    if(!customers.length){
+
+        container.innerHTML=`
+            <div class="card empty">
+                <div>🔔</div>
+                لا توجد تذكيرات حاليًا
+            </div>
+        `;
+
+        return;
+    }
+
+    container.innerHTML=
+        customers.map(c=>`
+
+        <div class="card">
+
+            <div class="customer">
+
+                <div class="avatar">
+                    ${getInitial(c.name)}
+                </div>
+
+                <div class="customerInfo">
+
+                    <h3>${escapeHTML(c.name)}</h3>
+
+                    <p>عليه مبلغ مستحق</p>
+
+                </div>
+
+                <div class="amount debt">
+                    ${money(getCustomerBalance(c.id))}
+                </div>
+
+            </div>
+
+            <button
+                class="primary full"
+                style="margin-top:13px"
+                onclick="whatsappCustomer(${c.id})">
+
+                💬 إرسال تذكير واتساب
+
+            </button>
+
+        </div>
+
+    `).join("");
+
+}
+
+
+/* ================= WHATSAPP ================= */
+
+function whatsappCustomer(id){
+
+    const customer=
+        getCustomers().find(c=>c.id===id);
+
+    if(!customer || !customer.phone){
+
+        toast("رقم هاتف العميل غير موجود");
+        return;
+
+    }
+
+    const balance=
+        getCustomerBalance(id);
+
+    const message=
+        `مرحبًا ${customer.name}، نذكركم بوجود مبلغ متبقي قدره ${balance} جنيه لدى أجمل الهدايا. شكرًا لحضرتكم ❤️`;
+
+    const phone=
+        customer.phone
+        .replace(/\D/g,"");
+
+    const egyptPhone=
+        phone.startsWith("0")
+        ? "20"+phone.substring(1)
+        : phone;
+
+    window.open(
+        "https://wa.me/"+egyptPhone+
+        "?text="+encodeURIComponent(message),
+        "_blank"
+    );
+
+}
+
+
+function sendWhatsApp(){
+
+    if(currentCustomerId){
+        whatsappCustomer(currentCustomerId);
+    }
+
+}
+
+
+/* ================= CALCULATIONS ================= */
+
+function getCustomerBalance(id){
+
+    const transactions=
+        getTransactions()
+        .filter(t=>t.customerId===id);
+
+    let balance=0;
+
+    transactions.forEach(t=>{
+
+        if(t.type==="debt"){
+            balance+=Number(t.amount);
+        }else{
+            balance-=Number(t.amount);
+        }
+
+    });
+
+    return Math.max(balance,0);
+
+}
+
+
+function calculateStats(){
+
+    const transactions=getTransactions();
+
+    let debt=0;
+    let paid=0;
+
+    transactions.forEach(t=>{
+
+        if(t.type==="debt"){
+            debt+=Number(t.amount);
+        }else{
+            paid+=Number(t.amount);
+        }
+
+    });
+
+    return {
+        debt:debt,
+        paid:paid,
+        remaining:Math.max(debt-paid,0)
+    };
+
+}
+
+
+/* ================= HOME ================= */
+
+function updateDashboard(){
+
+    const stats=calculateStats();
+
+    document.getElementById("totalDebt")
+        .textContent=money(stats.debt);
+
+    document.getElementById("totalPaid")
+        .textContent=money(stats.paid);
+
+    document.getElementById("remainingDebt")
+        .textContent=money(stats.remaining);
+
+    document.getElementById("customersCount")
+        .textContent=getCustomers().length;
+
+}
+
+
+function renderRecentCustomers(){
+
+    const container=
+        document.getElementById("recentCustomers");
+
+    const customers=
+        getCustomers().slice(-4).reverse();
+
+    if(!customers.length){
+
+        container.innerHTML=`
+            <div class="card empty">
+                <div>👥</div>
+                ابدأ بإضافة أول عميل
+            </div>
+        `;
+
+        return;
+    }
+
+    container.innerHTML=
+        customers.map(customerCard).join("");
+
+}
+
+
+function renderRecentTransactions(){
+
+    const container=
+        document.getElementById("recentTransactions");
+
+    const transactions=
+        getTransactions()
+        .slice(-5)
+        .reverse();
+
+    const customers=getCustomers();
+
+    if(!transactions.length){
+
+        container.innerHTML=`
+            <div class="card empty">
+                <div>🧾</div>
+                لا توجد عمليات حتى الآن
+            </div>
+        `;
+
+        return;
+    }
+
+    container.innerHTML=
+        transactions.map(t=>{
+
+            const c=
+                customers.find(x=>x.id===t.customerId);
+
+            return `
+            <div class="card">
+
+                <div class="transaction">
+
+                    <div class="transactionIcon">
+                        ${t.type==="debt"?"💸":"💵"}
+                    </div>
+
+                    <div class="transactionInfo">
+
+                        <h4>
+                            ${t.type==="debt"?"دين":"دفعة"}
+                            - ${c ? escapeHTML(c.name):"عميل"}
+                        </h4>
+
+                        <p>${t.date}</p>
+
+                    </div>
+
+                    <div class="transactionAmount"
+                         style="color:${t.type==="debt"?"var(--red)":"var(--green)"}">
+
+                        ${t.type==="debt"?"+":"-"}${money(t.amount)}
+
+                    </div>
+
+                </div>
+
+            </div>
+            `;
+
+        }).join("");
+
+}
+
+
+/* ================= REPORTS ================= */
+
+function renderReports(){
+
+    const stats=calculateStats();
+
+    const total=stats.debt || 1;
+
+    const paidPercent=
+        Math.min(100,(stats.paid/total)*100);
+
+    const remainingPercent=
+        Math.min(100,(stats.remaining/total)*100);
+
+    document.getElementById("paidPercent")
+        .textContent=Math.round(paidPercent)+"%";
+
+    document.getElementById("remainingPercent")
+        .textContent=Math.round(remainingPercent)+"%";
+
+    document.getElementById("paidBar")
+        .style.width=paidPercent+"%";
+
+    document.getElementById("remainingBar")
+        .style.width=remainingPercent+"%";
+
+    document.getElementById("reportCustomers")
+        .textContent=getCustomers().length;
+
+    document.getElementById("reportTransactions")
+        .textContent=getTransactions().length;
+
+}
+
+
+/* ================= USER UI ================= */
+
+function updateUserUI(){
+
+    if(!currentUser) return;
+
+    let name=currentUser.name;
+
+    if(name.includes("يوسف")){
+        name="بشمهندس يوسف";
+    }
+
+    document.getElementById("homeGreeting")
+        .textContent="يا "+name;
+
+    document.getElementById("accountName")
+        .textContent=currentUser.name;
+
+    document.getElementById("accountUsername")
+        .textContent="@"+currentUser.username;
+
+}
+
+
+/* ================= DARK MODE ================= */
+
+function toggleDark(){
+
+    document.body.classList.toggle("dark");
+
+    const dark=
+        document.body.classList.contains("dark");
+
+    localStorage.setItem("agmal_dark",dark);
+
+    document.getElementById("darkSwitch")
+        ?.classList.toggle("on",dark);
+
+}
+
+
+function loadDark(){
+
+    const dark=
+        localStorage.getItem("agmal_dark")==="true";
+
+    if(dark){
+
+        document.body.classList.add("dark");
+
+    }
+
+}
+
+
+/* ================= BACKUP ================= */
+
+function backup(){
+
+    const data={
+
+        account:currentUser,
+
+        customers:getCustomers(),
+
+        transactions:getTransactions(),
+
+        exportDate:new Date().toISOString()
+
+    };
+
+    const blob=
+        new Blob(
+            [JSON.stringify(data,null,2)],
+            {type:"application/json"}
+        );
+
+    const url=
+        URL.createObjectURL(blob);
+
+    const a=document.createElement("a");
+
+    a.href=url;
+
+    a.download=
+        "agmal-el-hdaya-backup.json";
+
+    a.click();
+
+    URL.revokeObjectURL(url);
+
+    toast("تم إنشاء النسخة الاحتياطية 💾");
+
+}
+
+
+/* ================= HELPERS ================= */
+
+function money(value){
+
+    return Number(value || 0)
+        .toLocaleString("ar-EG")
+        +" ج.م";
+
+}
+
+
+function escapeHTML(text){
+
+    return String(text)
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+
+}
+
+
+function closeModal(id){
+
+    document.getElementById(id)
+        .classList.remove("show");
+
+}
+
+
+function toast(message){
+
+    const t=
+        document.getElementById("toast");
+
+    t.textContent=message;
+
+    t.classList.add("show");
+
+    clearTimeout(window.toastTimer);
+
+    window.toastTimer=
+        setTimeout(()=>{
+            t.classList.remove("show");
+        },2500);
+
+}
+
+
+/* ================= REFRESH ================= */
+
+function refreshAll(){
+
+    if(!currentUser) return;
+
+    updateDashboard();
+
+    renderRecentCustomers();
+
+    renderRecentTransactions();
+
+    renderCustomers();
+
+    renderDebts();
+
+    renderReminders();
+
+    renderReports();
+
+    updateUserUI();
+
+}
+
+
+/* ================= STARTUP ================= */
+
+window.addEventListener("load",()=>{
+
+    loadDark();
+
+    const saved=
+        localStorage.getItem("agmal_current_user");
+
+    if(saved){
+
+        try{
+
+            currentUser=JSON.parse(saved);
+
+            startWelcome();
+
+        }catch(e){
+
+            localStorage.removeItem("agmal_current_user");
+
+        }
+
+    }
+
+});
+
+
+/* close modal by background */
+
+document.querySelectorAll(".modal")
+.forEach(modal=>{
+
+    modal.addEventListener("click",function(e){
+
+        if(e.target===modal){
+            modal.classList.remove("show");
+        }
+
+    });
+
+});
+
+</script>
+
+</body>
+</html>
