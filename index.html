@@ -1,0 +1,1642 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#080b16">
+
+<title>أجمل الهدايا | نظام الإدارة</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+:root{
+    --bg:#080b16;
+    --card:rgba(255,255,255,.08);
+    --border:rgba(255,255,255,.12);
+    --text:#fff;
+    --muted:#9ca3af;
+    --primary:#7c3aed;
+    --primary2:#06b6d4;
+    --danger:#ef4444;
+    --success:#22c55e;
+}
+
+body{
+    font-family:Tahoma,Arial,sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    min-height:100vh;
+    overflow-x:hidden;
+}
+
+/* ================= BACKGROUND ================= */
+
+.background{
+    position:fixed;
+    inset:0;
+    overflow:hidden;
+    z-index:-1;
+}
+
+.blob{
+    position:absolute;
+    width:280px;
+    height:280px;
+    border-radius:50%;
+    filter:blur(70px);
+    opacity:.45;
+    animation:float 8s infinite alternate ease-in-out;
+}
+
+.blob.one{
+    background:#7c3aed;
+    top:-80px;
+    right:-70px;
+}
+
+.blob.two{
+    background:#06b6d4;
+    bottom:-100px;
+    left:-80px;
+    animation-delay:2s;
+}
+
+.blob.three{
+    background:#ec4899;
+    top:45%;
+    left:45%;
+    width:180px;
+    height:180px;
+    animation-delay:4s;
+}
+
+@keyframes float{
+    from{
+        transform:translate(0,0) scale(1);
+    }
+    to{
+        transform:translate(45px,-35px) scale(1.2);
+    }
+}
+
+/* ================= LOGIN ================= */
+
+.auth-page{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+}
+
+.auth-box{
+    width:100%;
+    max-width:430px;
+    padding:30px 24px;
+    border:1px solid var(--border);
+    background:rgba(15,18,32,.72);
+    backdrop-filter:blur(25px);
+    -webkit-backdrop-filter:blur(25px);
+    border-radius:30px;
+    box-shadow:
+        0 25px 80px rgba(0,0,0,.45),
+        inset 0 1px 0 rgba(255,255,255,.08);
+    animation:appear .8s ease;
+}
+
+@keyframes appear{
+    from{
+        opacity:0;
+        transform:translateY(40px) scale(.95);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0) scale(1);
+    }
+}
+
+.logo{
+    text-align:center;
+    margin-bottom:28px;
+}
+
+.logo-icon{
+    width:82px;
+    height:82px;
+    border-radius:25px;
+    margin:auto;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:42px;
+    background:linear-gradient(135deg,#7c3aed,#06b6d4);
+    box-shadow:
+        0 0 35px rgba(124,58,237,.5);
+    animation:pulse 3s infinite;
+}
+
+@keyframes pulse{
+    0%,100%{
+        transform:scale(1);
+    }
+    50%{
+        transform:scale(1.06);
+    }
+}
+
+.logo h1{
+    margin-top:16px;
+    font-size:24px;
+}
+
+.logo p{
+    color:var(--muted);
+    margin-top:7px;
+    font-size:13px;
+}
+
+.welcome{
+    margin-bottom:22px;
+}
+
+.welcome h2{
+    font-size:22px;
+}
+
+.welcome p{
+    color:var(--muted);
+    margin-top:7px;
+    font-size:13px;
+}
+
+.input-group{
+    margin-top:16px;
+}
+
+.input-group label{
+    display:block;
+    margin-bottom:8px;
+    font-size:13px;
+    color:#d1d5db;
+}
+
+.input{
+    width:100%;
+    padding:15px;
+    border-radius:15px;
+    border:1px solid var(--border);
+    outline:none;
+    background:rgba(255,255,255,.06);
+    color:white;
+    transition:.25s;
+}
+
+.input:focus{
+    border-color:#8b5cf6;
+    box-shadow:0 0 0 4px rgba(124,58,237,.12);
+}
+
+.input::placeholder{
+    color:#6b7280;
+}
+
+.password-wrap{
+    position:relative;
+}
+
+.password-wrap .input{
+    padding-left:50px;
+}
+
+.show-password{
+    position:absolute;
+    left:12px;
+    top:50%;
+    transform:translateY(-50%);
+    background:none;
+    color:#9ca3af;
+    font-size:18px;
+}
+
+.main-btn{
+    width:100%;
+    margin-top:22px;
+    padding:16px;
+    border-radius:16px;
+    border:none;
+    color:white;
+    font-weight:bold;
+    font-size:15px;
+    background:linear-gradient(135deg,#7c3aed,#06b6d4);
+    box-shadow:0 12px 30px rgba(124,58,237,.25);
+    transition:.25s;
+}
+
+.main-btn:active{
+    transform:scale(.97);
+}
+
+.switch{
+    text-align:center;
+    margin-top:20px;
+    color:var(--muted);
+    font-size:13px;
+}
+
+.switch button{
+    background:none;
+    border:none;
+    color:#a78bfa;
+    font-weight:bold;
+}
+
+.error{
+    display:none;
+    background:rgba(239,68,68,.12);
+    border:1px solid rgba(239,68,68,.25);
+    color:#fca5a5;
+    padding:12px;
+    border-radius:13px;
+    margin-top:15px;
+    font-size:12px;
+}
+
+.success{
+    display:none;
+    background:rgba(34,197,94,.12);
+    border:1px solid rgba(34,197,94,.25);
+    color:#86efac;
+    padding:12px;
+    border-radius:13px;
+    margin-top:15px;
+    font-size:12px;
+}
+
+/* ================= APP ================= */
+
+.app{
+    display:none;
+    min-height:100vh;
+    padding-bottom:90px;
+}
+
+.container{
+    width:100%;
+    max-width:700px;
+    margin:auto;
+    padding:20px;
+}
+
+.app-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:25px;
+}
+
+.user-box{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.user-avatar{
+    width:48px;
+    height:48px;
+    border-radius:16px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(135deg,#7c3aed,#06b6d4);
+    font-size:22px;
+}
+
+.user-box h2{
+    font-size:17px;
+}
+
+.user-box p{
+    color:var(--muted);
+    font-size:11px;
+    margin-top:4px;
+}
+
+.logout{
+    background:rgba(255,255,255,.07);
+    color:white;
+    border:1px solid var(--border);
+    padding:10px 13px;
+    border-radius:13px;
+}
+
+/* greeting */
+
+.greeting{
+    background:
+        linear-gradient(
+            135deg,
+            rgba(124,58,237,.35),
+            rgba(6,182,212,.18)
+        );
+    border:1px solid var(--border);
+    border-radius:25px;
+    padding:23px;
+    margin-bottom:18px;
+    animation:slide .7s ease;
+}
+
+@keyframes slide{
+    from{
+        opacity:0;
+        transform:translateX(30px);
+    }
+    to{
+        opacity:1;
+        transform:translateX(0);
+    }
+}
+
+.greeting h1{
+    font-size:24px;
+}
+
+.greeting p{
+    margin-top:8px;
+    color:#d1d5db;
+    font-size:13px;
+}
+
+/* stats */
+
+.stats{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+}
+
+.stat{
+    padding:19px;
+    border-radius:21px;
+    border:1px solid var(--border);
+    background:var(--card);
+    backdrop-filter:blur(15px);
+    transition:.3s;
+}
+
+.stat:hover{
+    transform:translateY(-4px);
+}
+
+.stat-icon{
+    font-size:24px;
+}
+
+.stat small{
+    display:block;
+    margin-top:10px;
+    color:var(--muted);
+}
+
+.stat strong{
+    display:block;
+    margin-top:7px;
+    font-size:21px;
+}
+
+.red{
+    color:#f87171;
+}
+
+.green{
+    color:#4ade80;
+}
+
+.blue{
+    color:#22d3ee;
+}
+
+.purple{
+    color:#a78bfa;
+}
+
+/* section */
+
+.section{
+    margin-top:18px;
+    padding:20px;
+    border-radius:24px;
+    border:1px solid var(--border);
+    background:var(--card);
+    backdrop-filter:blur(15px);
+}
+
+.section-title{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:15px;
+}
+
+.section-title h2{
+    font-size:17px;
+}
+
+.add{
+    width:40px;
+    height:40px;
+    border-radius:13px;
+    background:linear-gradient(135deg,#7c3aed,#06b6d4);
+    color:white;
+    font-size:23px;
+}
+
+/* customer */
+
+.customer{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:13px;
+    background:rgba(255,255,255,.045);
+    border:1px solid rgba(255,255,255,.06);
+    border-radius:17px;
+    margin-bottom:10px;
+}
+
+.avatar{
+    width:43px;
+    height:43px;
+    border-radius:14px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:rgba(124,58,237,.2);
+}
+
+.customer-info{
+    flex:1;
+}
+
+.customer-info h3{
+    font-size:14px;
+}
+
+.customer-info p{
+    font-size:11px;
+    color:var(--muted);
+    margin-top:4px;
+}
+
+.amount{
+    color:#f87171;
+    font-weight:bold;
+    font-size:13px;
+}
+
+/* bottom */
+
+.bottom{
+    position:fixed;
+    bottom:15px;
+    left:50%;
+    transform:translateX(-50%);
+    width:calc(100% - 30px);
+    max-width:670px;
+    height:65px;
+    display:flex;
+    justify-content:space-around;
+    align-items:center;
+    border:1px solid var(--border);
+    border-radius:23px;
+    background:rgba(15,18,32,.85);
+    backdrop-filter:blur(20px);
+    z-index:50;
+    box-shadow:0 15px 40px rgba(0,0,0,.3);
+}
+
+.nav{
+    background:none;
+    color:#6b7280;
+    font-size:10px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:4px;
+}
+
+.nav span{
+    font-size:20px;
+}
+
+.nav.active{
+    color:#a78bfa;
+}
+
+/* mobile */
+
+@media(max-width:380px){
+    .greeting h1{
+        font-size:20px;
+    }
+
+    .stat strong{
+        font-size:18px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="background">
+    <div class="blob one"></div>
+    <div class="blob two"></div>
+    <div class="blob three"></div>
+</div>
+
+
+<!-- ================= LOGIN ================= -->
+
+<div class="auth-page" id="authPage">
+
+    <div class="auth-box">
+
+        <div class="logo">
+
+            <div class="logo-icon">
+                🎁
+            </div>
+
+            <h1>أجمل الهدايا</h1>
+
+            <p>
+                نظام إدارة العملاء والديون
+            </p>
+
+        </div>
+
+
+        <!-- LOGIN -->
+
+        <div id="loginForm">
+
+            <div class="welcome">
+
+                <h2>
+                    مرحبًا بك 👋
+                </h2>
+
+                <p>
+                    سجل دخولك للمتابعة إلى لوحة التحكم
+                </p>
+
+            </div>
+
+
+            <div class="input-group">
+
+                <label>
+                    اسم المستخدم
+                </label>
+
+                <input
+                    id="loginUsername"
+                    class="input"
+                    placeholder="اكتب اسم المستخدم"
+                    autocomplete="username"
+                >
+
+            </div>
+
+
+            <div class="input-group">
+
+                <label>
+                    كلمة المرور
+                </label>
+
+                <div class="password-wrap">
+
+                    <input
+                        id="loginPassword"
+                        class="input"
+                        type="password"
+                        placeholder="اكتب كلمة المرور"
+                        autocomplete="current-password"
+                    >
+
+                    <button
+                        class="show-password"
+                        onclick="togglePassword('loginPassword',this)"
+                    >
+                        👁
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <div class="error" id="loginError"></div>
+
+
+            <button
+                class="main-btn"
+                onclick="login()"
+            >
+                تسجيل الدخول 🚀
+            </button>
+
+
+            <div class="switch">
+
+                ليس لديك حساب؟
+
+                <button onclick="showRegister()">
+                    إنشاء حساب جديد
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- REGISTER -->
+
+        <div id="registerForm" style="display:none">
+
+            <div class="welcome">
+
+                <h2>
+                    إنشاء حساب جديد ✨
+                </h2>
+
+                <p>
+                    أنشئ حسابك وابدأ إدارة بياناتك
+                </p>
+
+            </div>
+
+
+            <div class="input-group">
+
+                <label>
+                    الاسم
+                </label>
+
+                <input
+                    id="registerName"
+                    class="input"
+                    placeholder="مثال: يوسف سعيد"
+                >
+
+            </div>
+
+
+            <div class="input-group">
+
+                <label>
+                    اسم المستخدم
+                </label>
+
+                <input
+                    id="registerUsername"
+                    class="input"
+                    placeholder="مثال: yousef"
+                >
+
+            </div>
+
+
+            <div class="input-group">
+
+                <label>
+                    كلمة المرور
+                </label>
+
+                <div class="password-wrap">
+
+                    <input
+                        id="registerPassword"
+                        class="input"
+                        type="password"
+                        placeholder="6 أحرف على الأقل"
+                    >
+
+                    <button
+                        class="show-password"
+                        onclick="togglePassword('registerPassword',this)"
+                    >
+                        👁
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <div class="error" id="registerError"></div>
+
+            <div class="success" id="registerSuccess"></div>
+
+
+            <button
+                class="main-btn"
+                onclick="register()"
+            >
+                إنشاء الحساب ✨
+            </button>
+
+
+            <div class="switch">
+
+                لديك حساب بالفعل؟
+
+                <button onclick="showLogin()">
+                    تسجيل الدخول
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ================= APP ================= -->
+
+<div class="app" id="app">
+
+<div class="container">
+
+
+    <div class="app-header">
+
+        <div class="user-box">
+
+            <div class="user-avatar">
+                👨‍💻
+            </div>
+
+            <div>
+
+                <h2 id="userName">
+                    بشمهندس يوسف
+                </h2>
+
+                <p>
+                    أهلاً بك في لوحة التحكم
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <button
+            class="logout"
+            onclick="logout()"
+        >
+            خروج
+        </button>
+
+    </div>
+
+
+    <!-- GREETING -->
+
+    <div class="greeting">
+
+        <h1 id="greetingText">
+            مرحبًا يا بشمهندس يوسف 👋
+        </h1>
+
+        <p>
+            جاهز تدير شغلك وتتابع العملاء والديون؟
+        </p>
+
+    </div>
+
+
+    <!-- STATS -->
+
+    <div class="stats">
+
+        <div class="stat">
+
+            <div class="stat-icon red">
+                💰
+            </div>
+
+            <small>
+                إجمالي الديون
+            </small>
+
+            <strong
+                class="red"
+                id="totalDebt"
+            >
+                0 ج.م
+            </strong>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="stat-icon green">
+                💵
+            </div>
+
+            <small>
+                إجمالي المدفوع
+            </small>
+
+            <strong
+                class="green"
+                id="totalPaid"
+            >
+                0 ج.م
+            </strong>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="stat-icon blue">
+                📊
+            </div>
+
+            <small>
+                المتبقي
+            </small>
+
+            <strong
+                class="blue"
+                id="remaining"
+            >
+                0 ج.م
+            </strong>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="stat-icon purple">
+                👥
+            </div>
+
+            <small>
+                العملاء
+            </small>
+
+            <strong
+                class="purple"
+                id="customers"
+            >
+                0
+            </strong>
+
+        </div>
+
+    </div>
+
+
+    <!-- CUSTOMERS -->
+
+    <div class="section">
+
+        <div class="section-title">
+
+            <h2>
+                آخر العملاء
+            </h2>
+
+            <button
+                class="add"
+                onclick="addCustomer()"
+            >
+                +
+            </button>
+
+        </div>
+
+
+        <div id="customersList">
+
+            <div style="
+                text-align:center;
+                padding:25px;
+                color:#9ca3af;
+            ">
+                لا يوجد عملاء حتى الآن 👥
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- QUICK -->
+
+    <div class="section">
+
+        <div class="section-title">
+
+            <h2>
+                اختصارات سريعة ⚡
+            </h2>
+
+        </div>
+
+
+        <button
+            class="main-btn"
+            onclick="addDebt()"
+        >
+            💰 تسجيل دين جديد
+        </button>
+
+
+        <button
+            class="main-btn"
+            style="background:linear-gradient(135deg,#16a34a,#06b6d4)"
+            onclick="addPayment()"
+        >
+            💵 تسجيل دفعة
+        </button>
+
+    </div>
+
+
+</div>
+
+
+<!-- NAV -->
+
+<div class="bottom">
+
+    <button class="nav active">
+        <span>🏠</span>
+        الرئيسية
+    </button>
+
+    <button class="nav">
+        <span>👥</span>
+        العملاء
+    </button>
+
+    <button class="nav">
+        <span>💰</span>
+        الديون
+    </button>
+
+    <button class="nav">
+        <span>🔔</span>
+        التنبيهات
+    </button>
+
+    <button class="nav">
+        <span>⚙️</span>
+        الإعدادات
+    </button>
+
+</div>
+
+</div>
+
+
+<script>
+
+/* ================= ACCOUNTS ================= */
+
+let accounts =
+    JSON.parse(
+        localStorage.getItem("agmal_accounts")
+    ) || [];
+
+
+/* ================= SHOW FORMS ================= */
+
+function showRegister(){
+
+    document.getElementById("loginForm")
+        .style.display="none";
+
+    document.getElementById("registerForm")
+        .style.display="block";
+
+}
+
+function showLogin(){
+
+    document.getElementById("registerForm")
+        .style.display="none";
+
+    document.getElementById("loginForm")
+        .style.display="block";
+
+}
+
+
+/* ================= REGISTER ================= */
+
+function register(){
+
+    const name =
+        document.getElementById("registerName")
+        .value.trim();
+
+    const username =
+        document.getElementById("registerUsername")
+        .value.trim().toLowerCase();
+
+    const password =
+        document.getElementById("registerPassword")
+        .value;
+
+
+    const error =
+        document.getElementById("registerError");
+
+    const success =
+        document.getElementById("registerSuccess");
+
+
+    error.style.display="none";
+    success.style.display="none";
+
+
+    if(!name || !username || !password){
+
+        error.textContent =
+            "من فضلك املأ جميع البيانات.";
+
+        error.style.display="block";
+
+        return;
+    }
+
+
+    if(password.length < 6){
+
+        error.textContent =
+            "كلمة المرور يجب أن تكون 6 أحرف على الأقل.";
+
+        error.style.display="block";
+
+        return;
+    }
+
+
+    if(accounts.some(
+        a => a.username === username
+    )){
+
+        error.textContent =
+            "اسم المستخدم مستخدم بالفعل.";
+
+        error.style.display="block";
+
+        return;
+    }
+
+
+    accounts.push({
+
+        id:Date.now(),
+
+        name:name,
+
+        username:username,
+
+        password:password,
+
+        customers:[]
+
+    });
+
+
+    localStorage.setItem(
+        "agmal_accounts",
+        JSON.stringify(accounts)
+    );
+
+
+    success.textContent =
+        "تم إنشاء الحساب بنجاح 🎉 يمكنك تسجيل الدخول الآن.";
+
+    success.style.display="block";
+
+
+    setTimeout(()=>{
+
+        showLogin();
+
+        document.getElementById("loginUsername")
+            .value=username;
+
+    },1200);
+
+}
+
+
+/* ================= LOGIN ================= */
+
+function login(){
+
+    const username =
+        document.getElementById("loginUsername")
+        .value.trim().toLowerCase();
+
+    const password =
+        document.getElementById("loginPassword")
+        .value;
+
+    const error =
+        document.getElementById("loginError");
+
+
+    const account =
+        accounts.find(
+            a =>
+            a.username === username &&
+            a.password === password
+        );
+
+
+    if(!account){
+
+        error.textContent =
+            "اسم المستخدم أو كلمة المرور غير صحيحة.";
+
+        error.style.display="block";
+
+        return;
+    }
+
+
+    localStorage.setItem(
+        "agmal_current_user",
+        account.id
+    );
+
+
+    openApp(account);
+
+}
+
+
+/* ================= OPEN APP ================= */
+
+function openApp(account){
+
+    document.getElementById("authPage")
+        .style.display="none";
+
+    document.getElementById("app")
+        .style.display="block";
+
+
+    document.getElementById("userName")
+        .textContent=account.name;
+
+
+    document.getElementById("greetingText")
+        .textContent=
+        "مرحبًا يا " + account.name + " 👋";
+
+
+    updateDashboard(account);
+
+}
+
+
+/* ================= DASHBOARD ================= */
+
+function updateDashboard(account){
+
+    const customers =
+        account.customers || [];
+
+
+    let totalDebt=0;
+    let totalPaid=0;
+
+
+    customers.forEach(c=>{
+
+        totalDebt +=
+            Number(c.debt || 0);
+
+        totalPaid +=
+            Number(c.paid || 0);
+
+    });
+
+
+    document.getElementById("totalDebt")
+        .textContent=
+        money(totalDebt);
+
+
+    document.getElementById("totalPaid")
+        .textContent=
+        money(totalPaid);
+
+
+    document.getElementById("remaining")
+        .textContent=
+        money(totalDebt-totalPaid);
+
+
+    document.getElementById("customers")
+        .textContent=
+        customers.length;
+
+
+    renderCustomers(account);
+
+}
+
+
+/* ================= CUSTOMERS ================= */
+
+function renderCustomers(account){
+
+    const list =
+        document.getElementById("customersList");
+
+    const customers =
+        account.customers || [];
+
+
+    if(customers.length===0){
+
+        list.innerHTML=`
+        <div style="
+            text-align:center;
+            padding:25px;
+            color:#9ca3af;
+        ">
+            لا يوجد عملاء حتى الآن 👥
+        </div>
+        `;
+
+        return;
+    }
+
+
+    list.innerHTML =
+        customers.slice(-5).reverse()
+        .map(c=>`
+
+        <div class="customer">
+
+            <div class="avatar">
+                👤
+            </div>
+
+            <div class="customer-info">
+
+                <h3>
+                    ${escapeHTML(c.name)}
+                </h3>
+
+                <p>
+                    ${escapeHTML(c.phone || "بدون رقم")}
+                </p>
+
+            </div>
+
+            <div class="amount">
+                ${money(
+                    Number(c.debt||0) -
+                    Number(c.paid||0)
+                )}
+            </div>
+
+        </div>
+
+        `).join("");
+
+}
+
+
+/* ================= ADD CUSTOMER ================= */
+
+function addCustomer(){
+
+    const currentId =
+        Number(
+            localStorage.getItem(
+                "agmal_current_user"
+            )
+        );
+
+
+    const account =
+        accounts.find(
+            a=>a.id===currentId
+        );
+
+
+    if(!account) return;
+
+
+    const name =
+        prompt("اكتب اسم العميل:");
+
+    if(!name) return;
+
+
+    const phone =
+        prompt("اكتب رقم الهاتف (اختياري):");
+
+
+    account.customers.push({
+
+        id:Date.now(),
+
+        name:name,
+
+        phone:phone || "",
+
+        debt:0,
+
+        paid:0
+
+    });
+
+
+    saveAccounts();
+
+
+    updateDashboard(account);
+
+}
+
+
+/* ================= ADD DEBT ================= */
+
+function addDebt(){
+
+    const currentId =
+        Number(
+            localStorage.getItem(
+                "agmal_current_user"
+            )
+        );
+
+
+    const account =
+        accounts.find(
+            a=>a.id===currentId
+        );
+
+
+    if(!account) return;
+
+
+    if(account.customers.length===0){
+
+        alert(
+            "أضف عميل أولاً ثم سجل الدين."
+        );
+
+        return;
+    }
+
+
+    const customer =
+        account.customers[
+            account.customers.length-1
+        ];
+
+
+    const amount =
+        Number(
+            prompt(
+                "قيمة الدين لـ " +
+                customer.name +
+                ":"
+            )
+        );
+
+
+    if(!amount || amount<=0) return;
+
+
+    customer.debt += amount;
+
+
+    saveAccounts();
+
+    updateDashboard(account);
+
+}
+
+
+/* ================= PAYMENT ================= */
+
+function addPayment(){
+
+    const currentId =
+        Number(
+            localStorage.getItem(
+                "agmal_current_user"
+            )
+        );
+
+
+    const account =
+        accounts.find(
+            a=>a.id===currentId
+        );
+
+
+    if(!account) return;
+
+
+    if(account.customers.length===0){
+
+        alert(
+            "أضف عميل أولاً."
+        );
+
+        return;
+    }
+
+
+    const customer =
+        account.customers[
+            account.customers.length-1
+        ];
+
+
+    const balance =
+        customer.debt -
+        customer.paid;
+
+
+    if(balance<=0){
+
+        alert(
+            "لا يوجد مبلغ متبقي لهذا العميل."
+        );
+
+        return;
+    }
+
+
+    const amount =
+        Number(
+            prompt(
+                "المبلغ المتبقي: " +
+                money(balance) +
+                "\nاكتب قيمة الدفعة:"
+            )
+        );
+
+
+    if(!amount || amount<=0) return;
+
+
+    if(amount>balance){
+
+        alert(
+            "الدفعة أكبر من المبلغ المتبقي."
+        );
+
+        return;
+    }
+
+
+    customer.paid += amount;
+
+
+    saveAccounts();
+
+    updateDashboard(account);
+
+}
+
+
+/* ================= LOGOUT ================= */
+
+function logout(){
+
+    localStorage.removeItem(
+        "agmal_current_user"
+    );
+
+
+    document.getElementById("app")
+        .style.display="none";
+
+    document.getElementById("authPage")
+        .style.display="flex";
+
+
+    document.getElementById("loginPassword")
+        .value="";
+
+}
+
+
+/* ================= PASSWORD ================= */
+
+function togglePassword(id,button){
+
+    const input =
+        document.getElementById(id);
+
+
+    if(input.type==="password"){
+
+        input.type="text";
+
+        button.textContent="🙈";
+
+    }else{
+
+        input.type="password";
+
+        button.textContent="👁";
+
+    }
+
+}
+
+
+/* ================= HELPERS ================= */
+
+function money(value){
+
+    return Number(value||0)
+        .toLocaleString("ar-EG") +
+        " ج.م";
+
+}
+
+
+function saveAccounts(){
+
+    localStorage.setItem(
+        "agmal_accounts",
+        JSON.stringify(accounts)
+    );
+
+}
+
+
+function escapeHTML(text){
+
+    return String(text)
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+
+}
+
+
+/* ================= AUTO LOGIN ================= */
+
+const currentId =
+    Number(
+        localStorage.getItem(
+            "agmal_current_user"
+        )
+    );
+
+
+if(currentId){
+
+    const account =
+        accounts.find(
+            a=>a.id===currentId
+        );
+
+    if(account){
+
+        openApp(account);
+
+    }
+
+}
+
+</script>
+
+</body>
+  </html>
