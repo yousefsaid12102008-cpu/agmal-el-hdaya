@@ -1,0 +1,3303 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>مكتبة أجمل الهدايا</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Tahoma,Arial,sans-serif;
+}
+
+:root{
+    --gold:#f5c542;
+    --gold2:#ffdf70;
+    --dark:#09070a;
+    --dark2:#171019;
+    --card:#211922;
+    --text:#fff;
+    --muted:#aaa;
+    --red:#e74c3c;
+    --green:#21c77a;
+}
+
+body{
+    background:
+    radial-gradient(circle at 20% 20%,#5a3a0025,transparent 30%),
+    radial-gradient(circle at 80% 70%,#f5c54218,transparent 30%),
+    var(--dark);
+    color:white;
+    min-height:100vh;
+    overflow-x:hidden;
+}
+
+/* =========================
+   ANIMATED BACKGROUND
+========================= */
+
+.bg{
+    position:fixed;
+    inset:0;
+    overflow:hidden;
+    pointer-events:none;
+    z-index:-1;
+}
+
+.circle{
+    position:absolute;
+    border-radius:50%;
+    filter:blur(2px);
+    opacity:.25;
+    animation:float 9s infinite ease-in-out;
+}
+
+.c1{
+    width:220px;
+    height:220px;
+    background:#f5c542;
+    top:8%;
+    left:5%;
+}
+
+.c2{
+    width:170px;
+    height:170px;
+    background:#9b59b6;
+    right:8%;
+    top:30%;
+    animation-delay:2s;
+}
+
+.c3{
+    width:250px;
+    height:250px;
+    background:#f39c12;
+    bottom:5%;
+    left:40%;
+    animation-delay:4s;
+}
+
+@keyframes float{
+
+    0%,100%{
+        transform:translate(0,0) scale(1);
+    }
+
+    50%{
+        transform:translate(30px,-35px) scale(1.12);
+    }
+}
+
+/* =========================
+   SPLASH
+========================= */
+
+#splash{
+    position:fixed;
+    inset:0;
+    z-index:9999;
+    background:
+    radial-gradient(circle,#3a2704,#09070a 65%);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    transition:1s;
+}
+
+.splash-logo{
+    width:210px;
+    height:210px;
+    object-fit:contain;
+    animation:
+    logoEnter 1.5s ease,
+    logoFloat 3s 1.5s infinite ease-in-out;
+    filter:
+    drop-shadow(0 0 15px #f5c542)
+    drop-shadow(0 0 45px #f5c54255);
+}
+
+@keyframes logoEnter{
+
+    from{
+        transform:scale(.3) rotate(-20deg);
+        opacity:0;
+    }
+
+    to{
+        transform:scale(1) rotate(0);
+        opacity:1;
+    }
+}
+
+@keyframes logoFloat{
+
+    0%,100%{
+        transform:translateY(0);
+    }
+
+    50%{
+        transform:translateY(-12px);
+    }
+}
+
+.splash-title{
+    margin-top:20px;
+    font-size:30px;
+    font-weight:900;
+    color:var(--gold2);
+    animation:titleShow 1.5s ease;
+}
+
+.splash-sub{
+    margin-top:10px;
+    color:#ddd;
+    animation:titleShow 2s ease;
+}
+
+@keyframes titleShow{
+
+    from{
+        opacity:0;
+        transform:translateY(30px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+/* =========================
+   WELCOME
+========================= */
+
+#welcome{
+    position:fixed;
+    inset:0;
+    z-index:9998;
+    display:none;
+    justify-content:center;
+    align-items:center;
+    background:#080609ee;
+}
+
+.welcome-box{
+    text-align:center;
+    animation:welcome 1s ease;
+}
+
+@keyframes welcome{
+
+    from{
+        opacity:0;
+        transform:scale(.7) translateY(40px);
+    }
+
+    to{
+        opacity:1;
+        transform:scale(1) translateY(0);
+    }
+}
+
+.welcome-small{
+    color:#aaa;
+    font-size:18px;
+}
+
+.welcome-name{
+    margin-top:10px;
+    font-size:45px;
+    font-weight:900;
+    background:linear-gradient(
+        90deg,
+        #fff,
+        #f5c542,
+        #fff
+    );
+    background-size:200%;
+    -webkit-background-clip:text;
+    color:transparent;
+    animation:goldMove 2s infinite linear;
+}
+
+@keyframes goldMove{
+    to{
+        background-position:200%;
+    }
+}
+
+.welcome-line{
+    width:100px;
+    height:4px;
+    background:var(--gold);
+    margin:20px auto;
+    border-radius:10px;
+    animation:lineGrow 1s ease;
+}
+
+@keyframes lineGrow{
+    from{width:0}
+    to{width:100px}
+}
+
+/* =========================
+   AUTH
+========================= */
+
+.auth{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:25px;
+}
+
+.auth-card{
+    width:100%;
+    max-width:440px;
+    background:#171219e8;
+    border:1px solid #f5c54230;
+    border-radius:30px;
+    padding:30px;
+    box-shadow:
+    0 30px 100px #000,
+    inset 0 0 40px #f5c54208;
+    backdrop-filter:blur(20px);
+    animation:cardIn .8s ease;
+}
+
+@keyframes cardIn{
+
+    from{
+        opacity:0;
+        transform:translateY(40px) scale(.95);
+    }
+
+    to{
+        opacity:1;
+        transform:none;
+    }
+}
+
+.auth-logo{
+    width:105px;
+    height:105px;
+    object-fit:contain;
+    display:block;
+    margin:auto;
+    filter:drop-shadow(0 0 15px #f5c54266);
+}
+
+.auth-title{
+    text-align:center;
+    margin-top:10px;
+    font-size:27px;
+}
+
+.auth-sub{
+    text-align:center;
+    color:#999;
+    margin:8px 0 25px;
+}
+
+.field{
+    margin-bottom:14px;
+}
+
+.field label{
+    display:block;
+    margin-bottom:7px;
+    color:#ddd;
+}
+
+.field input,
+.field select{
+    width:100%;
+    padding:14px;
+    border-radius:13px;
+    border:1px solid #ffffff12;
+    background:#0e0b0f;
+    color:#fff;
+    outline:none;
+    transition:.3s;
+}
+
+.field input:focus,
+.field select:focus{
+    border-color:var(--gold);
+    box-shadow:0 0 0 3px #f5c54212;
+}
+
+.btn{
+    border:0;
+    padding:13px 18px;
+    border-radius:13px;
+    cursor:pointer;
+    font-weight:bold;
+    transition:.25s;
+}
+
+.btn:hover{
+    transform:translateY(-2px);
+}
+
+.btn-gold{
+    width:100%;
+    background:linear-gradient(
+        135deg,
+        #b98500,
+        #f5c542,
+        #ffe68a
+    );
+    color:#1a1200;
+    box-shadow:0 10px 30px #f5c54220;
+}
+
+.btn-dark{
+    background:#29222b;
+    color:#fff;
+}
+
+.auth-switch{
+    text-align:center;
+    margin-top:18px;
+    color:#aaa;
+}
+
+.auth-switch span{
+    color:var(--gold);
+    cursor:pointer;
+    font-weight:bold;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+#app{
+    display:none;
+}
+
+.header{
+    position:sticky;
+    top:0;
+    z-index:100;
+    height:75px;
+    background:#0c090dcc;
+    backdrop-filter:blur(20px);
+    border-bottom:1px solid #ffffff0c;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 25px;
+}
+
+.header-brand{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.header-brand img{
+    width:48px;
+    height:48px;
+    object-fit:contain;
+}
+
+.header-brand b{
+    color:var(--gold2);
+}
+
+.header-right{
+    display:flex;
+    align-items:center;
+    gap:15px;
+}
+
+.phone{
+    color:#aaa;
+    font-size:13px;
+}
+
+/* =========================
+   SIDEBAR
+========================= */
+
+.layout{
+    display:flex;
+}
+
+.sidebar{
+    width:245px;
+    min-height:calc(100vh - 75px);
+    background:#110d12;
+    border-left:1px solid #ffffff08;
+    padding:20px 14px;
+    position:sticky;
+    top:75px;
+}
+
+.menu-title{
+    color:#666;
+    font-size:12px;
+    margin:10px;
+}
+
+.menu-btn{
+    width:100%;
+    background:none;
+    border:0;
+    color:#aaa;
+    padding:14px;
+    border-radius:13px;
+    text-align:right;
+    cursor:pointer;
+    margin-bottom:5px;
+    transition:.2s;
+}
+
+.menu-btn:hover,
+.menu-btn.active{
+    background:linear-gradient(
+        90deg,
+        #f5c54218,
+        #f5c54205
+    );
+    color:var(--gold2);
+}
+
+/* =========================
+   CONTENT
+========================= */
+
+.content{
+    flex:1;
+    padding:28px;
+    max-width:1500px;
+}
+
+.page{
+    display:none;
+    animation:pageIn .4s ease;
+}
+
+.page.active{
+    display:block;
+}
+
+@keyframes pageIn{
+
+    from{
+        opacity:0;
+        transform:translateY(15px);
+    }
+
+    to{
+        opacity:1;
+        transform:none;
+    }
+}
+
+.page-head{
+    margin-bottom:22px;
+}
+
+.page-head h1{
+    font-size:30px;
+}
+
+.page-head p{
+    color:#888;
+    margin-top:6px;
+}
+
+/* =========================
+   DASHBOARD
+========================= */
+
+.cards{
+    display:grid;
+    grid-template-columns:
+    repeat(4,1fr);
+    gap:15px;
+}
+
+.stat{
+    background:
+    linear-gradient(
+        145deg,
+        #241c24,
+        #151016
+    );
+    border:1px solid #ffffff08;
+    border-radius:20px;
+    padding:20px;
+    position:relative;
+    overflow:hidden;
+}
+
+.stat:after{
+    content:"";
+    position:absolute;
+    width:100px;
+    height:100px;
+    background:#f5c54215;
+    border-radius:50%;
+    left:-30px;
+    bottom:-40px;
+}
+
+.stat-icon{
+    font-size:27px;
+}
+
+.stat-label{
+    color:#888;
+    margin-top:12px;
+}
+
+.stat-number{
+    font-size:28px;
+    font-weight:900;
+    margin-top:5px;
+}
+
+/* =========================
+   SECTIONS
+========================= */
+
+.panel{
+    background:#171219;
+    border:1px solid #ffffff08;
+    border-radius:20px;
+    padding:20px;
+    margin-top:18px;
+}
+
+.panel-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:10px;
+    margin-bottom:15px;
+}
+
+.table-wrap{
+    overflow:auto;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+th,
+td{
+    padding:13px;
+    border-bottom:1px solid #ffffff08;
+    text-align:right;
+}
+
+th{
+    color:#777;
+    font-size:13px;
+}
+
+td{
+    color:#ddd;
+}
+
+/* =========================
+   POS
+========================= */
+
+.pos-grid{
+    display:grid;
+    grid-template-columns:
+    1.4fr .8fr;
+    gap:18px;
+}
+
+.products{
+    display:grid;
+    grid-template-columns:
+    repeat(3,1fr);
+    gap:12px;
+}
+
+.product{
+    background:#211922;
+    border:1px solid #ffffff08;
+    border-radius:17px;
+    padding:15px;
+    transition:.25s;
+}
+
+.product:hover{
+    transform:translateY(-4px);
+    border-color:#f5c54245;
+    box-shadow:0 15px 40px #0005;
+}
+
+.product-icon{
+    height:100px;
+    border-radius:13px;
+    background:
+    radial-gradient(
+        circle,
+        #f5c54220,
+        #0d0a0e
+    );
+    display:grid;
+    place-items:center;
+    font-size:40px;
+    margin-bottom:12px;
+}
+
+.product-name{
+    font-weight:bold;
+}
+
+.product-price{
+    color:var(--gold2);
+    font-weight:bold;
+    margin:8px 0;
+}
+
+.cart{
+    background:#171219;
+    border-radius:20px;
+    padding:20px;
+    position:sticky;
+    top:95px;
+    height:max-content;
+}
+
+.cart-item{
+    display:flex;
+    justify-content:space-between;
+    gap:10px;
+    padding:12px 0;
+    border-bottom:1px solid #ffffff08;
+}
+
+.total-box{
+    margin-top:15px;
+    border-top:1px dashed #ffffff20;
+    padding-top:15px;
+}
+
+.total-line{
+    display:flex;
+    justify-content:space-between;
+    margin:9px 0;
+}
+
+.total-main{
+    font-size:24px;
+    color:var(--gold2);
+    font-weight:900;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+.mobile-nav{
+    display:none;
+}
+
+@media(max-width:1000px){
+
+    .sidebar{
+        display:none;
+    }
+
+    .cards{
+        grid-template-columns:
+        repeat(2,1fr);
+    }
+
+    .pos-grid{
+        grid-template-columns:1fr;
+    }
+
+    .cart{
+        position:static;
+    }
+
+    .mobile-nav{
+        display:flex;
+        position:fixed;
+        bottom:0;
+        left:0;
+        right:0;
+        z-index:200;
+        background:#110d12ee;
+        backdrop-filter:blur(15px);
+        border-top:1px solid #ffffff12;
+        justify-content:space-around;
+        padding:8px;
+    }
+
+    .mobile-nav button{
+        background:none;
+        color:#999;
+        border:0;
+        font-size:11px;
+    }
+
+}
+
+@media(max-width:650px){
+
+    .header{
+        padding:0 12px;
+    }
+
+    .phone{
+        display:none;
+    }
+
+    .content{
+        padding:18px 13px 90px;
+    }
+
+    .cards{
+        grid-template-columns:1fr 1fr;
+        gap:9px;
+    }
+
+    .stat{
+        padding:14px;
+    }
+
+    .stat-number{
+        font-size:20px;
+    }
+
+    .products{
+        grid-template-columns:
+        repeat(2,1fr);
+    }
+
+    .welcome-name{
+        font-size:31px;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="bg">
+    <div class="circle c1"></div>
+    <div class="circle c2"></div>
+    <div class="circle c3"></div>
+</div>
+
+
+<!-- ================= SPLASH ================= -->
+
+<div id="splash">
+
+    <img
+        src="logo.jpg"
+        class="splash-logo"
+        alt="أجمل الهدايا"
+    >
+
+    <div class="splash-title">
+        مكتبة أجمل الهدايا
+    </div>
+
+    <div class="splash-sub">
+        نظام إدارة المكتبة والكاشير
+    </div>
+
+</div>
+
+
+<!-- ================= WELCOME ================= -->
+
+<div id="welcome">
+
+    <div class="welcome-box">
+
+        <div class="welcome-small">
+            أهلاً وسهلاً
+        </div>
+
+        <div class="welcome-name">
+            بشمهندس يوسف 👨‍💻
+        </div>
+
+        <div class="welcome-line"></div>
+
+        <div>
+            مكتبة أجمل الهدايا 🎁
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ================= AUTH ================= -->
+
+<div id="auth" class="auth">
+
+    <div class="auth-card">
+
+        <img
+            src="logo.jpg"
+            class="auth-logo"
+        >
+
+        <h1 class="auth-title">
+            مكتبة أجمل الهدايا
+        </h1>
+
+        <p class="auth-sub">
+            نظام الإدارة والكاشير
+        </p>
+
+
+        <!-- LOGIN -->
+
+        <div id="loginBox">
+
+            <div class="field">
+                <label>البريد الإلكتروني</label>
+                <input
+                    id="loginEmail"
+                    type="email"
+                    placeholder="example@email.com"
+                >
+            </div>
+
+            <div class="field">
+                <label>كلمة المرور</label>
+                <input
+                    id="loginPassword"
+                    type="password"
+                    placeholder="••••••••"
+                >
+            </div>
+
+            <button
+                class="btn btn-gold"
+                onclick="login()"
+            >
+                🔐 تسجيل الدخول
+            </button>
+
+            <div class="auth-switch">
+                ليس لديك حساب؟
+                <span onclick="showRegister()">
+                    إنشاء حساب
+                </span>
+            </div>
+
+        </div>
+
+
+        <!-- REGISTER -->
+
+        <div id="registerBox" style="display:none">
+
+            <div class="field">
+                <label>الاسم</label>
+                <input
+                    id="regName"
+                    placeholder="اسم الموظف"
+                >
+            </div>
+
+            <div class="field">
+                <label>البريد الإلكتروني</label>
+                <input
+                    id="regEmail"
+                    type="email"
+                    placeholder="البريد الإلكتروني"
+                >
+            </div>
+
+            <div class="field">
+                <label>كلمة المرور</label>
+                <input
+                    id="regPassword"
+                    type="password"
+                    placeholder="كلمة المرور"
+                >
+            </div>
+
+            <button
+                class="btn btn-gold"
+                onclick="requestAccount()"
+            >
+                📝 إرسال طلب إنشاء الحساب
+            </button>
+
+            <div class="auth-switch">
+                لديك حساب بالفعل؟
+                <span onclick="showLogin()">
+                    تسجيل الدخول
+                </span>
+            </div>
+
+        </div>
+
+        <div style="
+            text-align:center;
+            color:#666;
+            font-size:12px;
+            margin-top:20px;
+        ">
+            📞 01014953007
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ================= APP ================= -->
+
+<div id="app">
+
+<header class="header">
+
+    <div class="header-brand">
+
+        <img src="logo.jpg">
+
+        <div>
+            <b>مكتبة أجمل الهدايا</b>
+            <div style="font-size:11px;color:#777">
+                نظام الإدارة
+            </div>
+        </div>
+
+    </div>
+
+    <div class="header-right">
+
+        <div class="phone">
+            📞 01014953007
+        </div>
+
+        <div id="currentUser">
+            بشمهندس يوسف
+        </div>
+
+        <button
+            class="btn btn-dark"
+            onclick="logout()"
+        >
+            خروج
+        </button>
+
+    </div>
+
+</header>
+
+
+<div class="layout">
+
+
+<!-- SIDEBAR -->
+
+<aside class="sidebar">
+
+    <div class="menu-title">
+        الإدارة
+    </div>
+
+    <button
+        class="menu-btn active"
+        onclick="page('dashboard',this)"
+    >
+        🏠 الرئيسية
+    </button>
+
+    <button
+        class="menu-btn"
+        onclick="page('pos',this)"
+    >
+        🧾 الكاشير
+    </button>
+
+    <button
+        class="menu-btn"
+        onclick="page('debts',this)"
+    >
+        💰 الديون
+    </button>
+
+    <button
+        class="menu-btn"
+        onclick="page('invoices',this)"
+    >
+        📄 الفواتير
+    </button>
+
+    <button
+        class="menu-btn"
+        onclick="page('customers',this)"
+    >
+        👥 العملاء
+    </button>
+
+    <button
+        class="menu-btn"
+        onclick="page('products',this)"
+    >
+        📦 المنتجات
+    </button>
+
+    <button
+        class="menu-btn"
+        onclick="page('orders',this)"
+    >
+        🛒 الطلبات
+    </button>
+
+    <button
+        class="menu-btn"
+        onclick="page('reports',this)"
+    >
+        📊 التقارير
+    </button>
+
+    <div class="menu-title">
+        الإدارة العليا
+    </div>
+
+    <button
+        class="menu-btn"
+        onclick="page('approvals',this)"
+    >
+        👑 طلبات الحسابات
+    </button>
+
+    <button
+        class="menu-btn"
+        onclick="page('settings',this)"
+    >
+        ⚙️ الإعدادات
+    </button>
+
+</aside>
+
+
+<!-- CONTENT -->
+
+<main class="content">
+
+
+<!-- DASHBOARD -->
+
+<section id="dashboard" class="page active">
+
+    <div class="page-head">
+
+        <h1>
+            أهلاً يا بشمهندس يوسف 👨‍💻
+        </h1>
+
+        <p>
+            لوحة تحكم مكتبة أجمل الهدايا
+        </p>
+
+    </div>
+
+
+    <div class="cards">
+
+        <div class="stat">
+
+            <div class="stat-icon">💰</div>
+
+            <div class="stat-label">
+                مبيعات اليوم
+            </div>
+
+            <div
+                class="stat-number"
+                id="todaySales"
+            >
+                0 ج
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="stat-icon">🧾</div>
+
+            <div class="stat-label">
+                فواتير اليوم
+            </div>
+
+            <div
+                class="stat-number"
+                id="todayInvoices"
+            >
+                0
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="stat-icon">💳</div>
+
+            <div class="stat-label">
+                إجمالي الديون
+            </div>
+
+            <div
+                class="stat-number"
+                id="allDebts"
+            >
+                0 ج
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="stat-icon">📦</div>
+
+            <div class="stat-label">
+                المنتجات
+            </div>
+
+            <div
+                class="stat-number"
+                id="productsCount"
+            >
+                0
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="panel">
+
+        <div class="panel-head">
+
+            <h2>
+                آخر العمليات
+            </h2>
+
+            <button
+                class="btn btn-dark"
+                onclick="page('pos')"
+            >
+                + فاتورة جديدة
+            </button>
+
+        </div>
+
+        <div class="table-wrap">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>الفاتورة</th>
+                        <th>العميل</th>
+                        <th>الإجمالي</th>
+                        <th>المدفوع</th>
+                        <th>المتبقي</th>
+                    </tr>
+
+                </thead>
+
+                <tbody id="recentSales"></tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- POS -->
+
+<section id="pos" class="page">
+
+    <div class="page-head">
+
+        <h1>
+            الكاشير 🧾
+        </h1>
+
+        <p>
+            إنشاء فاتورة جديدة
+        </p>
+
+    </div>
+
+
+    <div class="pos-grid">
+
+        <div class="panel">
+
+            <div class="panel-head">
+
+                <h2>
+                    المنتجات
+                </h2>
+
+                <input
+                    id="productSearch"
+                    placeholder="🔎 ابحث عن منتج..."
+                    oninput="renderProducts()"
+                    style="
+                    max-width:250px;
+                    background:#0d0a0e;
+                    color:#fff;
+                    border:1px solid #ffffff12;
+                    padding:12px;
+                    border-radius:12px;
+                    "
+                >
+
+            </div>
+
+            <div
+                id="productGrid"
+                class="products"
+            ></div>
+
+        </div>
+
+
+        <div class="cart">
+
+            <h2>
+                الفاتورة الحالية
+            </h2>
+
+            <div id="cartItems"></div>
+
+            <div class="total-box">
+
+                <div class="total-line">
+                    <span>الإجمالي</span>
+                    <b
+                        id="cartTotal"
+                        class="total-main"
+                    >
+                        0 ج
+                    </b>
+                </div>
+
+                <div class="field">
+
+                    <label>
+                        العميل
+                    </label>
+
+                    <select id="saleCustomer">
+                        <option value="">
+                            عميل نقدي
+                        </option>
+                    </select>
+
+                </div>
+
+                <div class="field">
+
+                    <label>
+                        طريقة الدفع
+                    </label>
+
+                    <select id="paymentMethod">
+
+                        <option>
+                            نقدي
+                        </option>
+
+                        <option>
+                            بطاقة
+                        </option>
+
+                        <option>
+                            تحويل
+                        </option>
+
+                        <option>
+                            آجل
+                        </option>
+
+                    </select>
+
+                </div>
+
+                <div class="field">
+
+                    <label>
+                        المدفوع
+                    </label>
+
+                    <input
+                        id="paidAmount"
+                        type="number"
+                        value="0"
+                        min="0"
+                    >
+
+                </div>
+
+                <button
+                    class="btn btn-gold"
+                    onclick="createInvoice()"
+                >
+                    🧾 إصدار الفاتورة
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- DEBTS -->
+
+<section id="debts" class="page">
+
+    <div class="page-head">
+
+        <h1>
+            الديون 💰
+        </h1>
+
+        <p>
+            متابعة حسابات العملاء والسداد
+        </p>
+
+    </div>
+
+
+    <div class="cards">
+
+        <div class="stat">
+
+            <div class="stat-icon">
+                💳
+            </div>
+
+            <div class="stat-label">
+                إجمالي المديونيات
+            </div>
+
+            <div
+                class="stat-number"
+                id="debtPageTotal"
+            >
+                0 ج
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="panel">
+
+        <div class="table-wrap">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>العميل</th>
+                        <th>الهاتف</th>
+                        <th>عليه</th>
+                        <th>إجراء</th>
+                    </tr>
+
+                </thead>
+
+                <tbody id="debtRows"></tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- INVOICES -->
+
+<section id="invoices" class="page">
+
+    <div class="page-head">
+
+        <h1>
+            الفواتير 📄
+        </h1>
+
+        <p>
+            كل الفواتير وإعادة طباعتها
+        </p>
+
+    </div>
+
+
+    <div class="panel">
+
+        <div class="table-wrap">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>رقم</th>
+                        <th>التاريخ</th>
+                        <th>العميل</th>
+                        <th>الإجمالي</th>
+                        <th>المتبقي</th>
+                        <th></th>
+                    </tr>
+
+                </thead>
+
+                <tbody id="invoiceRows"></tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- CUSTOMERS -->
+
+<section id="customers" class="page">
+
+    <div class="page-head">
+
+        <h1>
+            العملاء 👥
+        </h1>
+
+    </div>
+
+
+    <div class="panel">
+
+        <button
+            class="btn btn-gold"
+            onclick="addCustomer()"
+        >
+            + إضافة عميل
+        </button>
+
+        <div class="table-wrap" style="margin-top:20px">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>الاسم</th>
+                        <th>الهاتف</th>
+                        <th>الرصيد</th>
+                    </tr>
+
+                </thead>
+
+                <tbody id="customerRows"></tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- PRODUCTS -->
+
+<section id="products" class="page">
+
+    <div class="page-head">
+
+        <h1>
+            المنتجات والمخزون 📦
+        </h1>
+
+    </div>
+
+
+    <div class="panel">
+
+        <button
+            class="btn btn-gold"
+            onclick="addProduct()"
+        >
+            + منتج جديد
+        </button>
+
+        <div class="table-wrap" style="margin-top:20px">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>المنتج</th>
+                        <th>السعر</th>
+                        <th>المخزون</th>
+                    </tr>
+
+                </thead>
+
+                <tbody id="stockRows"></tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ORDERS -->
+
+<section id="orders" class="page">
+
+    <div class="page-head">
+
+        <h1>
+            الطلبات 🛒
+        </h1>
+
+        <p>
+            متابعة حالة الطلبات
+        </p>
+
+    </div>
+
+
+    <div class="panel">
+
+        <div class="table-wrap">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>الطلب</th>
+                        <th>العميل</th>
+                        <th>الإجمالي</th>
+                        <th>الحالة</th>
+                    </tr>
+
+                </thead>
+
+                <tbody id="orderRows"></tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- REPORTS -->
+
+<section id="reports" class="page">
+
+    <div class="page-head">
+
+        <h1>
+            التقارير 📊
+        </h1>
+
+    </div>
+
+
+    <div class="cards">
+
+        <div class="stat">
+
+            <div class="stat-icon">
+                💰
+            </div>
+
+            <div class="stat-label">
+                إجمالي المبيعات
+            </div>
+
+            <div
+                id="reportSales"
+                class="stat-number"
+            >
+                0 ج
+            </div>
+
+        </div>
+
+        <div class="stat">
+
+            <div class="stat-icon">
+                💳
+            </div>
+
+            <div class="stat-label">
+                المدفوع
+            </div>
+
+            <div
+                id="reportPaid"
+                class="stat-number"
+            >
+                0 ج
+            </div>
+
+        </div>
+
+        <div class="stat">
+
+            <div class="stat-icon">
+                📌
+            </div>
+
+            <div class="stat-label">
+                المتبقي
+            </div>
+
+            <div
+                id="reportRemaining"
+                class="stat-number"
+            >
+                0 ج
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- APPROVALS -->
+
+<section id="approvals" class="page">
+
+    <div class="page-head">
+
+        <h1>
+            👑 موافقات الحسابات
+        </h1>
+
+        <p>
+            أنت صاحب القرار في قبول حسابات الموظفين
+        </p>
+
+    </div>
+
+
+    <div class="panel">
+
+        <div class="table-wrap">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>الاسم</th>
+                        <th>البريد</th>
+                        <th>الحالة</th>
+                        <th>الإجراء</th>
+                    </tr>
+
+                </thead>
+
+                <tbody id="approvalRows"></tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- SETTINGS -->
+
+<section id="settings" class="page">
+
+    <div class="page-head">
+
+        <h1>
+            الإعدادات ⚙️
+        </h1>
+
+    </div>
+
+
+    <div class="panel">
+
+        <div class="field">
+
+            <label>
+                اسم المكتبة
+            </label>
+
+            <input
+                value="مكتبة أجمل الهدايا"
+            >
+
+        </div>
+
+        <div class="field">
+
+            <label>
+                رقم الهاتف
+            </label>
+
+            <input
+                value="01014953007"
+            >
+
+        </div>
+
+        <div class="field">
+
+            <label>
+                المالك
+            </label>
+
+            <input
+                value="بشمهندس يوسف"
+            >
+
+        </div>
+
+        <button class="btn btn-gold">
+            حفظ الإعدادات
+        </button>
+
+    </div>
+
+</section>
+
+
+</main>
+
+</div>
+
+
+<!-- MOBILE -->
+
+<div class="mobile-nav">
+
+    <button onclick="page('dashboard')">
+        🏠<br>الرئيسية
+    </button>
+
+    <button onclick="page('pos')">
+        🧾<br>كاشير
+    </button>
+
+    <button onclick="page('debts')">
+        💰<br>ديون
+    </button>
+
+    <button onclick="page('invoices')">
+        📄<br>فواتير
+    </button>
+
+    <button onclick="page('products')">
+        📦<br>مخزون
+    </button>
+
+</div>
+
+</div>
+
+
+<script>
+
+/* =========================
+   DATABASE DEMO
+========================= */
+
+let db =
+JSON.parse(
+    localStorage.getItem(
+        "agmal_hdaya_pro"
+    )
+) || {
+
+    products:[
+        {
+            id:1,
+            name:"كشكول سلك",
+            price:45,
+            stock:25
+        },
+        {
+            id:2,
+            name:"قلم جاف أزرق",
+            price:8,
+            stock:80
+        },
+        {
+            id:3,
+            name:"مقلمة",
+            price:65,
+            stock:12
+        },
+        {
+            id:4,
+            name:"هدية صغيرة",
+            price:120,
+            stock:8
+        }
+    ],
+
+    customers:[],
+
+    invoices:[],
+
+    accounts:[],
+
+    orders:[]
+
+};
+
+function save(){
+
+    localStorage.setItem(
+        "agmal_hdaya_pro",
+        JSON.stringify(db)
+    );
+
+}
+
+
+/* =========================
+   SPLASH
+========================= */
+
+setTimeout(()=>{
+
+    document
+    .getElementById("splash")
+    .style.opacity="0";
+
+    setTimeout(()=>{
+
+        document
+        .getElementById("splash")
+        .style.display="none";
+
+    },1000);
+
+},2800);
+
+
+/* =========================
+   WELCOME
+========================= */
+
+function welcome(){
+
+    let w=
+    document.getElementById(
+        "welcome"
+    );
+
+    w.style.display="flex";
+
+    setTimeout(()=>{
+
+        w.style.opacity="0";
+
+        setTimeout(()=>{
+
+            w.style.display="none";
+
+        },700);
+
+    },2500);
+
+}
+
+
+/* =========================
+   AUTH
+========================= */
+
+function showRegister(){
+
+    document
+    .getElementById("loginBox")
+    .style.display="none";
+
+    document
+    .getElementById("registerBox")
+    .style.display="block";
+
+}
+
+function showLogin(){
+
+    document
+    .getElementById("loginBox")
+    .style.display="block";
+
+    document
+    .getElementById("registerBox")
+    .style.display="none";
+
+}
+
+
+function requestAccount(){
+
+    let name=
+    document.getElementById(
+        "regName"
+    ).value.trim();
+
+    let email=
+    document.getElementById(
+        "regEmail"
+    ).value.trim();
+
+    let password=
+    document.getElementById(
+        "regPassword"
+    ).value;
+
+    if(!name||!email||!password){
+
+        alert(
+            "من فضلك أكمل البيانات"
+        );
+
+        return;
+
+    }
+
+    db.accounts.push({
+
+        id:Date.now(),
+
+        name,
+
+        email,
+
+        password,
+
+        status:"pending"
+
+    });
+
+    save();
+
+    alert(
+        "تم إرسال طلب الحساب للمالك.\nانتظر الموافقة."
+    );
+
+    showLogin();
+
+}
+
+
+function login(){
+
+    let email=
+    document.getElementById(
+        "loginEmail"
+    ).value.trim();
+
+    let password=
+    document.getElementById(
+        "loginPassword"
+    ).value;
+
+    /*
+       حساب المالك التجريبي
+    */
+
+    if(
+        email==="owner@agmal.com" &&
+        password==="123456"
+    ){
+
+        openApp(
+            "بشمهندس يوسف"
+        );
+
+        return;
+
+    }
+
+
+    let account=
+    db.accounts.find(
+        x=>
+        x.email===email &&
+        x.password===password
+    );
+
+    if(!account){
+
+        alert(
+            "بيانات الدخول غير صحيحة"
+        );
+
+        return;
+
+    }
+
+    if(account.status!=="approved"){
+
+        alert(
+            "الحساب لم تتم الموافقة عليه من المالك حتى الآن."
+        );
+
+        return;
+
+    }
+
+    openApp(
+        account.name
+    );
+
+}
+
+
+function openApp(name){
+
+    document
+    .getElementById("auth")
+    .style.display="none";
+
+    document
+    .getElementById("app")
+    .style.display="block";
+
+    document
+    .getElementById("currentUser")
+    .textContent=name;
+
+    welcome();
+
+    refresh();
+
+}
+
+
+function logout(){
+
+    document
+    .getElementById("app")
+    .style.display="none";
+
+    document
+    .getElementById("auth")
+    .style.display="flex";
+
+}
+
+
+/* =========================
+   NAVIGATION
+========================= */
+
+function page(id,button){
+
+    document
+    .querySelectorAll(".page")
+    .forEach(
+        x=>x.classList.remove("active")
+    );
+
+    let target=
+    document.getElementById(id);
+
+    if(target)
+        target.classList.add("active");
+
+    document
+    .querySelectorAll(".menu-btn")
+    .forEach(
+        x=>x.classList.remove("active")
+    );
+
+    if(button)
+        button.classList.add("active");
+
+    refresh();
+
+}
+
+
+/* =========================
+   REFRESH
+========================= */
+
+function refresh(){
+
+    renderDashboard();
+    renderProducts();
+    renderCart();
+    renderDebts();
+    renderInvoices();
+    renderCustomers();
+    renderStock();
+    renderOrders();
+    renderReports();
+    renderApprovals();
+    fillCustomers();
+
+}
+
+
+/* =========================
+   DASHBOARD
+========================= */
+
+function renderDashboard(){
+
+    let total=
+    db.invoices.reduce(
+        (a,b)=>a+b.total,
+        0
+    );
+
+    let today=
+    new Date()
+    .toISOString()
+    .slice(0,10);
+
+    let todayInvoices=
+    db.invoices.filter(
+        x=>x.date.slice(0,10)===today
+    );
+
+    let debts=
+    db.customers.reduce(
+        (a,b)=>a+b.debt,
+        0
+    );
+
+    document
+    .getElementById("todaySales")
+    .textContent=
+    money(
+        todayInvoices.reduce(
+            (a,b)=>a+b.total,
+            0
+        )
+    );
+
+    document
+    .getElementById("todayInvoices")
+    .textContent=
+    todayInvoices.length;
+
+    document
+    .getElementById("allDebts")
+    .textContent=
+    money(debts);
+
+    document
+    .getElementById("productsCount")
+    .textContent=
+    db.products.length;
+
+    document
+    .getElementById("recentSales")
+    .innerHTML=
+    db.invoices
+    .slice(-8)
+    .reverse()
+    .map(x=>`
+
+        <tr>
+
+            <td>
+                ${x.number}
+            </td>
+
+            <td>
+                ${x.customer||"نقدي"}
+            </td>
+
+            <td>
+                ${money(x.total)}
+            </td>
+
+            <td>
+                ${money(x.paid)}
+            </td>
+
+            <td>
+                ${money(x.remaining)}
+            </td>
+
+        </tr>
+
+    `)
+    .join("");
+
+}
+
+
+/* =========================
+   PRODUCTS
+========================= */
+
+function renderProducts(){
+
+    let q=
+    (
+        document
+        .getElementById(
+            "productSearch"
+        )?.value||""
+    ).toLowerCase();
+
+    document
+    .getElementById(
+        "productGrid"
+    ).innerHTML=
+
+    db.products
+    .filter(
+        x=>
+        x.name
+        .toLowerCase()
+        .includes(q)
+    )
+    .map(x=>`
+
+        <div class="product">
+
+            <div class="product-icon">
+                🎁
+            </div>
+
+            <div class="product-name">
+                ${x.name}
+            </div>
+
+            <div class="product-price">
+                ${money(x.price)}
+            </div>
+
+            <small style="color:#777">
+                المخزون: ${x.stock}
+            </small>
+
+            <br><br>
+
+            <button
+                class="btn btn-gold"
+                style="width:100%"
+                onclick="addToCart(${x.id})"
+            >
+                إضافة للفاتورة
+            </button>
+
+        </div>
+
+    `)
+    .join("");
+
+}
+
+
+let cart=[];
+
+function addToCart(id){
+
+    let p=
+    db.products.find(
+        x=>x.id===id
+    );
+
+    if(!p||p.stock<=0){
+
+        alert(
+            "المنتج غير متوفر"
+        );
+
+        return;
+
+    }
+
+    let item=
+    cart.find(
+        x=>x.id===id
+    );
+
+    if(item)
+        item.qty++;
+    else
+        cart.push({
+            id,
+            qty:1
+        });
+
+    renderCart();
+
+}
+
+
+function renderCart(){
+
+    let box=
+    document.getElementById(
+        "cartItems"
+    );
+
+    if(!cart.length){
+
+        box.innerHTML=
+        `<p style="color:#777">
+            لا توجد منتجات في الفاتورة
+        </p>`;
+
+        document
+        .getElementById(
+            "cartTotal"
+        )
+        .textContent="0 ج";
+
+        return;
+
+    }
+
+    let total=0;
+
+    box.innerHTML=
+    cart.map(item=>{
+
+        let p=
+        db.products.find(
+            x=>x.id===item.id
+        );
+
+        let t=
+        p.price*item.qty;
+
+        total+=t;
+
+        return `
+
+        <div class="cart-item">
+
+            <div>
+
+                <b>
+                    ${p.name}
+                </b>
+
+                <br>
+
+                <small>
+                    ${item.qty} ×
+                    ${money(p.price)}
+                </small>
+
+            </div>
+
+            <div>
+
+                <b>
+                    ${money(t)}
+                </b>
+
+                <br>
+
+                <button
+                    class="btn btn-dark"
+                    onclick="removeCart(${p.id})"
+                >
+                    ×
+                </button>
+
+            </div>
+
+        </div>
+
+        `;
+
+    })
+    .join("");
+
+    document
+    .getElementById(
+        "cartTotal"
+    )
+    .textContent=
+    money(total);
+
+}
+
+
+function removeCart(id){
+
+    cart=
+    cart.filter(
+        x=>x.id!==id
+    );
+
+    renderCart();
+
+}
+
+
+/* =========================
+   CUSTOMER SELECT
+========================= */
+
+function fillCustomers(){
+
+    let s=
+    document.getElementById(
+        "saleCustomer"
+    );
+
+    if(!s)return;
+
+    s.innerHTML=
+    `<option value="">
+        عميل نقدي
+    </option>`+
+
+    db.customers
+    .map(
+        x=>
+        `<option value="${x.id}">
+            ${x.name}
+        </option>`
+    )
+    .join("");
+
+}
+
+
+/* =========================
+   INVOICE
+========================= */
+
+function createInvoice(){
+
+    if(!cart.length){
+
+        alert(
+            "أضف منتجات أولاً"
+        );
+
+        return;
+
+    }
+
+    let total=
+    cart.reduce(
+        (a,item)=>{
+
+            let p=
+            db.products.find(
+                x=>x.id===item.id
+            );
+
+            return a+
+            p.price*item.qty;
+
+        },
+        0
+    );
+
+    let paid=
+    Number(
+        document.getElementById(
+            "paidAmount"
+        ).value
+    )||0;
+
+    let customerId=
+    document.getElementById(
+        "saleCustomer"
+    ).value;
+
+    let customer=
+    db.customers.find(
+        x=>x.id==customerId
+    );
+
+    let remaining=
+    Math.max(
+        0,
+        total-paid
+    );
+
+    if(remaining>0&&!customer){
+
+        alert(
+            "لو فيه مبلغ متبقي لازم تختار عميل"
+        );
+
+        return;
+
+    }
+
+    cart.forEach(item=>{
+
+        let p=
+        db.products.find(
+            x=>x.id===item.id
+        );
+
+        p.stock-=item.qty;
+
+    });
+
+    if(customer){
+
+        customer.debt+=remaining;
+
+    }
+
+    let invoice={
+
+        number:
+        "INV-"+
+        String(
+            db.invoices.length+1
+        ).padStart(5,"0"),
+
+        date:
+        new Date().toISOString(),
+
+        customer:
+        customer?.name||"نقدي",
+
+        items:
+        cart.map(item=>{
+
+            let p=
+            db.products.find(
+                x=>x.id===item.id
+            );
+
+            return{
+
+                name:p.name,
+
+                qty:item.qty,
+
+                price:p.price
+
+            };
+
+        }),
+
+        total,
+
+        paid,
+
+        remaining
+
+    };
+
+    db.invoices.push(
+        invoice
+    );
+
+    save();
+
+    cart=[];
+
+    document
+    .getElementById(
+        "paidAmount"
+    )
+    .value=0;
+
+    alert(
+        "تم إنشاء الفاتورة رقم "+
+        invoice.number
+    );
+
+    refresh();
+
+}
+
+
+/* =========================
+   DEBTS
+========================= */
+
+function renderDebts(){
+
+    let total=
+    db.customers.reduce(
+        (a,b)=>a+b.debt,
+        0
+    );
+
+    document
+    .getElementById(
+        "debtPageTotal"
+    )
+    .textContent=
+    money(total);
+
+    document
+    .getElementById(
+        "debtRows"
+    ).innerHTML=
+
+    db.customers
+    .filter(
+        x=>x.debt>0
+    )
+    .map(x=>`
+
+        <tr>
+
+            <td>
+                ${x.name}
+            </td>
+
+            <td>
+                ${x.phone||"-"}
+            </td>
+
+            <td>
+                <b style="color:#f5c542">
+                    ${money(x.debt)}
+                </b>
+            </td>
+
+            <td>
+
+                <button
+                    class="btn btn-gold"
+                    onclick="payDebt(${x.id})"
+                >
+                    💳 سداد
+                </button>
+
+            </td>
+
+        </tr>
+
+    `)
+    .join("");
+
+}
+
+
+function payDebt(id){
+
+    let c=
+    db.customers.find(
+        x=>x.id===id
+    );
+
+    let amount=
+    Number(
+        prompt(
+            "المبلغ المدفوع من "+
+            c.name+
+            "\nالمديونية: "+
+            money(c.debt)
+        )
+    );
+
+    if(!amount||amount<=0)
+        return;
+
+    if(amount>c.debt){
+
+        alert(
+            "المبلغ أكبر من المديونية"
+        );
+
+        return;
+
+    }
+
+    c.debt-=amount;
+
+    save();
+
+    refresh();
+
+    alert(
+        "تم تسجيل السداد بنجاح"
+    );
+
+}
+
+
+/* =========================
+   INVOICES
+========================= */
+
+function renderInvoices(){
+
+    document
+    .getElementById(
+        "invoiceRows"
+    ).innerHTML=
+
+    db.invoices
+    .slice()
+    .reverse()
+    .map(x=>`
+
+        <tr>
+
+            <td>
+                ${x.number}
+            </td>
+
+            <td>
+                ${new Date(
+                    x.date
+                ).toLocaleString("ar-EG")}
+            </td>
+
+            <td>
+                ${x.customer}
+            </td>
+
+            <td>
+                ${money(x.total)}
+            </td>
+
+            <td>
+                ${money(x.remaining)}
+            </td>
+
+            <td>
+
+                <button
+                    class="btn btn-gold"
+                    onclick="printInvoice('${x.number}')"
+                >
+                    🖨️ طباعة
+                </button>
+
+            </td>
+
+        </tr>
+
+    `)
+    .join("");
+
+}
+
+
+function printInvoice(number){
+
+    let invoice=
+    db.invoices.find(
+        x=>x.number===number
+    );
+
+    let w=
+    window.open(
+        "",
+        "_blank"
+    );
+
+    w.document.write(`
+
+    <html dir="rtl">
+
+    <head>
+
+        <title>
+            ${invoice.number}
+        </title>
+
+        <style>
+
+            body{
+                font-family:Tahoma;
+                padding:30px;
+            }
+
+            h1{
+                text-align:center;
+            }
+
+            table{
+                width:100%;
+                border-collapse:collapse;
+            }
+
+            th,td{
+                border-bottom:1px solid #ddd;
+                padding:10px;
+                text-align:right;
+            }
+
+            .total{
+                font-size:22px;
+                font-weight:bold;
+                margin-top:20px;
+            }
+
+        </style>
+
+    </head>
+
+    <body>
+
+        <h1>
+            مكتبة أجمل الهدايا 🎁
+        </h1>
+
+        <p>
+            رقم الهاتف:
+            01014953007
+        </p>
+
+        <hr>
+
+        <h3>
+            فاتورة رقم:
+            ${invoice.number}
+        </h3>
+
+        <p>
+            العميل:
+            ${invoice.customer}
+        </p>
+
+        <table>
+
+            <tr>
+                <th>المنتج</th>
+                <th>الكمية</th>
+                <th>السعر</th>
+            </tr>
+
+            ${
+                invoice.items.map(
+                    i=>`
+                    <tr>
+                        <td>${i.name}</td>
+                        <td>${i.qty}</td>
+                        <td>${money(
+                            i.price*i.qty
+                        )}</td>
+                    </tr>
+                    `
+                ).join("")
+            }
+
+        </table>
+
+        <div class="total">
+            الإجمالي:
+            ${money(invoice.total)}
+        </div>
+
+        <div>
+            المدفوع:
+            ${money(invoice.paid)}
+        </div>
+
+        <div>
+            المتبقي:
+            ${money(invoice.remaining)}
+        </div>
+
+        <br>
+
+        <center>
+            شكرًا لتعاملكم معنا ❤️
+        </center>
+
+        <script>
+            window.print();
+        <\/script>
+
+    </body>
+
+    </html>
+
+    `);
+
+    w.document.close();
+
+}
+
+
+/* =========================
+   CUSTOMERS
+========================= */
+
+function addCustomer(){
+
+    let name=
+    prompt(
+        "اسم العميل"
+    );
+
+    if(!name)
+        return;
+
+    let phone=
+    prompt(
+        "رقم الهاتف"
+    )||"";
+
+    db.customers.push({
+
+        id:Date.now(),
+
+        name,
+
+        phone,
+
+        debt:0
+
+    });
+
+    save();
+
+    refresh();
+
+}
+
+
+/* =========================
+   STOCK
+========================= */
+
+function renderStock(){
+
+    document
+    .getElementById(
+        "stockRows"
+    ).innerHTML=
+
+    db.products
+    .map(x=>`
+
+        <tr>
+
+            <td>
+                ${x.name}
+            </td>
+
+            <td>
+                ${money(x.price)}
+            </td>
+
+            <td>
+                ${
+                    x.stock<=5
+                    ?
+                    `<b style="color:#e74c3c">
+                        ${x.stock}
+                    </b>`
+                    :
+                    x.stock
+                }
+            </td>
+
+        </tr>
+
+    `)
+    .join("");
+
+}
+
+
+function addProduct(){
+
+    let name=
+    prompt(
+        "اسم المنتج"
+    );
+
+    if(!name)
+        return;
+
+    let price=
+    Number(
+        prompt(
+            "السعر"
+        )
+    );
+
+    let stock=
+    Number(
+        prompt(
+            "الكمية"
+        )
+    );
+
+    db.products.push({
+
+        id:Date.now(),
+
+        name,
+
+        price,
+
+        stock
+
+    });
+
+    save();
+
+    refresh();
+
+}
+
+
+/* =========================
+   ORDERS
+========================= */
+
+function renderOrders(){
+
+    document
+    .getElementById(
+        "orderRows"
+    ).innerHTML=
+
+    db.orders
+    .map(x=>`
+
+        <tr>
+
+            <td>
+                ${x.id}
+            </td>
+
+            <td>
+                ${x.customer}
+            </td>
+
+            <td>
+                ${money(x.total)}
+            </td>
+
+            <td>
+                ${x.status}
+            </td>
+
+        </tr>
+
+    `)
+    .join("")
+
+    ||
+    `
+    <tr>
+        <td colspan="4">
+            لا توجد طلبات حاليًا
+        </td>
+    </tr>
+    `;
+
+}
+
+
+/* =========================
+   REPORTS
+========================= */
+
+function renderReports(){
+
+    let sales=
+    db.invoices.reduce(
+        (a,b)=>a+b.total,
+        0
+    );
+
+    let paid=
+    db.invoices.reduce(
+        (a,b)=>a+b.paid,
+        0
+    );
+
+    let remaining=
+    db.invoices.reduce(
+        (a,b)=>a+b.remaining,
+        0
+    );
+
+    document
+    .getElementById(
+        "reportSales"
+    )
+    .textContent=
+    money(sales);
+
+    document
+    .getElementById(
+        "reportPaid"
+    )
+    .textContent=
+    money(paid);
+
+    document
+    .getElementById(
+        "reportRemaining"
+    )
+    .textContent=
+    money(remaining);
+
+}
+
+
+/* =========================
+   APPROVALS
+========================= */
+
+function renderApprovals(){
+
+    document
+    .getElementById(
+        "approvalRows"
+    ).innerHTML=
+
+    db.accounts
+    .map(x=>`
+
+        <tr>
+
+            <td>
+                ${x.name}
+            </td>
+
+            <td>
+                ${x.email}
+            </td>
+
+            <td>
+                ${
+                    x.status==="approved"
+                    ?
+                    "🟢 مقبول"
+                    :
+                    "🟡 قيد المراجعة"
+                }
+            </td>
+
+            <td>
+
+                ${
+                    x.status==="pending"
+                    ?
+                    `
+                    <button
+                        class="btn btn-gold"
+                        onclick="approve(${x.id})"
+                    >
+                        قبول
+                    </button>
+                    `
+                    :
+                    "تمت الموافقة"
+                }
+
+            </td>
+
+        </tr>
+
+    `)
+    .join("")
+
+    ||
+    `
+    <tr>
+        <td colspan="4">
+            لا توجد طلبات حسابات.
+        </td>
+    </tr>
+    `;
+
+}
+
+
+function approve(id){
+
+    let account=
+    db.accounts.find(
+        x=>x.id===id
+    );
+
+    if(!account)
+        return;
+
+    account.status=
+    "approved";
+
+    save();
+
+    refresh();
+
+    alert(
+        "تمت الموافقة على الحساب ✅"
+    );
+
+}
+
+
+/* =========================
+   MONEY
+========================= */
+
+function money(n){
+
+    return Number(n||0)
+    .toLoc
