@@ -1,0 +1,245 @@
+/* إعدادات المتغيرات والألوان الأساسية */
+:root {
+    --primary: #2563eb;
+    --primary-hover: #1d4ed8;
+    --secondary: #f59e0b;
+    --dark: #0f172a;
+    --dark-light: #1e293b;
+    --bg: #f8fafc;
+    --surface: #ffffff;
+    --text: #334155;
+    --text-light: #64748b;
+    --border: #e2e8f0;
+    --danger: #ef4444;
+    --success: #10b981;
+    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Tajawal', sans-serif;
+}
+
+body {
+    background-color: var(--bg);
+    color: var(--text);
+    direction: rtl;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+.hidden { display: none !important; }
+.w-100 { width: 100%; }
+
+/* ================== شاشة الترحيب ================== */
+.splash {
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(135deg, var(--dark), var(--dark-light));
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    transition: opacity 0.6s ease;
+}
+.splash-content { text-align: center; }
+.spinner {
+    width: 50px; height: 50px;
+    border: 4px solid rgba(255,255,255,0.2);
+    border-top-color: var(--secondary);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 20px;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ================== شاشة تسجيل الدخول ================== */
+.auth-wrapper {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    background: url('data:image/svg+xml,%3Csvg width="20" height="20" xmlns="http://www.w3.org/2000/svg"%3E%3Ccircle cx="2" cy="2" r="2" fill="%23cbd5e1"/%3E%3C/svg%3E') var(--bg);
+}
+.auth-card {
+    background: var(--surface);
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: var(--shadow-lg);
+    width: 100%;
+    max-width: 420px;
+    text-align: center;
+}
+.auth-logo { font-size: 3rem; margin-bottom: 10px; }
+.auth-card h2 { color: var(--dark); margin-bottom: 5px; }
+.auth-sub { color: var(--text-light); margin-bottom: 25px; }
+
+/* المدخلات والأزرار */
+.input-group {
+    margin-bottom: 20px;
+    text-align: right;
+}
+.input-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+.input-group input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    font-size: 1rem;
+    transition: all 0.3s;
+    background: var(--bg);
+}
+.input-group input:focus {
+    border-color: var(--primary);
+    outline: none;
+    background: var(--surface);
+}
+
+.btn {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+.btn-primary { background: var(--primary); color: white; width: 100%; }
+.btn-primary:hover { background: var(--primary-hover); transform: translateY(-2px); }
+.btn-danger { background: var(--danger); color: white; }
+
+.auth-switch { margin-top: 20px; font-size: 0.95rem; }
+.auth-switch a { color: var(--primary); font-weight: 700; text-decoration: none; }
+.message { margin-top: 15px; font-weight: 600; min-height: 20px; }
+
+/* ================== هيكل النظام (التطبيق) ================== */
+.app-layout {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    min-height: 100vh;
+}
+
+/* القائمة الجانبية */
+.sidebar {
+    background: var(--dark);
+    color: white;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+.sidebar-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    margin-bottom: 20px;
+}
+.logo-icon { font-size: 2rem; }
+.brand h3 { color: var(--secondary); font-size: 1.2rem; }
+.brand span { font-size: 0.8rem; color: #94a3b8; }
+
+.menu-label { font-size: 0.8rem; color: #64748b; margin: 15px 0 10px; font-weight: 700; }
+.nav-btn {
+    width: 100%;
+    text-align: right;
+    padding: 12px 15px;
+    background: transparent;
+    border: none;
+    color: #cbd5e1;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: 0.2s;
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.nav-btn:hover, .nav-btn.active {
+    background: var(--primary);
+    color: white;
+}
+.sidebar-footer { margin-top: auto; padding-top: 20px; }
+
+/* المحتوى الرئيسي */
+.main-content {
+    display: flex;
+    flex-direction: column;
+    background: var(--bg);
+}
+.topbar {
+    height: 70px;
+    background: var(--surface);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 30px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+.user-info { text-align: left; }
+.user-role { background: var(--secondary); color: white; padding: 2px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: 700; }
+.user-email { display: block; font-size: 0.85rem; color: var(--text-light); }
+
+.pages-container { padding: 30px; flex: 1; overflow-y: auto; }
+.page { display: none; animation: fadeIn 0.4s ease; }
+.page.active { display: block; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+/* ================== الرئيسية (الإحصائيات) ================== */
+.stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+.stat-card {
+    background: var(--surface);
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: var(--shadow);
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+.icon-box { width: 60px; height: 60px; border-radius: 12px; display: flex; justify-content: center; align-items: center; font-size: 1.8rem; }
+.icon-box.green { background: #d1fae5; color: #10b981; }
+.icon-box.blue { background: #dbeafe; color: #3b82f6; }
+.icon-box.orange { background: #ffedd5; color: #f97316; }
+.stat-info h3 { font-size: 1rem; color: var(--text-light); }
+.stat-info p { font-size: 1.8rem; font-weight: 800; color: var(--dark); margin-top: 5px; }
+
+/* ================== الكاشير (POS) ================== */
+.pos-layout { display: grid; grid-template-columns: 2fr 1fr; gap: 20px; height: calc(100vh - 130px); }
+.pos-products { background: var(--surface); border-radius: 15px; padding: 20px; box-shadow: var(--shadow); display: flex; flex-direction: column; }
+.search-bar input { width: 100%; padding: 15px; border: 2px solid var(--border); border-radius: 10px; margin-bottom: 20px; }
+.products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 15px; overflow-y: auto; flex: 1; }
+.product-card {
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 15px;
+    text-align: center;
+    cursor: pointer;
+    transition: 0.2s;
+}
+.product-card:hover { border-color: var(--primary); box-shadow: var(--shadow); transform: translateY(-3px); }
+.product-card h4 { font-size: 0.95rem; margin-bottom: 8px; }
+.product-card .price { color: var(--primary); font-weight: 800; }
+
+.pos-cart { background: var(--surface); border-radius: 15px; padding: 20px; box-shadow: var(--shadow); display: flex; flex-direction: column; }
+.cart-items { flex: 1; overflow-y: auto; margin: 15px 0; border-bottom: 2px dashed var(--border); }
+.cart-item { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--border); }
+.cart-summary { padding-top: 15px; }
+.summary-line.total { display: flex; justify-content: space-between; font-size: 1.4rem; font-weight: 800; color: var(--dark); margin-bottom: 20px; }
+
+/* ================== الجداول ================== */
+.table-responsive { background: var(--surface); border-radius: 15px; box-shadow: var(--shadow); padding: 20px; overflow-x: auto; margin-top: 20px; }
+.data-table { width: 100%; border-collapse: collapse; }
+.data-table th, .data-table td { padding: 15px; text-align: right; border-bottom: 1px solid var(--border); }
+.data-table th { color: var(--text-light); font-weight: 600; background: var(--bg); }
