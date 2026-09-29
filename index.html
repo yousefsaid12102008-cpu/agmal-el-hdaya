@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مكتبة أجمل الهدايا | الإدارة</title>
+    <!-- خطوط جوجل (Tajawal) لتصميم عصري -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- شاشة التحميل والترحيب -->
+    <div id="splash-screen" class="splash">
+        <div class="splash-content">
+            <div class="spinner"></div>
+            <h1>مكتبة أجمل الهدايا</h1>
+            <p>نظام الإدارة والكاشير الذكي</p>
+        </div>
+    </div>
+
+    <!-- شاشة المصادقة (تسجيل الدخول / إنشاء حساب) -->
+    <div id="auth-section" class="auth-wrapper hidden">
+        <div class="auth-card">
+            <div class="auth-logo">🎁</div>
+            <h2 id="auth-title">تسجيل الدخول</h2>
+            <p class="auth-sub">بوابة الدخول للنظام الموحد</p>
+
+            <form id="auth-form" onsubmit="return false;">
+                <div class="input-group">
+                    <label>البريد الإلكتروني</label>
+                    <input type="email" id="email" placeholder="أدخل بريدك الإلكتروني" required>
+                </div>
+                <div class="input-group">
+                    <label>كلمة المرور</label>
+                    <input type="password" id="password" placeholder="••••••••" required minlength="6">
+                </div>
+                
+                <button type="submit" id="main-auth-btn" class="btn btn-primary">دخول</button>
+            </form>
+            
+            <div class="auth-switch">
+                <span id="switch-auth-text">ليس لديك حساب؟</span> 
+                <a href="#" id="switch-auth-btn">إنشاء حساب</a>
+            </div>
+            <p id="auth-message" class="message"></p>
+        </div>
+    </div>
+
+    <!-- النظام الرئيسي (يظهر بعد تسجيل الدخول) -->
+    <div id="app-section" class="app-layout hidden">
+        
+        <!-- القائمة الجانبية (Sidebar) -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo-icon">🎁</div>
+                <div class="brand">
+                    <h3>أجمل الهدايا</h3>
+                    <span>نظام الإدارة</span>
+                </div>
+            </div>
+            
+            <nav class="sidebar-menu">
+                <p class="menu-label">العمليات الأساسية</p>
+                <button class="nav-btn active" data-target="dashboard"><span>🏠</span> الرئيسية</button>
+                <button class="nav-btn" data-target="pos"><span>💻</span> الكاشير</button>
+                <button class="nav-btn" data-target="products"><span>📦</span> المنتجات</button>
+                
+                <p class="menu-label">الحسابات والإدارة</p>
+                <button class="nav-btn" data-target="invoices"><span>🧾</span> الفواتير</button>
+                <button class="nav-btn" data-target="debts"><span>💰</span> الديون</button>
+                <button class="nav-btn" data-target="reports"><span>📊</span> التقارير</button>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <button id="logout-btn" class="btn btn-danger"><span>🚪</span> تسجيل الخروج</button>
+            </div>
+        </aside>
+
+        <!-- المحتوى الرئيسي -->
+        <main class="main-content">
+            
+            <!-- الشريط العلوي -->
+            <header class="topbar">
+                <div class="topbar-left">
+                    <h2 id="page-title">الرئيسية</h2>
+                </div>
+                <div class="topbar-right">
+                    <div class="user-info">
+                        <span class="user-role" id="display-role">مسؤول</span>
+                        <span class="user-email" id="display-email">...</span>
+                    </div>
+                </div>
+            </header>
+
+            <!-- الصفحات -->
+            <div class="pages-container">
+                
+                <!-- 1. صفحة الرئيسية -->
+                <section id="dashboard" class="page active">
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="icon-box green">💰</div>
+                            <div class="stat-info">
+                                <h3>مبيعات اليوم</h3>
+                                <p id="dash-sales">0 ج.م</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="icon-box blue">🧾</div>
+                            <div class="stat-info">
+                                <h3>فواتير اليوم</h3>
+                                <p id="dash-invoices">0</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="icon-box orange">📦</div>
+                            <div class="stat-info">
+                                <h3>إجمالي المنتجات</h3>
+                                <p id="dash-products">0</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 2. صفحة الكاشير (POS) -->
+                <section id="pos" class="page">
+                    <div class="pos-layout">
+                        <!-- قائمة المنتجات -->
+                        <div class="pos-products">
+                            <div class="search-bar">
+                                <input type="text" id="pos-search" placeholder="ابحث عن منتج بالاسم أو الكود...">
+                            </div>
+                            <div class="products-grid" id="pos-products-grid">
+                                <!-- سيتم جلب المنتجات هنا من فايربيز -->
+                            </div>
+                        </div>
+                        
+                        <!-- سلة المشتريات والفاتورة -->
+                        <div class="pos-cart">
+                            <h3>الفاتورة الحالية</h3>
+                            <div class="cart-items" id="cart-items">
+                                <!-- المنتجات المضافة تظهر هنا -->
+                            </div>
+                            <div class="cart-summary">
+                                <div class="summary-line total">
+                                    <span>الإجمالي:</span>
+                                    <span id="cart-total">0 ج.م</span>
+                                </div>
+                                <div class="input-group">
+                                    <label>اسم العميل (اختياري)</label>
+                                    <input type="text" id="pos-customer" placeholder="عميل نقدي">
+                                </div>
+                                <div class="input-group">
+                                    <label>المبلغ المدفوع</label>
+                                    <input type="number" id="pos-paid" value="0" min="0">
+                                </div>
+                                <button class="btn btn-primary w-100" id="checkout-btn">إصدار الفاتورة 🖨️</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 3. صفحة المنتجات -->
+                <section id="products" class="page">
+                    <div class="page-header">
+                        <button class="btn btn-primary" id="add-product-btn">+ إضافة منتج جديد</button>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>اسم المنتج</th>
+                                    <th>سعر البيع</th>
+                                    <th>الكمية المتوفرة</th>
+                                    <th>إجراءات</th>
+                                </tr>
+                            </thead>
+                            <tbody id="products-table-body">
+                                <!-- بيانات المنتجات من فايربيز -->
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+            </div>
+        </main>
+    </div>
+
+    <script type="module" src="app.js"></script>
+</body>
+</html>
