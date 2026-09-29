@@ -1,0 +1,262 @@
+/* إعدادات عامة */
+* {
+    box-sizing: border-box;
+    font-family: 'Cairo', sans-serif; /* استخدام خط كايرو الجديد */
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #f0f2f5;
+    color: #333;
+    direction: rtl;
+    min-height: 100vh;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* شاشة الترحيب */
+.splash-screen {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    /* خلفية متدرجة فخمة */
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    transition: opacity 0.5s ease-out;
+}
+
+.splash-content {
+    text-align: center;
+    animation: fadeInUp 1s ease-out;
+}
+
+.splash-content h1 {
+    font-size: 2.2rem;
+    margin-top: 20px;
+    font-weight: 800;
+}
+
+.splash-content p {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1.1rem;
+    margin-top: 10px;
+}
+
+/* تأثير التحميل (Loader) */
+.loader {
+    width: 60px;
+    height: 60px;
+    border: 5px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: white;
+    animation: spin 1s ease-in-out infinite;
+    margin: 0 auto;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* شاشة الدخول */
+.auth-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.auth-box {
+    background: white;
+    width: 100%;
+    max-width: 420px;
+    padding: 40px 30px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    text-align: center;
+}
+
+.logo-placeholder {
+    font-size: 4rem;
+    margin-bottom: 10px;
+    text-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.auth-box h2 {
+    color: #2c3e50;
+    font-weight: 800;
+    font-size: 1.8rem;
+    margin-bottom: 5px;
+}
+
+.subtitle {
+    color: #7f8c8d;
+    margin-bottom: 30px;
+    font-size: 1rem;
+}
+
+.input-group {
+    margin-bottom: 15px;
+}
+
+.auth-box input {
+    width: 100%;
+    padding: 15px 20px;
+    border: 2px solid #eef2f5;
+    border-radius: 12px;
+    font-size: 1rem;
+    background-color: #f8fafc;
+    transition: all 0.3s;
+}
+
+.auth-box input:focus {
+    border-color: #4facfe;
+    background-color: white;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(79, 172, 254, 0.1);
+}
+
+button {
+    width: 100%;
+    padding: 15px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 1.1rem;
+    transition: all 0.3s;
+}
+
+.primary-btn { 
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); 
+    color: white; 
+    box-shadow: 0 4px 15px rgba(79, 172, 254, 0.4);
+}
+.primary-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(79, 172, 254, 0.6);
+}
+
+.secondary-btn { 
+    background: #f1f5f9; 
+    color: #475569; 
+}
+.secondary-btn:hover { 
+    background: #e2e8f0; 
+}
+
+#auth-message {
+    margin-top: 15px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    min-height: 20px;
+}
+
+/* لوحة التحكم */
+.dashboard-header {
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    color: white;
+    padding: 20px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.header-info h2 {
+    font-size: 1.5rem;
+    margin: 0;
+    font-weight: 800;
+}
+
+.user-role {
+    background: rgba(255,255,255,0.2);
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    display: inline-block;
+    margin-top: 5px;
+}
+
+.danger-btn { 
+    background: rgba(255,255,255,0.2); 
+    color: white; 
+    width: auto; 
+    padding: 8px 20px;
+    font-size: 1rem;
+    border-radius: 20px;
+}
+.danger-btn:hover {
+    background: #e74c3c;
+}
+
+.modules-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 20px;
+    padding: 30px 20px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.module-card {
+    background: white;
+    padding: 30px 15px;
+    text-align: center;
+    border-radius: 20px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.module-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+}
+
+.module-card .icon {
+    font-size: 3.5rem;
+    display: block;
+    margin-bottom: 15px;
+}
+
+.module-card h3 {
+    color: #2c3e50;
+    font-size: 1.1rem;
+    font-weight: 800;
+}
+
+/* تنسيق خاص لشاشات الموبايل */
+@media (max-width: 600px) {
+    .modules-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+        padding: 20px 15px;
+    }
+    .module-card {
+        padding: 25px 10px;
+        border-radius: 16px;
+    }
+    .module-card .icon {
+        font-size: 2.8rem;
+    }
+    .module-card h3 {
+        font-size: 0.95rem;
+    }
+    .dashboard-header {
+        padding: 15px 20px;
+    }
+}
