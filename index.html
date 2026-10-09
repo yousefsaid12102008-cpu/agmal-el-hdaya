@@ -1,0 +1,1388 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#12050f">
+<meta name="description" content="هدية من القلب إلى أغلى أم في الدنيا ❤️">
+<title>عالم ماما ❤️</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Aref+Ruqaa:wght@400;700&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+    --bg: #12050f;
+    --bg2: #330c24;
+    --gold: #dfb76c;
+    --gold-light: #fbe698;
+    --rose: #e65c87;
+    --pink: #ff8fab;
+    --glass: rgba(255,255,255,.055);
+    --border: rgba(223,183,108,.3);
+    --white: #fdf0f5;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+    width: 100%;
+    min-height: 100%;
+    font-family: 'Cairo', sans-serif;
+    color: var(--white);
+    background: radial-gradient(circle at top, var(--bg2), var(--bg));
+}
+
+body {
+    min-height: 100dvh;
+    overflow-x: hidden;
+}
+
+button, input {
+    font: inherit;
+}
+
+button {
+    touch-action: manipulation;
+}
+
+#physics-canvas {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.app {
+    position: relative;
+    z-index: 2;
+    min-height: 100dvh;
+}
+
+.scene {
+    display: none;
+    width: 100%;
+    min-height: 100dvh;
+    padding: max(25px, env(safe-area-inset-top))
+             15px
+             max(30px, env(safe-area-inset-bottom));
+    align-items: center;
+    justify-content: center;
+    animation: sceneIn .65s ease both;
+}
+
+.scene.active {
+    display: flex;
+}
+
+.scene-inner {
+    width: 100%;
+    max-width: 760px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+@keyframes sceneIn {
+    from {
+        opacity: 0;
+        transform: translateY(18px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.glass {
+    width: 100%;
+    padding: 35px 25px;
+    border: 1px solid var(--border);
+    border-radius: 28px;
+    background: var(--glass);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    box-shadow: 0 20px 55px rgba(0,0,0,.3);
+    text-align: center;
+}
+
+.title {
+    font-family: 'Aref Ruqaa', serif;
+    color: var(--gold-light);
+    font-size: clamp(2.2rem, 8vw, 3.5rem);
+    line-height: 1.5;
+    text-align: center;
+    text-shadow: 0 0 20px rgba(223,183,108,.2);
+}
+
+.subtitle {
+    color: #e8d0d8;
+    font-size: 15px;
+    line-height: 2;
+    text-align: center;
+}
+
+.heart-icon {
+    font-size: 65px;
+    margin-bottom: 10px;
+    filter: drop-shadow(0 0 15px var(--rose));
+    animation: heartbeat 1.5s infinite;
+}
+
+@keyframes heartbeat {
+    50% { transform: scale(1.12); }
+}
+
+.password {
+    display: flex;
+    justify-content: center;
+    gap: 9px;
+    direction: ltr;
+    margin: 25px 0;
+}
+
+.password input {
+    width: min(16vw, 58px);
+    height: 62px;
+    border: 2px solid var(--border);
+    border-radius: 14px;
+    background: rgba(0,0,0,.35);
+    color: var(--gold-light);
+    text-align: center;
+    font-size: 26px;
+    font-weight: 800;
+    outline: none;
+    caret-color: var(--gold);
+}
+
+.password input:focus {
+    border-color: var(--gold);
+    box-shadow: 0 0 18px rgba(223,183,108,.25);
+}
+
+.error {
+    min-height: 28px;
+    color: #ff8095;
+    font-size: 14px;
+    visibility: hidden;
+}
+
+.error.show {
+    visibility: visible;
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    min-height: 52px;
+    padding: 12px 22px;
+    border: 0;
+    border-radius: 35px;
+    background: linear-gradient(135deg, var(--gold-light), #bd8a32);
+    color: #240c19;
+    font-size: 16px;
+    font-weight: 800;
+    cursor: pointer;
+    box-shadow: 0 5px 25px rgba(223,183,108,.18);
+    transition: transform .2s;
+}
+
+.btn:active {
+    transform: scale(.97);
+}
+
+.btn.secondary {
+    background: rgba(0,0,0,.2);
+    border: 1px solid var(--gold);
+    color: var(--gold-light);
+    box-shadow: none;
+}
+
+.controls {
+    display: flex;
+    gap: 12px;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.controls > * {
+    flex: 1;
+    min-width: 0;
+}
+
+/* مشغل الموسيقى */
+
+.music {
+    position: fixed;
+    top: max(12px, env(safe-area-inset-top));
+    left: 12px;
+    z-index: 20;
+    display: none;
+    align-items: center;
+    gap: 10px;
+    padding: 7px 14px 7px 7px;
+    border: 1px solid var(--border);
+    border-radius: 35px;
+    background: rgba(18,5,15,.92);
+    color: var(--gold-light);
+    cursor: pointer;
+}
+
+.music.show {
+    display: flex;
+}
+
+.vinyl {
+    width: 36px;
+    height: 36px;
+    border: 2px solid var(--gold);
+    border-radius: 50%;
+    background: repeating-radial-gradient(#111 0 3px, #292029 4px 6px);
+    position: relative;
+}
+
+.vinyl::after {
+    content: '';
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    border-radius: 50%;
+    background: var(--rose);
+}
+
+.vinyl.playing {
+    animation: spin 3s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* الظرف */
+
+.envelope {
+    position: relative;
+    width: min(330px, 88vw);
+    height: 220px;
+    margin: 30px auto 10px;
+    cursor: pointer;
+    perspective: 900px;
+}
+
+.env-back {
+    position: absolute;
+    inset: 0;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #9a2b4a, #701c34);
+    box-shadow: 0 20px 40px #0005;
+}
+
+.env-letter {
+    position: absolute;
+    z-index: 1;
+    bottom: 5px;
+    left: 10px;
+    right: 10px;
+    height: 195px;
+    padding: 18px;
+    border-radius: 8px;
+    background: linear-gradient(#fffdf8, #f0e4c8);
+    color: #701c34;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: transform 1s ease;
+}
+
+.env-front {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #e65c87, #b83359);
+    clip-path: polygon(0 0,50% 53%,100% 0,100% 100%,0 100%);
+}
+
+.env-flap {
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #ff8dae, #e65c87);
+    clip-path: polygon(0 0,100% 0,50% 60%);
+    transform-origin: top center;
+    transition: transform .8s ease;
+}
+
+.env-seal {
+    position: absolute;
+    z-index: 4;
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background: var(--gold-light);
+    color: #4a152d;
+    font-size: 24px;
+    transition: opacity .3s;
+}
+
+.envelope.open .env-flap {
+    transform: rotateX(180deg);
+}
+
+.envelope.open .env-seal {
+    opacity: 0;
+}
+
+.envelope.open .env-letter {
+    transform: translateY(-115px);
+}
+
+.instruction {
+    color: var(--gold-light);
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    50% { opacity: .5; }
+}
+
+/* الرسالة */
+
+.message-board {
+    position: relative;
+    width: 100%;
+    padding: 30px 22px;
+    border: 1px solid var(--border);
+    border-radius: 25px;
+    background: rgba(255,255,255,.045);
+    box-shadow: 0 20px 50px #0003;
+}
+
+.message-text {
+    position: relative;
+    z-index: 1;
+    font-family: 'Amiri', serif;
+    font-size: clamp(20px, 5vw, 29px);
+    line-height: 2;
+    color: #fffaf0;
+    overflow-wrap: anywhere;
+    white-space: pre-wrap;
+    text-align: right;
+}
+
+.cursor {
+    display: inline-block;
+    width: 3px;
+    height: 1em;
+    margin-right: 3px;
+    background: var(--gold);
+    vertical-align: middle;
+    animation: blink .8s step-end infinite;
+}
+
+@keyframes blink {
+    50% { opacity: 0; }
+}
+
+/* الذكريات */
+
+.timeline {
+    width: 100%;
+    position: relative;
+    padding: 10px 0;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    right: 20px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(transparent, var(--gold), transparent);
+}
+
+.memory {
+    position: relative;
+    padding-right: 52px;
+    margin-bottom: 24px;
+    opacity: 0;
+    transform: translateX(15px);
+    transition: .7s ease;
+}
+
+.memory.visible {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.dot {
+    position: absolute;
+    right: 4px;
+    top: 12px;
+    width: 34px;
+    height: 34px;
+    display: grid;
+    place-items: center;
+    border: 2px solid var(--gold);
+    border-radius: 50%;
+    background: var(--bg);
+}
+
+.memory-card {
+    padding: 18px;
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    background: var(--glass);
+    text-align: right;
+}
+
+.memory-card h3 {
+    margin-bottom: 8px;
+    color: var(--gold-light);
+    font-family: 'Aref Ruqaa', serif;
+    font-size: 23px;
+}
+
+.memory-card p {
+    font-family: 'Amiri', serif;
+    font-size: 18px;
+    line-height: 1.9;
+}
+
+/* الأمنيات */
+
+.lanterns {
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+    width: 100%;
+    margin: 15px 0;
+}
+
+.lantern {
+    flex: 1;
+    max-width: 115px;
+    min-height: 130px;
+    padding: 15px 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    border: 1px solid var(--border);
+    border-radius: 45px 45px 15px 15px;
+    background: var(--glass);
+    color: var(--gold-light);
+    cursor: pointer;
+    animation: float 3s ease-in-out infinite;
+}
+
+.lantern:nth-child(2) { animation-delay: .5s; }
+.lantern:nth-child(3) { animation-delay: 1s; }
+
+.flame {
+    width: 22px;
+    height: 30px;
+    border-radius: 50% 50% 25% 25%;
+    background: #ffca60;
+    box-shadow: 0 0 18px #ffb300;
+    animation: flicker .7s infinite alternate;
+}
+
+@keyframes float {
+    50% { transform: translateY(-8px); }
+}
+
+@keyframes flicker {
+    to { transform: scale(1.15); opacity: .7; }
+}
+
+.modal {
+    position: fixed;
+    inset: 0;
+    z-index: 30;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: rgba(0,0,0,.7);
+}
+
+.modal.active {
+    display: flex;
+}
+
+.modal-card {
+    width: 100%;
+    max-width: 420px;
+    padding: 30px 22px;
+    border: 2px solid var(--gold);
+    border-radius: 25px;
+    background: linear-gradient(135deg,#4a152d,#1a0b16);
+    text-align: center;
+    animation: sceneIn .3s ease;
+}
+
+.modal-card h3 {
+    color: var(--gold-light);
+    font-family: 'Aref Ruqaa', serif;
+    font-size: 27px;
+    margin-bottom: 15px;
+}
+
+.modal-card p {
+    font-family: 'Amiri', serif;
+    font-size: 21px;
+    line-height: 2;
+    margin-bottom: 20px;
+}
+
+/* النهاية */
+
+.finale-title {
+    font-family: 'Aref Ruqaa', serif;
+    font-size: clamp(2.4rem, 9vw, 4.5rem);
+    color: var(--gold-light);
+    line-height: 1.5;
+}
+
+.finale-text {
+    font-family: 'Amiri', serif;
+    font-size: clamp(21px, 5vw, 27px);
+    line-height: 2;
+    margin-top: 15px;
+}
+
+.signature {
+    margin-top: 25px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+}
+
+.signature strong {
+    display: block;
+    margin-top: 8px;
+    font-family: 'Aref Ruqaa', serif;
+    font-size: clamp(25px, 7vw, 38px);
+    color: var(--pink);
+}
+
+@media (max-width: 420px) {
+    .glass { padding: 28px 16px; }
+    .controls { flex-direction: column; }
+    .password { gap: 7px; }
+    .password input { height: 55px; }
+    .lanterns { gap: 8px; }
+    .lantern { min-height: 115px; font-size: 13px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="physics-canvas" aria-hidden="true"></canvas>
+
+<!-- مشغل الموسيقى -->
+<div id="yt-player-container"
+     style="position:fixed;left:-500px;top:0;width:200px;height:200px;overflow:hidden"
+     aria-hidden="true"></div>
+
+<button class="music" id="music-widget" type="button"
+        onclick="toggleMusic()" aria-label="تشغيل أو إيقاف الموسيقى">
+    <span class="vinyl" id="vinyl"></span>
+    <span id="music-status">تشغيل الموسيقى ♫</span>
+</button>
+
+<main class="app">
+
+<!-- الشاشة الأولى -->
+<section id="scene-lock" class="scene active">
+    <div class="scene-inner">
+        <div class="glass">
+            <div class="heart-icon">💖</div>
+            <h1 class="title">عالم ماما</h1>
+            <p class="subtitle">
+                فيه هدية صغيرة مستخبية ليكي يا أغلى الناس ❤️
+                <br>
+                أدخلي الرمز السري عشان تفتحي عالمك الجميل.
+            </p>
+
+            <div class="password" id="pass-inputs">
+                <input aria-label="الرقم الأول" inputmode="numeric" type="text" maxlength="1" autocomplete="off">
+                <input aria-label="الرقم الثاني" inputmode="numeric" type="text" maxlength="1" autocomplete="off">
+                <input aria-label="الرقم الثالث" inputmode="numeric" type="text" maxlength="1" autocomplete="off">
+                <input aria-label="الرقم الرابع" inputmode="numeric" type="text" maxlength="1" autocomplete="off">
+            </div>
+
+            <p id="error-msg" class="error" role="alert">
+                الرمز مش صحيح، حاولي مرة تانية ❤️
+            </p>
+
+            <button class="btn" onclick="verifyPassword()">
+                افتحي هديتك 🗝️
+            </button>
+
+            <p class="subtitle" style="margin-top:18px;margin-bottom:0;font-size:12px">
+                هدية بسيطة لأغلى أم في الدنيا
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- الشاشة الثانية -->
+<section id="scene-envelope" class="scene">
+    <div class="scene-inner">
+        <h2 class="title">رسالة من القلب</h2>
+        <p class="subtitle">كل اللي عليكي تضغطي على الظرف ❤️</p>
+
+        <div class="envelope" id="envelope-elem" onclick="openEnvelope()">
+            <div class="env-back"></div>
+
+            <div class="env-letter">
+                <div style="font-size:32px;color:#c7406a">♥</div>
+                <h3 style="font-family:'Aref Ruqaa',serif;font-size:25px">
+                    إلى ست الحبايب
+                </h3>
+                <p style="margin-top:12px;font-size:13px">
+                    بكل الحب ❤️
+                </p>
+            </div>
+
+            <div class="env-front"></div>
+            <div class="env-flap"></div>
+            <div class="env-seal">♥</div>
+        </div>
+
+        <p class="instruction" id="env-instruction">اضغطي هنا وافتحي رسالتك ♡</p>
+    </div>
+</section>
+
+<!-- الشاشة الثالثة -->
+<section id="scene-message" class="scene">
+    <div class="scene-inner">
+        <h2 class="title">كلام من قلبي ليكي</h2>
+
+        <div class="message-board">
+            <div class="message-text" id="typed-text"></div>
+            <span class="cursor" id="text-cursor"></span>
+        </div>
+
+        <div class="controls">
+            <button class="btn secondary" onclick="replayMessage()">
+                إعادة القراءة ↺
+            </button>
+            <button class="btn" onclick="goToScene('scene-timeline')">
+                الذكريات الجميلة ➜
+            </button>
+        </div>
+    </div>
+</section>
+
+<!-- الشاشة الرابعة -->
+<section id="scene-timeline" class="scene">
+    <div class="scene-inner">
+        <h2 class="title">شريط الذكريات</h2>
+
+        <div class="timeline">
+            <article class="memory">
+                <div class="dot">🍼</div>
+                <div class="memory-card">
+                    <h3>طفولتي</h3>
+                    <p>
+                        من أول يوم شيلتيني فيه، وإنتِ سندي وأماني.
+                        كل خطوة خطيتها كانت وراها دعوة منكِ وحب كبير.
+                    </p>
+                </div>
+            </article>
+
+            <article class="memory">
+                <div class="dot">🕯️</div>
+                <div class="memory-card">
+                    <h3>سهر الليالي</h3>
+                    <p>
+                        شكرًا على كل مرة تعبتي فيها عشاني،
+                        وعلى كل مرة حاولتي تخليني مبسوط حتى لو كنتِ تعبانة.
+                        عمري ما هنسى فضلك عليا.
+                    </p>
+                </div>
+            </article>
+
+            <article class="memory">
+                <div class="dot">❤️</div>
+                <div class="memory-card">
+                    <h3>النهارده وبكرة</h3>
+                    <p>
+                        نفسي أفضل دايمًا سبب في فرحتك،
+                        وأشوفك فخورة بيا وبكل خطوة بعملها.
+                        ربنا يقدرني أردلك ولو جزء صغير من حبك.
+                    </p>
+                </div>
+            </article>
+        </div>
+
+        <div class="controls">
+            <button class="btn secondary" onclick="goToScene('scene-message')">
+                السابق
+            </button>
+            <button class="btn" onclick="goToScene('scene-lanterns')">
+                أمنياتي ليكي ➜
+            </button>
+        </div>
+    </div>
+</section>
+
+<!-- الشاشة الخامسة -->
+<section id="scene-lanterns" class="scene">
+    <div class="scene-inner">
+        <h2 class="title">أمنيات من قلبي</h2>
+
+        <p class="subtitle">
+            كل فانوس جواه أمنية غالية ليكي.
+            اضغطي عليه وشوفيها ✨
+        </p>
+
+        <div class="lanterns">
+            <button class="lantern" onclick="showWish(0)">
+                <span class="flame"></span>
+                <span>الصحة والعافية</span>
+            </button>
+
+            <button class="lantern" onclick="showWish(1)">
+                <span class="flame"></span>
+                <span>راحة البال</span>
+            </button>
+
+            <button class="lantern" onclick="showWish(2)">
+                <span class="flame"></span>
+                <span>الفرحة والرضا</span>
+            </button>
+        </div>
+
+        <button class="btn" onclick="goToScene('scene-finale')">
+            نروح للاحتفال الكبير 🎉
+        </button>
+
+        <button class="btn secondary" onclick="goToScene('scene-timeline')">
+            الرجوع للذكريات
+        </button>
+    </div>
+</section>
+
+<!-- الشاشة السادسة -->
+<section id="scene-finale" class="scene">
+    <div class="scene-inner">
+        <div class="glass">
+            <div style="font-size:55px;margin-bottom:15px">🎂❤️🎉</div>
+
+            <h1 class="finale-title">كل سنة وإنتِ طيبة يا أمي</h1>
+
+            <p class="finale-text">
+                يا رب أشوف ضحكتك دايمًا،
+                وقلبك مرتاح ومبسوط.
+                ربنا يديكي الصحة والعافية،
+                ويقدرني أعوضك عن كل تعبك،
+                ويخليني دايمًا سبب في سعادتك.
+                <br><br>
+                إنتِ مش بس أمي،
+                إنتِ أجمل نعمة ربنا رزقني بيها. ❤️
+            </p>
+
+            <div class="signature">
+                <p>بكل الحب، من ابنك</p>
+                <strong>يوسف سعيد حامد ❤️</strong>
+            </div>
+
+            <button class="btn" style="margin-top:25px"
+                    onclick="restartGift()">
+                نبدأ الرحلة من الأول ❤️
+            </button>
+        </div>
+    </div>
+</section>
+
+</main>
+
+<!-- نافذة الأمنيات -->
+<div class="modal" id="wish-modal" role="dialog"
+     aria-modal="true" aria-labelledby="wish-title"
+     onclick="if(event.target===this)closeWish()">
+
+    <div class="modal-card">
+        <h3 id="wish-title"></h3>
+        <p id="wish-text"></p>
+        <button class="btn" onclick="closeWish()">آمين يا رب 🤍</button>
+    </div>
+</div>
+
+<script>
+/* =========================================
+   الإعدادات الأساسية
+========================================= */
+
+const correctPass = "1010";
+const youtubeVideoID = "sR2EOW14B3E";
+
+const msgText =
+`يا ماما، ❤️
+
+يمكن مش بعرف أقولك كل يوم إنتِ غالية عندي قد إيه، بس والله إنتِ في قلبي في مكان محدش يقدر ياخده.
+
+أنا عارف إن كلمة «شكرًا» صغيرة قدام كل اللي عملتيه، وإن مفيش هدية تقدر تساوي لحظة واحدة من عمرك اللي اديتيهالي بحب.
+
+كل اللي بتمناه إني أشوفك مبسوطة، وأكون سبب في ضحكتك زي ما كنتِ دايمًا سبب في أماني وراحتي.
+
+بحبك يا ماما… حب أكبر من الكلام، وأعمق من أي رسالة، وهفضل طول عمري فخور إنك أمي. ❤️`;
+
+const wishes = [
+    {
+        title: "الصحة والعافية 🌿",
+        text: "يا رب يرزقك الصحة والعافية، ويباركلي في عمرك، وأشوفك دايمًا بخير وسعادة، وما يحرمنيش من وجودك أبدًا."
+    },
+    {
+        title: "راحة البال 🕊️",
+        text: "يا رب يريح قلبك، ويبعد عنك كل هم وضيق، ويبدل كل تعب براحة، وكل قلق بطمأنينة، وتعيشي أيام كلها خير."
+    },
+    {
+        title: "الفرحة والرضا ✨",
+        text: "يا رب أشوف ضحكتك منورة وشك كل يوم، ويرزقك من الفرحة أضعاف اللي زرعتيها في قلبي، ويحققلك كل أمنية جميلة."
+    }
+];
+
+const inputs = [...document.querySelectorAll(".password input")];
+
+let ytPlayer = null;
+let ytReady = false;
+let isPlaying = false;
+let typeTimer = null;
+let currentScene = "scene-lock";
+let isEnvelopeOpen = false;
+let finaleStarted = false;
+let fireworks = [];
+let particles = [];
+let lastFrame = 0;
+
+/* =========================================
+   التنقل بين الشاشات
+========================================= */
+
+function goToScene(sceneId) {
+    const target = document.getElementById(sceneId);
+
+    if (!target || currentScene === sceneId) return;
+
+    clearInterval(typeTimer);
+
+    document.querySelectorAll(".scene").forEach(scene => {
+        scene.classList.remove("active");
+    });
+
+    target.classList.add("active");
+    currentScene = sceneId;
+
+    window.scrollTo({ top: 0, behavior: "instant" });
+
+    if (sceneId === "scene-timeline") {
+        animateTimeline();
+    }
+
+    if (sceneId === "scene-finale") {
+        finaleStarted = true;
+        createBurst(innerWidth / 2, innerHeight / 2, 70);
+    } else {
+        finaleStarted = false;
+    }
+
+    if (sceneId === "scene-message" &&
+        document.getElementById("typed-text").textContent === "") {
+        setTimeout(typeWriterEffect, 350);
+    }
+}
+
+/* =========================================
+   إدخال الرمز السري
+========================================= */
+
+inputs.forEach((input, index) => {
+    input.addEventListener("input", () => {
+        input.value = input.value.replace(/[^0-9]/g, "").slice(-1);
+
+        document.getElementById("error-msg").classList.remove("show");
+
+        if (input.value && index < inputs.length - 1) {
+            inputs[index + 1].focus();
+        }
+
+        if (index === inputs.length - 1 && input.value) {
+            verifyPassword();
+        }
+    });
+
+    input.addEventListener("keydown", event => {
+        if (event.key === "Backspace" && !input.value && index > 0) {
+            inputs[index - 1].focus();
+        }
+
+        if (event.key === "Enter") {
+            verifyPassword();
+        }
+    });
+
+    input.addEventListener("paste", event => {
+        const pasted = (event.clipboardData || window.clipboardData)
+            .getData("text")
+            .replace(/[^0-9]/g, "");
+
+        if (pasted.length === 4) {
+            event.preventDefault();
+
+            inputs.forEach((item, i) => {
+                item.value = pasted[i];
+            });
+
+            verifyPassword();
+        }
+    });
+});
+
+function verifyPassword() {
+    const entered = inputs.map(input => input.value).join("");
+    const error = document.getElementById("error-msg");
+
+    if (entered !== correctPass) {
+        error.classList.add("show");
+
+        inputs.forEach(input => input.value = "");
+
+        inputs[0].focus();
+        return;
+    }
+
+    error.classList.remove("show");
+
+    startMusic();
+    createBurst(innerWidth / 2, innerHeight / 2, 55);
+
+    setTimeout(() => goToScene("scene-envelope"), 450);
+}
+
+/* =========================================
+   الظرف والرسالة
+========================================= */
+
+function openEnvelope() {
+    if (isEnvelopeOpen) return;
+
+    isEnvelopeOpen = true;
+
+    document.getElementById("envelope-elem").classList.add("open");
+    document.getElementById("env-instruction").style.visibility = "hidden";
+
+    createBurst(innerWidth / 2, innerHeight / 2, 75);
+
+    setTimeout(() => goToScene("scene-message"), 1300);
+}
+
+function typeWriterEffect() {
+    clearInterval(typeTimer);
+
+    const target = document.getElementById("typed-text");
+    const cursor = document.getElementById("text-cursor");
+
+    target.textContent = "";
+
+    let index = 0;
+
+    cursor.style.display = "inline-block";
+
+    typeTimer = setInterval(() => {
+        if (index >= msgText.length) {
+            clearInterval(typeTimer);
+            cursor.style.display = "none";
+            return;
+        }
+
+        target.textContent += msgText.charAt(index);
+        index++;
+
+        // إبقاء آخر جزء من الرسالة ظاهرًا أثناء الكتابة.
+        const scene = document.getElementById("scene-message");
+
+        if (scene.classList.contains("active")) {
+            scene.scrollTop = scene.scrollHeight;
+        }
+    }, 35);
+}
+
+function replayMessage() {
+    if (currentScene !== "scene-message") return;
+
+    typeWriterEffect();
+    createBurst(innerWidth / 2, 120, 25);
+}
+
+/* =========================================
+   الذكريات
+========================================= */
+
+function animateTimeline() {
+    const items = document.querySelectorAll(".memory");
+
+    items.forEach(item => item.classList.remove("visible"));
+
+    items.forEach((item, index) => {
+        setTimeout(() => {
+            item.classList.add("visible");
+
+            const rect = item.getBoundingClientRect();
+
+            createBurst(rect.left + 25, rect.top + 25, 12);
+        }, index * 450);
+    });
+}
+
+/* =========================================
+   الأمنيات
+========================================= */
+
+function showWish(index) {
+    if (!wishes[index]) return;
+
+    document.getElementById("wish-title").textContent =
+        wishes[index].title;
+
+    document.getElementById("wish-text").textContent =
+        wishes[index].text;
+
+    document.getElementById("wish-modal").classList.add("active");
+
+    createBurst(innerWidth / 2, innerHeight / 2, 35);
+}
+
+function closeWish() {
+    document.getElementById("wish-modal").classList.remove("active");
+}
+
+document.addEventListener("keydown", event => {
+    if (event.key === "Escape") closeWish();
+});
+
+/* =========================================
+   موسيقى يوتيوب
+========================================= */
+
+function onYouTubeIframeAPIReady() {
+    if (!window.YT || !YT.Player) return;
+
+    ytPlayer = new YT.Player("yt-player-container", {
+        width: "200",
+        height: "200",
+        videoId: youtubeVideoID,
+        playerVars: {
+            autoplay: 0,
+            controls: 0,
+            playsinline: 1,
+            loop: 1,
+            playlist: youtubeVideoID
+        },
+        events: {
+            onReady: () => {
+                ytReady = true;
+                document.getElementById("music-status").textContent =
+                    "تشغيل الموسيقى ♫";
+            },
+            onStateChange: event => {
+                if (!window.YT) return;
+
+                isPlaying = event.data === YT.PlayerState.PLAYING;
+
+                document.getElementById("vinyl")
+                    .classList.toggle("playing", isPlaying);
+
+                document.getElementById("music-status").textContent =
+                    isPlaying ? "إيقاف الموسيقى" : "تشغيل الموسيقى ♫";
+            },
+            onError: () => {
+                document.getElementById("music-status").textContent =
+                    "الموسيقى غير متاحة";
+            }
+        }
+    });
+}
+
+function startMusic() {
+    document.getElementById("music-widget").classList.add("show");
+
+    if (!ytReady || !ytPlayer) {
+        document.getElementById("music-status").textContent =
+            "اضغطي للتشغيل ♫";
+        return;
+    }
+
+    try {
+        ytPlayer.playVideo();
+    } catch (error) {
+        console.log("تعذر تشغيل الموسيقى تلقائيًا.");
+    }
+}
+
+function toggleMusic() {
+    document.getElementById("music-widget").classList.add("show");
+
+    if (!ytReady || !ytPlayer) {
+        document.getElementById("music-status").textContent =
+            "الموسيقى لسه بتحمّل";
+        return;
+    }
+
+    if (isPlaying) {
+        ytPlayer.pauseVideo();
+    } else {
+        ytPlayer.playVideo();
+    }
+}
+
+/* =========================================
+   المؤثرات البصرية
+========================================= */
+
+const canvas = document.getElementById("physics-canvas");
+const ctx = canvas.getContext("2d");
+
+let cw = 0;
+let ch = 0;
+
+function resizeCanvas() {
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+    cw = window.innerWidth;
+    ch = window.innerHeight;
+
+    canvas.width = Math.round(cw * dpr);
+    canvas.height = Math.round(ch * dpr);
+
+    canvas.style.width = cw + "px";
+    canvas.style.height = ch + "px";
+
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+}
+
+window.addEventListener("resize", resizeCanvas);
+resizeCanvas();
+
+class Particle {
+    constructor(x, y, color) {
+        this.x = x;
+        this.y = y;
+        this.vx = (Math.random() - .5) * 4;
+        this.vy = (Math.random() - .5) * 4 - 1;
+        this.life = 1;
+        this.size = Math.random() * 3 + 1;
+        this.color = color || (
+            Math.random() > .5 ? "#dfb76c" : "#ff8fab"
+        );
+    }
+
+    update() {
+        this.x += this.vx;
+        this.y += this.vy;
+        this.vy += .025;
+        this.life -= .018;
+    }
+
+    draw() {
+        ctx.globalAlpha = Math.max(0, this.life);
+        ctx.fillStyle = this.color;
+
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.globalAlpha = 1;
+    }
+}
+
+function createBurst(x, y, count) {
+    for (let i = 0; i < count; i++) {
+        particles.push(new Particle(x, y));
+    }
+
+    // الحفاظ على أداء الموبايل.
+    if (particles.length > 500) {
+        particles.splice(0, particles.length - 500);
+    }
+}
+
+class Firework {
+    constructor() {
+        this.x = Math.random() * cw;
+        this.y = ch;
+        this.targetY = Math.random() * ch * .45 + 20;
+        this.speed = Math.random() * 3 + 4;
+        this.color = Math.random() > .5 ? "#dfb76c" : "#ff8fab";
+        this.exploded = false;
+        this.parts = [];
+    }
+
+    update() {
+        if (!this.exploded) {
+            this.y -= this.speed;
+
+            if (this.y <= this.targetY) {
+                this.exploded = true;
+
+                for (let i = 0; i < 45; i++) {
+                    const angle = Math.random() * Math.PI * 2;
+                    const speed = Math.random() * 3 + 1;
+
+                    this.parts.push({
+                        x: this.x,
+                        y: this.y,
+                        vx: Math.cos(angle) * speed,
+                        vy: Math.sin(angle) * speed,
+                        life: 1
+                    });
+                }
+            }
+        } else {
+            this.parts.forEach(p => {
+                p.x += p.vx;
+                p.y += p.vy;
+                p.vy += .035;
+                p.life -= .025;
+            });
+
+            this.parts = this.parts.filter(p => p.life > 0);
+        }
+    }
+
+    draw() {
+        if (!this.exploded) {
+            ctx.fillStyle = this.color;
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, 2, 0, Math.PI * 2);
+            ctx.fill();
+            return;
+        }
+
+        this.parts.forEach(p => {
+            ctx.globalAlpha = p.life;
+            ctx.fillStyle = this.color;
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, 2, 0, Math.PI * 2);
+            ctx.fill();
+        });
+
+        ctx.globalAlpha = 1;
+    }
+}
+
+function animateEngine(time) {
+    requestAnimationFrame(animateEngine);
+
+    // تقليل الضغط على الأجهزة الضعيفة.
+    if (time - lastFrame < 25) return;
+    lastFrame = time;
+
+    // مسح الرسم السابق حتى لا تختفي الخلفية الأصلية.
+    ctx.clearRect(0, 0, cw, ch);
+
+    if (Math.random() < .035 && particles.length < 100) {
+        particles.push(
+            new Particle(Math.random() * cw, ch + 5, "#dfb76c")
+        );
+    }
+
+    particles.forEach(p => {
+        p.update();
+        p.draw();
+    });
+
+    particles = particles.filter(p => p.life > 0);
+
+    if (finaleStarted && Math.random() < .035 && fireworks.length < 5) {
+        fireworks.push(new Firework());
+    }
+
+    fireworks.forEach(f => {
+        f.update();
+        f.draw();
+    });
+
+    fireworks = fireworks.filter(f =>
+        !f.exploded || f.parts.length > 0
+    );
+}
+
+requestAnimationFrame(animateEngine);
+
+/* =========================================
+   إعادة الهدية
+========================================= */
+
+function restartGift() {
+    clearInterval(typeTimer);
+
+    closeWish();
+
+    isEnvelopeOpen = false;
+
+    document.getElementById("envelope-elem").classList.remove("open");
+
+    document.getElementById("env-instruction").style.visibility =
+        "visible";
+
+    document.getElementById("typed-text").textContent = "";
+
+    document.getElementById("text-cursor").style.display =
+        "inline-block";
+
+    document.querySelectorAll(".memory").forEach(item => {
+        item.classList.remove("visible");
+    });
+
+    inputs.forEach(input => input.value = "");
+
+    finaleStarted = false;
+
+    goToScene("scene-lock");
+
+    inputs[0].focus();
+}
+</script>
+
+<script src="https://www.youtube.com/iframe_api" async></script>
+
+</body>
+</html>
