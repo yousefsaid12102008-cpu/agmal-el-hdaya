@@ -1,0 +1,395 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<meta name="theme-color" content="#160c20">
+<title>إلى ماما بكل الحب ❤️</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Amiri:wght@400;700&display=swap');
+
+:root{
+ --rose:#ff9fbd;--pink:#ff6f9e;--gold:#ffe4bd;
+ --cream:#fff5ee;--muted:#d9bfcf;--night:#160c20;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+ margin:0;min-height:100vh;overflow-x:hidden;color:var(--cream);
+ font-family:'Cairo',sans-serif;
+ background:radial-gradient(ellipse at 50% 40%,#4a203d 0%,#251229 43%,#100918 100%);
+}
+button{font:inherit}
+#sky,#fx{position:fixed;inset:0;width:100%;height:100%;pointer-events:none}
+#sky{z-index:0}#fx{z-index:8}
+main,.top,footer{position:relative;z-index:2}
+.top{
+ display:flex;justify-content:space-between;align-items:center;
+ padding:18px 20px;max-width:900px;margin:auto;
+}
+.brand{font-weight:800;letter-spacing:1px;color:#ffd5e2}
+.music{
+ border:1px solid #ffffff35;background:#ffffff0c;color:#fff;
+ border-radius:30px;padding:9px 13px;font-size:12px;cursor:pointer;
+}
+.music:active{transform:scale(.96)}
+.hero{
+ min-height:calc(100svh - 65px);padding:35px 18px 65px;
+ display:flex;align-items:center;justify-content:center;text-align:center;
+}
+.screen{width:100%;max-width:760px;margin:auto}
+.kicker{
+ display:inline-block;padding:7px 15px;border-radius:30px;
+ border:1px solid #ffb4ce4a;color:#ffd4e1;
+ background:#ff9fbd0b;font-size:12px;letter-spacing:1px;
+}
+h1{font-size:clamp(36px,9vw,67px);line-height:1.45;margin:20px 0 12px}
+.shine{
+ background:linear-gradient(100deg,#fff4e8,#ffb2cc,#ffe7b7);
+ -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.intro{max-width:490px;margin:0 auto;color:var(--muted);line-height:2;font-size:14px}
+.scene{min-height:330px;display:grid;place-items:center;perspective:1000px}
+.envelope-wrap{width:min(310px,85vw);height:225px;position:relative;cursor:pointer;
+ filter:drop-shadow(0 25px 30px #0005);margin:20px auto}
+.envelope{
+ position:absolute;bottom:0;width:100%;height:175px;border-radius:7px;
+ background:linear-gradient(145deg,#d77d9c,#a64e75);
+ overflow:visible;
+}
+.env-back{
+ position:absolute;inset:0;
+ background:linear-gradient(135deg,#f4b0c3,#b75c83);
+ clip-path:polygon(0 0,50% 55%,100% 0);
+}
+.letter{
+ position:absolute;z-index:1;left:7%;width:86%;height:158px;bottom:10px;
+ border-radius:5px;background:linear-gradient(#fffaf2,#ffe9e9);
+ color:#963d63;display:flex;flex-direction:column;align-items:center;
+ justify-content:center;padding:12px;
+ transition:transform 1.2s cubic-bezier(.2,.8,.2,1),bottom 1.2s;
+ box-shadow:0 3px 10px #43152c20;
+}
+.letter .mini-heart{font-size:35px}
+.letter strong{font-family:'Amiri',serif;font-size:24px}
+.letter small{font-size:10px;color:#a66a7f}
+.env-front{
+ position:absolute;inset:0;z-index:3;
+ background:linear-gradient(150deg,#e89ab2,#c3648b);
+ clip-path:polygon(0 0,50% 55%,100% 0,100% 100%,0 100%);
+}
+.env-flap{
+ position:absolute;inset:0;z-index:4;
+ background:linear-gradient(150deg,#f6c0cf,#d67e9e);
+ clip-path:polygon(0 0,100% 0,50% 62%);
+ transform-origin:top;transition:transform .8s ease;backface-visibility:hidden;
+}
+.seal{
+ position:absolute;z-index:5;left:50%;top:52%;transform:translate(-50%,-50%);
+ width:51px;height:51px;border-radius:50%;background:#ffe3bb;
+ color:#b14c75;display:grid;place-items:center;font-size:23px;
+ box-shadow:0 0 0 5px #ffe3bb32,0 4px 14px #70244230;
+ transition:opacity .4s,transform .4s;
+}
+.envelope-wrap.open .env-flap{transform:rotateX(180deg);z-index:0}
+.envelope-wrap.open .letter{transform:translateY(-105px);transition-delay:.4s}
+.envelope-wrap.open .seal{opacity:0;transform:translate(-50%,-50%) scale(.4)}
+.tap{font-size:12px;color:#f3ccdb;animation:breathe 2s infinite}
+@keyframes breathe{50%{opacity:.55}}
+.hidden-content{display:none;opacity:0;transform:translateY(22px)}
+.hidden-content.show{display:block;animation:appear 1.4s forwards}
+@keyframes appear{to{opacity:1;transform:translateY(0)}}
+.message-card{
+ margin:22px auto 0;max-width:690px;text-align:right;
+ padding:clamp(23px,6vw,45px);
+ background:linear-gradient(145deg,#ffffff0c,#ffffff04);
+ border:1px solid #ffc2d425;border-radius:24px;
+ box-shadow:0 20px 70px #0002, inset 0 1px #ffffff0c;
+}
+.message-card h2{text-align:center;font-size:29px;color:#ffd1df;margin:0 0 25px}
+.message-text{
+ font-family:'Amiri',serif;font-size:clamp(20px,4.7vw,25px);
+ line-height:2.15;color:#fff0f4;white-space:pre-wrap;min-height:250px;
+}
+.cursor{display:inline-block;color:var(--rose);animation:blink .7s infinite}
+@keyframes blink{50%{opacity:0}}
+.signature{text-align:center;margin-top:30px;color:var(--gold);font-family:'Amiri',serif;font-size:25px}
+.date{text-align:center;color:#d9b6c8;font-size:12px;margin-top:10px}
+.actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:25px auto}
+.btn{
+ padding:12px 19px;border-radius:13px;border:1px solid #ffb9d04a;
+ background:#ffb0ca13;color:#fff;cursor:pointer;font-size:13px;
+ transition:transform .2s,background .2s;
+}
+.btn.primary{background:linear-gradient(110deg,#ffc0d1,#e889ad);color:#41172b;border:0;font-weight:800}
+.btn:active{transform:scale(.97)}
+.wish{
+ max-width:690px;margin:25px auto;padding:24px 18px;
+ border-radius:20px;border:1px solid #ffe0ad26;background:#ffe3bd08;
+ text-align:center;
+}
+.wish h3{color:var(--gold);font-size:20px}
+.wish p{color:#ead1db;line-height:2;font-size:14px}
+footer{text-align:center;padding:35px 15px 28px;color:#b99bad;font-size:11px}
+.footer-heart{color:#ff83ad}
+#toast{
+ position:fixed;z-index:10;bottom:25px;left:50%;
+ transform:translate(-50%,100px);opacity:0;transition:.5s;
+ padding:12px 18px;background:#47233c;border:1px solid #ffb9d04a;
+ border-radius:30px;font-size:13px;white-space:nowrap;
+}
+#toast.show{transform:translate(-50%,0);opacity:1}
+@media(max-width:480px){
+ .top{padding:15px}.hero{padding:25px 16px 45px}
+ .scene{min-height:285px}.envelope-wrap{transform:scale(.91);margin:10px auto}
+ .message-card h2{font-size:25px}.message-text{min-height:330px}
+}
+@media(prefers-reduced-motion:reduce){
+ *,*:before,*:after{animation:none!important;scroll-behavior:auto!important}
+}
+</style>
+</head>
+<body>
+<canvas id="sky"></canvas>
+<canvas id="fx"></canvas>
+
+<header class="top">
+ <div class="brand">♡ حكاية حب</div>
+ <button class="music" id="musicBtn" type="button">♫ تشغيل الموسيقى</button>
+</header>
+
+<main>
+ <section class="hero" id="opening">
+  <div class="screen">
+   <div class="kicker">رسالة صغيرة لأغلى إنسانة في الدنيا</div>
+   <h1>إلى <span class="shine">ماما</span>،<br>حُبّ عمري كله 🤍</h1>
+   <p class="intro">
+    في كلام ساعات بيبقى أكبر من إنه يتقال في رسالة عادية…
+    عشان كده عملتلك الحكاية دي، من قلبي لقلبك.
+   </p>
+
+   <div class="scene">
+    <div>
+     <div class="envelope-wrap" id="envelope" role="button" tabindex="0"
+      aria-label="افتحي الرسالة يا ماما">
+      <div class="envelope">
+       <div class="env-back"></div>
+       <div class="letter">
+        <div class="mini-heart">♥</div>
+        <strong>إلى ماما الحبيبة</strong>
+        <small>رسالة من قلب ابنك</small>
+       </div>
+       <div class="env-front"></div>
+       <div class="env-flap"></div>
+       <div class="seal">♥</div>
+      </div>
+     </div>
+     <div class="tap" id="tapText">اضغطي على الظرف وافتحي رسالتك ♡</div>
+    </div>
+   </div>
+   <button class="btn primary" id="openBtn">افتحي رسالتك يا ماما 💌</button>
+  </div>
+ </section>
+
+ <section class="hidden-content" id="reveal">
+  <div class="message-card">
+   <h2>من قلبي ليكي يا ماما ❤️</h2>
+   <div class="message-text"><span id="typed"></span><span class="cursor" id="cursor">|</span></div>
+   <div class="signature">بحبك يا أحن قلب في الدنيا ❤️</div>
+   <div class="date">10 / 10 · يوم مميز عشان إنتِ فيه</div>
+  </div>
+
+  <div class="wish">
+   <div style="font-size:35px">🌷</div>
+   <h3>أمنيتي ليكي</h3>
+   <p>يا رب أشوف ضحكتك دايمًا، وقلبك مرتاح ومبسوط، وربنا يديكي الصحة والعافية وراحة البال، ويقدرني أفرحك وأعوّضك عن كل تعب تعبتيه عشاني. يا رب ما يحرمنيش منك أبدًا.</p>
+  </div>
+
+  <div class="actions">
+   <button class="btn primary" id="celebrateBtn">🎉 خلي السما تحتفل بيكي</button>
+   <button class="btn" id="readBtn">↻ اقري الرسالة من الأول</button>
+  </div>
+ </section>
+</main>
+
+<footer>
+ معمولة بكل الحب لأغلى أم في الدنيا
+ <div style="margin-top:8px">من ابنك اللي بيحبك أكتر من أي كلام يقدر يوصفه <span class="footer-heart">♥</span></div>
+</footer>
+
+<div id="toast">ربنا يخليكي ليا يا ماما ❤️</div>
+
+<script>
+/* النجوم المتحركة */
+const sky=document.getElementById('sky'),sctx=sky.getContext('2d');
+let stars=[],W=0,H=0;
+function sizeSky(){
+ W=sky.width=innerWidth*devicePixelRatio;
+ H=sky.height=innerHeight*devicePixelRatio;
+ sctx.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0);
+ stars=Array.from({length:Math.min(160,Math.floor(innerWidth/4))},()=>({
+  x:Math.random()*innerWidth,y:Math.random()*innerHeight,
+  r:Math.random()*1.5+.2,a:Math.random(),v:Math.random()*.012+.002
+ }));
+}
+function drawSky(){
+ sctx.clearRect(0,0,innerWidth,innerHeight);
+ for(const p of stars){
+  p.a+=p.v;if(p.a>1||p.a<.12)p.v*=-1;
+  sctx.beginPath();sctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+  sctx.fillStyle=`rgba(255,218,233,${p.a})`;sctx.fill();
+ }
+ requestAnimationFrame(drawSky);
+}
+sizeSky();drawSky();addEventListener('resize',sizeSky);
+
+/* قلوب وبتلات باستخدام Canvas */
+const fx=document.getElementById('fx'),ctx=fx.getContext('2d');
+let particles=[],fxRunning=false;
+function sizeFx(){fx.width=innerWidth*devicePixelRatio;fx.height=innerHeight*devicePixelRatio}
+sizeFx();addEventListener('resize',sizeFx);
+function addParticle(x,y,type){
+ particles.push({
+  x,y,type,dx:(Math.random()-.5)*2,dy:-(1+Math.random()*2.7),
+  size:5+Math.random()*15,rot:Math.random()*6,
+  spin:(Math.random()-.5)*.05,life:1,fade:.003+Math.random()*.004,
+  color:['#ff8eae','#ffd6e4','#ffe6ae','#e9b5ff','#fff5ef'][Math.floor(Math.random()*5)]
+ });
+}
+function drawParticle(p){
+ ctx.save();ctx.translate(p.x,p.y);ctx.rotate(p.rot);
+ ctx.globalAlpha=Math.max(0,p.life);ctx.fillStyle=p.color;
+ if(p.type==='heart'){
+  const z=p.size/18;
+  ctx.scale(z,z);ctx.beginPath();ctx.moveTo(0,5);
+  ctx.bezierCurveTo(-18,-7,-10,-16,0,-8);
+  ctx.bezierCurveTo(10,-16,18,-7,0,5);ctx.fill();
+ }else{
+  ctx.beginPath();ctx.ellipse(0,0,p.size*.32,p.size*.65,0,0,Math.PI*2);ctx.fill();
+ }
+ ctx.restore();
+}
+function animateFx(){
+ ctx.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0);
+ ctx.clearRect(0,0,innerWidth,innerHeight);
+ particles.forEach(p=>{
+  p.x+=p.dx;p.y+=p.dy;p.rot+=p.spin;p.life-=p.fade;
+  drawParticle(p);
+ });
+ particles=particles.filter(p=>p.life>0&&p.y>-50);
+ if(particles.length){requestAnimationFrame(animateFx)}
+ else{fxRunning=false;ctx.clearRect(0,0,innerWidth,innerHeight)}
+}
+function burst(count=100){
+ for(let i=0;i<count;i++){
+  addParticle(Math.random()*innerWidth,innerHeight+Math.random()*innerHeight*.6,
+  Math.random()>.48?'heart':'petal');
+ }
+ if(!fxRunning){fxRunning=true;requestAnimationFrame(animateFx)}
+}
+let rainTimer;
+function startRain(){
+ clearInterval(rainTimer);
+ rainTimer=setInterval(()=>{
+  for(let i=0;i<3;i++)addParticle(Math.random()*innerWidth,innerHeight+20,Math.random()>.5?'heart':'petal');
+  if(!fxRunning){fxRunning=true;requestAnimationFrame(animateFx)}
+ },160);
+ setTimeout(()=>clearInterval(rainTimer),15000);
+}
+
+/* فتح الظرف */
+const envelope=document.getElementById('envelope');
+const openBtn=document.getElementById('openBtn');
+let opened=false,typingTimer;
+const message=`يا ماما، ❤️
+
+يمكن مهما كبرت، هفضل دايمًا محتاج حضنك، ودعوتك، وصوتك اللي بيطمن قلبي مهما الدنيا كانت صعبة.
+
+يمكن مش بعرف أقولك كل يوم إنتِ غالية عندي قد إيه، ويمكن ساعات بقصّر من غير ما أقصد، بس والله إنتِ في قلبي في مكان محدش يقدر ياخده.
+
+شكرًا على كل مرة تعبتي فيها عشاني، وعلى كل خوف خبّيتيه جواكي عشان تطمنيني، وعلى كل دعوة دعتيها ليا وإنتِ بتتمني تشوفيني أحسن واحد في الدنيا.
+
+أنا عارف إن كلمة «شكرًا» صغيرة قدام كل اللي عملتيه، وإن مفيش هدية تقدر تساوي لحظة واحدة من عمرك اللي اديتيهالي بحب.
+
+كل اللي بتمناه إني أشوفك مبسوطة، وأكون سبب في ضحكتك زي ما كنتِ دايمًا سبب في أماني وراحتي. نفسي الأيام الجاية تعوضك عن أي تعب، وتديكي من الفرحة أضعاف اللي اديتيهولي.
+
+ربنا يديكي الصحة وراحة البال، ويطوّل في عمرك، ويخليني دايمًا جنبك، وأقدر أرد ولو جزء صغير من حبك وحنانك.
+
+لو ليا أمنية واحدة أطلبها من الدنيا، فهي إن ضحكتك تفضل منوّرة حياتي، وإن ربنا ما يحرمنيش من وجودك ولا من كلمة «ربنا يخليك يا ابني» اللي بتساوي عندي الدنيا كلها.
+
+بحبك يا ماما… حب أكبر من الكلام، وأعمق من أي رسالة، وهفضل طول عمري فخور إنك أمي.
+
+كل يوم وإنتِ أجمل نعمة في حياتي. ❤️`;
+
+function typeMessage(){
+ clearInterval(typingTimer);
+ const target=document.getElementById('typed');
+ const cursor=document.getElementById('cursor');
+ target.textContent='';cursor.style.display='inline-block';
+ let i=0;
+ typingTimer=setInterval(()=>{
+  if(i>=message.length){
+   clearInterval(typingTimer);cursor.style.display='none';return;
+  }
+  target.textContent+=message[i++];
+  if(i%4===0)window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'});
+ },38);
+}
+function openLetter(){
+ if(opened)return;opened=true;
+ envelope.classList.add('open');
+ document.getElementById('tapText').textContent='رسالتك جاية من قلبي يا ماما… ❤️';
+ openBtn.style.display='none';
+ burst(55);
+ setTimeout(()=>{
+  document.getElementById('reveal').classList.add('show');
+  typeMessage();startRain();
+  setTimeout(()=>document.getElementById('reveal').scrollIntoView({behavior:'smooth',block:'start'}),500);
+ },1300);
+}
+envelope.addEventListener('click',openLetter);
+envelope.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();openLetter()}});
+openBtn.addEventListener('click',openLetter);
+document.getElementById('readBtn').addEventListener('click',()=>{
+ typeMessage();document.querySelector('.message-card').scrollIntoView({behavior:'smooth'});
+});
+
+/* زر الاحتفال */
+document.getElementById('celebrateBtn').addEventListener('click',()=>{
+ burst(180);startRain();
+ const toast=document.getElementById('toast');
+ toast.classList.add('show');setTimeout(()=>toast.classList.remove('show'),3500);
+});
+
+/* موسيقى اختيارية مولدة محليًا، لا تحتاج ملفًا أو اتصالًا */
+let audioCtx=null,musicOn=false,notesTimer=null,noteIndex=0;
+const melody=[523.25,659.25,783.99,659.25,587.33,698.46,880,783.99,659.25,587.33,523.25,392];
+function playNote(freq){
+ if(!audioCtx||!musicOn)return;
+ const osc=audioCtx.createOscillator(),gain=audioCtx.createGain();
+ osc.type='sine';osc.frequency.value=freq;
+ gain.gain.setValueAtTime(.0001,audioCtx.currentTime);
+ gain.gain.exponentialRampToValueAtTime(.055,audioCtx.currentTime+.08);
+ gain.gain.exponentialRampToValueAtTime(.0001,audioCtx.currentTime+.75);
+ osc.connect(gain);gain.connect(audioCtx.destination);
+ osc.start();osc.stop(audioCtx.currentTime+.8);
+}
+const musicBtn=document.getElementById('musicBtn');
+musicBtn.addEventListener('click',async()=>{
+ if(!musicOn){
+  try{
+   audioCtx=audioCtx||new(window.AudioContext||window.webkitAudioContext)();
+   await audioCtx.resume();musicOn=true;
+   musicBtn.textContent='♫ إيقاف الموسيقى';
+   playNote(melody[noteIndex++%melody.length]);
+   notesTimer=setInterval(()=>playNote(melody[noteIndex++%melody.length]),520);
+  }catch(e){musicBtn.textContent='الموسيقى غير متاحة على هذا الجهاز'}
+ }else{
+  musicOn=false;clearInterval(notesTimer);
+  musicBtn.textContent='♫ تشغيل الموسيقى';
+ }
+});
+</script>
+</body>
+</html>
