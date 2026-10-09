@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#160d25">
+<title>إلى أمي ❤️ أجمل نعمة في حياتي</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Amiri:wght@400;700&display=swap');
+
+:root {
+    --bg: #160d25;
+    --pink: #ff91b4;
+    --gold: #f8d99d;
+    --white: #fff8fc;
+    --muted: #d9c6dc;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    min-height: 100vh;
+    overflow-x: hidden;
+    color: var(--white);
+    font-family: 'Cairo', sans-serif;
+    background:
+        radial-gradient(ellipse at 15% 10%, #49224f 0%, transparent 42%),
+        radial-gradient(ellipse at 90% 80%, #421b45 0%, transparent 40%),
+        var(--bg);
+}
+
+button, input {
+    font-family: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+#stars {
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.star {
+    position: absolute;
+    color: #ffe7ba;
+    animation: twinkle 3s infinite ease-in-out;
+}
+
+@keyframes twinkle {
+    0%, 100% { opacity: .2; transform: scale(.8); }
+    50% { opacity: .9; transform: scale(1.25); }
+}
+
+.heart {
+    position: fixed;
+    bottom: -40px;
+    pointer-events: none;
+    z-index: 5;
+    animation: floatUp linear forwards;
+}
+
+@keyframes floatUp {
+    to {
+        transform: translateY(-115vh) rotate(35deg);
+        opacity: 0;
+    }
+}
+
+@keyframes appear {
+    from { opacity: 0; transform: translateY(22px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    15% { transform: scale(1.12); }
+    30% { transform: scale(1); }
+    45% { transform: scale(1.08); }
+}
+
+/* شاشة كلمة السر */
+
+.lock-screen {
+    position: fixed;
+    inset: 0;
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background:
+        radial-gradient(ellipse at top, #49244d, transparent 65%),
+        #160d25;
+    transition: opacity .8s, visibility .8s;
+}
+
+.lock-screen.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.lock-card {
+    width: 100%;
+    max-width: 410px;
+    padding: 35px 25px;
+    text-align: center;
+    border: 1px solid #ffffff20;
+    border-radius: 30px;
+    background: #ffffff0c;
+    backdrop-filter: blur(18px);
+    box-shadow: 0 25px 80px #0005;
+    animation: appear 1s ease;
+}
+
+.lock-icon {
+    width: 100px;
+    height: 100px;
+    display: grid;
+    place-items: center;
+    margin: 0 auto 20px;
+    border-radius: 50%;
+    background: linear-gradient(145deg, #ffd2e1, #ee7da5);
+    box-shadow: 0 0 40px #ff8eae35;
+    font-size: 45px;
+}
+
+.eyebrow {
+    color: var(--gold);
+    font-size: 12px;
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+}
+
+.lock-card h1 {
+    font-family: 'Amiri', serif;
+    font-size: clamp(28px, 7vw, 37px);
+    margin-bottom: 12px;
+}
+
+.lock-card p {
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 2.1;
+}
+
+.password-input {
+    width: 100%;
+    margin-top: 25px;
+    padding: 15px;
+    text-align: center;
+    color: white;
+    font-size: 25px;
+    letter-spacing: 12px;
+    border: 1px solid #ffffff25;
+    border-radius: 15px;
+    outline: none;
+    background: #ffffff0b;
+    direction: ltr;
+}
+
+.password-input:focus {
+    border-color: var(--pink);
+    box-shadow: 0 0 0 3px #ff8eae20;
+}
+
+.main-btn {
+    width: 100%;
+    margin-top: 15px;
+    padding: 14px;
+    color: #381629;
+    font-size: 16px;
+    font-weight: 800;
+    border: none;
+    border-radius: 15px;
+    background: linear-gradient(135deg, #ffe3ed, #ff91b4);
+    transition: transform .2s;
+}
+
+.main-btn:active {
+    transform: scale(.98);
+}
+
+.error {
+    min-height: 25px;
+    margin-top: 10px;
+    color: #ffb0bd;
+    font-size: 13px;
+}
+
+/* الموقع الرئيسي */
+
+#mainSite {
+    display: none;
+    position: relative;
+    z-index: 2;
+}
+
+#mainSite.visible {
+    display: block;
+    animation: appear 1s ease;
+}
+
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    padding: 16px 6%;
+    border-bottom: 1px solid #ffffff10;
+}
+
+.brand {
+    color: #ffd4e2;
+    font-weight: 800;
+    font-size: 14px;
+}
+
+.music-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 13px;
+    border: 1px solid #ffffff25;
+    border-radius: 30px;
+    color: white;
+    background: #ffffff0c;
+    font-size: 12px;
+}
+
+.music-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--pink);
+    border-radius: 50%;
+}
+
+.music-btn.playing .music-dot {
+    animation: twinkle 1s infinite;
+}
+
+section {
+    position: relative;
+    z-index: 2;
+    padding: 75px 20px;
+}
+
+.hero {
+    min-height: 83vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.hero-content {
+    max-width: 780px;
+    animation: appear 1.3s ease;
+}
+
+.small-label {
+    display: inline-block;
+    color: var(--gold);
+    border: 1px solid #f8d89a40;
+    background: #f8d89a0c;
+    padding: 8px 17px;
+    border-radius: 40px;
+    font-size: 12px;
+    margin-bottom: 25px;
+}
+
+.hero-heart {
+    display: block;
+    font-size: 65px;
+    margin-bottom: 15px;
+    filter: drop-shadow(0 0 25px #ff8eae55);
+    animation: heartbeat 2s infinite;
+}
+
+.hero h1 {
+    font-family: 'Amiri', serif;
+    font-size: clamp(48px, 11vw, 85px);
+    line-height: 1.4;
+    background: linear-gradient(135deg, #fff, #ffc1d7, #f8d99d);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.hero h2 {
+    margin-top: 12px;
+    color: #ffd4e2;
+    font-size: clamp(18px, 4vw, 27px);
+}
+
+.hero p {
+    max-width: 540px;
+    margin: 20px auto 0;
+    color: var(--muted);
+    line-height: 2.2;
+    font-size: 15px;
+}
+
+.scroll-btn {
+    display: inline-block;
+    margin-top: 30px;
+    padding: 13px 25px;
+    border-radius: 30px;
+    color: #351526;
+    text-decoration: none;
+    font-weight: 800;
+    background: linear-gradient(135deg, #ffe5ee, #ff9fbd);
+    box-shadow: 0 8px 30px #ff8eae20;
+}
+
+.section-heading {
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+.section-heading .mini {
+    color: var(--gold);
+    font-size: 12px;
+    letter-spacing: 2px;
+}
+
+.section-heading h2 {
+    font-family: 'Amiri', serif;
+    font-size: clamp(30px, 6vw, 45px);
+    margin-top: 10px;
+}
+
+.section-heading p {
+    color: var(--muted);
+    font-size: 14px;
+    margin-top: 10px;
+    line-height: 2;
+}
+
+.message-card {
+    max-width: 760px;
+    margin: auto;
+    padding: clamp(25px, 6vw, 50px);
+    border: 1px solid #ffffff17;
+    border-radius: 28px;
+    background: linear-gradient(145deg, #ffffff0d, #ffffff04);
+    box-shadow: 0 25px 80px #0002;
+}
+
+.quote {
+    font-family: 'Amiri', serif;
+    font-size: 27px;
+    color: var(--pink);
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.message-text {
+    color: #f5e9f4;
+    font-size: 15px;
+    line-height: 2.5;
+    text-align: center;
+    white-space: pre-line;
+}
+
+.divider {
+    width: 80px;
+    height: 2px;
+    margin: 25px auto;
+    background: linear-gradient(90deg, transparent, var(--pink), transparent);
+}
+
+.signature {
+    text-align: center;
+    color: var(--gold);
+    font-family: 'Amiri', serif;
+    font-size: 25px;
+}
+
+.cards {
+    max-width: 1000px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.love-card {
+    padding: 28px 20px;
+    text-align: center;
+    border: 1px solid #ffffff15;
+    border-radius: 22px;
+    background: #ffffff09;
+    transition: transform .3s, border-color .3s;
+}
+
+.love-card:hover {
+    transform: translateY(-5px);
+    border-color: #ff8eae70;
+}
+
+.love-card .icon {
+    font-size: 38px;
+    margin-bottom: 15px;
+}
+
+.love-card h3 {
+    color: #ffd4e2;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.love-card p {
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 2;
+}
+
+.prayers {
+    max-width: 760px;
+    margin: auto;
+    display: grid;
+    gap: 15px;
+}
+
+.prayer {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    padding: 20px;
+    border: 1px solid #ffffff15;
+    border-radius: 18px;
+    background: #ffffff08;
+}
+
+.prayer span {
+    font-size: 25px;
+}
+
+.prayer p {
+    color: #f2e5f1;
+    line-height: 2;
+    font-size: 14px;
+}
+
+.final-section {
+    text-align: center;
+    padding-top: 90px;
+    padding-bottom: 100px;
+}
+
+.big-heart {
+    font-size: 75px;
+    filter: drop-shadow(0 0 30px #ff8eae60);
+}
+
+.final-section h2 {
+    font-family: 'Amiri', serif;
+    font-size: clamp(38px, 8vw, 60px);
+    margin: 20px 0;
+    color: #ffd4e2;
+}
+
+.final-section p {
+    max-width: 550px;
+    margin: auto;
+    color: var(--muted);
+    font-size: 15px;
+    line-height: 2.5;
+}
+
+.final-sign {
+    font-family: 'Amiri', serif;
+    color: var(--gold);
+    font-size: 27px;
+    margin-top: 25px;
+}
+
+footer {
+    text-align: center;
+    padding: 25px 15px;
+    border-top: 1px solid #ffffff10;
+    color: #bba6c0;
+    font-size: 12px;
+    line-height: 2;
+}
+
+@media (max-width: 700px) {
+    section {
+        padding: 60px 17px;
+    }
+
+    .hero {
+        min-height: 78vh;
+    }
+
+    .cards {
+        grid-template-columns: 1fr;
+        max-width: 430px;
+    }
+
+    .topbar {
+        padding: 14px 4%;
+    }
+
+    .brand {
+        font-size: 12px;
+    }
+
+    .music-btn {
+        padding: 8px 10px;
+        font-size: 11px;
+    }
+
+    .message-text {
+        font-size: 14px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div id="stars"></div>
+
+<!-- شاشة كلمة السر -->
+<div class="lock-screen" id="lockScreen">
+    <div class="lock-card">
+        <div class="lock-icon">💌</div>
+
+        <div class="eyebrow">هدية صغيرة من القلب</div>
+
+        <h1>مفاجأة مخصوص ليكي يا أمي ❤️</h1>
+
+        <p>
+            فيه رسالة جميلة مستنياكي جوه...
+            <br>
+            اكتبي كلمة السر وافتحي هديتك.
+        </p>
+
+        <form id="passwordForm">
+            <input
+                class="password-input"
+                id="passwordInput"
+                type="password"
+                inputmode="numeric"
+                maxlength="4"
+                placeholder="••••"
+                aria-label="كلمة السر"
+                autocomplete="off"
+                required
+            >
+
+            <button class="main-btn" type="submit">
+                افتحي هديتك ❤️
+            </button>
+        </form>
+
+        <div class="error" id="errorMessage"></div>
+    </div>
+</div>
+
+<!-- الأغنية: اسم الملف مطابق تمامًا للاسم الذي رفعته على GitHub -->
+<audio id="backgroundMusic" loop preload="auto">
+    <source src="./Albumaty.Com_hsyn_algsmy_amy_gnt.mp3" type="audio/mpeg">
+</audio>
+
+<div id="mainSite">
+
+    <header class="topbar">
+        <div class="brand">♡ رسالة من القلب</div>
+
+        <button class="music-btn" id="musicButton" type="button">
+            <span class="music-dot"></span>
+            <span id="musicLabel">تشغيل الموسيقى</span>
+        </button>
+    </header>
+
+    <main>
+
+        <section class="hero">
+            <div class="hero-content">
+                <span class="small-label">إلى أغلى إنسانة في حياتي</span>
+
+                <span class="hero-heart">❤️</span>
+
+                <h1>أمي الحبيبة</h1>
+
+                <h2>أنتِ أجمل نعمة ربنا رزقني بيها</h2>
+
+                <p>
+                    يمكن الكلام مهما كان جميل مش هيوصف مكانتك عندي،
+                    بس حبيت أعملك حاجة من قلبي،
+                    تفكرك إنك دايمًا أغلى حد في حياتي.
+                </p>
+
+                <a class="scroll-btn" href="#letter">
+                    افتحي رسالتي ليكي ↓
+                </a>
+            </div>
+        </section>
+
+        <section id="letter">
+            <div class="section-heading">
+                <div class="mini">كلام من القلب</div>
+                <h2>رسالة لأحن قلب ❤️</h2>
+                <p>كلام يمكن بقصر في قوله، لكنه عمره ما بيغيب عن قلبي.</p>
+            </div>
+
+            <div class="message-card">
+                <div class="quote">« أمي.. يا أجمل حكاية في عمري »</div>
+
+                <div class="message-text">يا أمي الحبيبة ❤️
+
+مش عارف أبدأ كلامي منين، ولا إزاي أوصفلك
+قد إيه أنا بحبك وقد إيه وجودك في حياتي نعمة كبيرة.
+
+شكرًا على كل مرة تعبتي عشاني،
+وكل مرة خفتي عليّا، وكل دعوة دعتيهالي من قلبك،
+وكل مرة كنتِ فيها جنبي حتى وأنا مش عارف أعبّر.
+
+يمكن ساعات مقصر في حقك،
+ويمكن مش بقولك كل يوم إنتِ غالية عندي قد إيه،
+لكن الحقيقة إن مفيش كلام يقدر يوصف مكانتك في قلبي.
+
+نفسي أشوفك دايمًا مبسوطة ومرتاحة،
+ونفسي ربنا يقدرني وأفرح قلبك،
+وأكون سبب في ضحكتك زي ما كنتِ دايمًا سبب في أماني.
+
+ربنا يخليكي ليا يا أمي،
+ويباركلي في عمرك وصحتك،
+وما يحرمنيش أبدًا من وجودك ودعواتك وحنانك.
+
+بحبك حب أكبر من أي كلام،
+وهفضل طول عمري فخور إنك أمي. ❤️</div>
+
+                <div class="divider"></div>
+
+                <div class="signature">ابنك اللي بيحبك من كل قلبه ❤️</div>
+            </div>
+        </section>
+
+        <section>
+            <div class="section-heading">
+                <div class="mini">ثلاث حاجات من قلبي</div>
+                <h2>إنتِ بالنسبة لي إيه؟</h2>
+                <p>في حاجات وجودها في حياتنا ملوش بديل، وإنتِ أولهم.</p>
+            </div>
+
+            <div class="cards">
+                <article class="love-card">
+                    <div class="icon">🏡</div>
+                    <h3>أماني</h3>
+                    <p>
+                        مهما الدنيا تتغير، وجودك جنبي
+                        بيخليني أحس إن لسه في أمان،
+                        وإن فيه قلب دايمًا بيتمنى لي الخير.
+                    </p>
+                </article>
+
+                <article class="love-card">
+                    <div class="icon">🤍</div>
+                    <h3>دعوتي الحلوة</h3>
+                    <p>
+                        دعواتك عندي بالدنيا وما فيها،
+                        وربنا وحده عالم قد إيه بتمنى
+                        أشوفك دايمًا راضية ومبسوطة.
+                    </p>
+                </article>
+
+                <article class="love-card">
+                    <div class="icon">🌷</div>
+                    <h3>أجمل نعمة</h3>
+                    <p>
+                        لو ليا أمنية أطلبها كل يوم،
+                        فهي إن ربنا يحفظك ليا،
+                        ويقدرني أرد جزء من فضلك.
+                    </p>
+                </article>
+            </div>
+        </section>
+
+        <section>
+            <div class="section-heading">
+                <div class="mini">دعوات من القلب</div>
+                <h2>يا رب احفظ أمي ❤️</h2>
+                <p>أجمل هدية أقدر أقدمهالك هي دعوة صادقة من قلبي.</p>
+            </div>
+
+            <div class="prayers">
+                <div class="prayer">
+                    <span>🤲</span>
+                    <p>
+                        يا رب احفظ أمي بعينك التي لا تنام،
+                        وارزقها الصحة والعافية وراحة البال.
+                    </p>
+                </div>
+
+                <div class="prayer">
+                    <span>🌸</span>
+                    <p>
+                        يا رب املأ قلبها فرحة وطمأنينة،
+                        وعوّضها عن كل تعب شافته بأيام جميلة.
+                    </p>
+                </div>
+
+                <div class="prayer">
+                    <span>💗</span>
+                    <p>
+                        يا رب أقدر أفرحها وأكون ابنًا صالحًا ليها،
+                        واجعلني دايمًا سبب في ابتسامتها وفخرها.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="final-section">
+            <div class="big-heart">💖</div>
+
+            <h2>بحبك يا أمي</h2>
+
+            <p>
+                لو كان الحب بيتكتب في رسالة،
+                فكل الرسائل مش هتكفي.
+                ولو كان بيتقاس بالكلام،
+                فكل الكلام قليل عليكي.
+
+                <br><br>
+
+                إنتِ مش مجرد جزء من حياتي...
+                إنتِ من أجمل أسبابها.
+                ربنا يخليكي ليا يا أغلى الناس.
+            </p>
+
+            <div class="final-sign">من ابنك ❤️</div>
+        </section>
+
+    </main>
+
+    <footer>
+        اتعملت بكل الحب ❤️ علشان أغلى أم في الدنيا
+        <br>
+        ربنا يخليكي ليا يا أمي 🌷
+    </footer>
+
+</div>
+
+<script>
+const CORRECT_PASSWORD = "1010";
+
+const lockScreen = document.getElementById("lockScreen");
+const passwordForm = document.getElementById("passwordForm");
+const passwordInput = document.getElementById("passwordInput");
+const errorMessage = document.getElementById("errorMessage");
+
+const mainSite = document.getElementById("mainSite");
+const music = document.getElementById("backgroundMusic");
+const musicButton = document.getElementById("musicButton");
+const musicLabel = document.getElementById("musicLabel");
+
+/* نجوم متحركة */
+const starsContainer = document.getElementById("stars");
+
+for (let i = 0; i < 55; i++) {
+    const star = document.createElement("span");
+    star.className = "star";
+    star.textContent = Math.random() > 0.5 ? "✦" : "·";
+    star.style.left = Math.random() * 100 + "%";
+    star.style.top = Math.random() * 100 + "%";
+    star.style.fontSize = (8 + Math.random() * 12) + "px";
+    star.style.animationDelay = Math.random() * 4 + "s";
+    star.style.animationDuration = (2 + Math.random() * 4) + "s";
+    starsContainer.appendChild(star);
+}
+
+/* فتح الهدية وتشغيل الأغنية */
+passwordForm.addEventListener("submit", async function(event) {
+    event.preventDefault();
+
+    if (passwordInput.value.trim() !== CORRECT_PASSWORD) {
+        errorMessage.textContent = "كلمة السر مش صحيحة، جربي تاني يا أمي ❤️";
+        passwordInput.value = "";
+        passwordInput.focus();
+        return;
+    }
+
+    errorMessage.textContent = "";
+
+    /*
+      تشغيل الصوت يبدأ مباشرة بعد ضغط زر فتح الهدية.
+      يجب أن يكون ملف MP3 موجودًا في نفس مجلد index.html.
+    */
+    music.volume = 0.7;
+
+    mainSite.classList.add("visible");
+    lockScreen.classList.add("hidden");
+
+    window.scrollTo({ top: 0, behavior: "smooth" });
+
+    startFloatingHearts();
+
+    try {
+        await music.play();
+        updateMusicButton(true);
+    } catch (error) {
+        updateMusicButton(false);
+        musicLabel.textContent = "اضغطي لتشغيل الأغنية";
+    }
+});
+
+/* تشغيل وإيقاف الموسيقى */
+musicButton.addEventListener("click", async function() {
+    if (music.paused) {
+        try {
+            await music.play();
+            updateMusicButton(true);
+        } catch (error) {
+            musicLabel.textContent = "تعذر تشغيل الأغنية";
+        }
+    } else {
+        music.pause();
+        updateMusicButton(false);
+    }
+});
+
+function updateMusicButton(playing) {
+    musicLabel.textContent = playing ? "إيقاف الموسيقى" : "تشغيل الموسيقى";
+    musicButton.classList.toggle("playing", playing);
+}
+
+/* قلوب متحركة */
+let heartsStarted = false;
+
+function startFloatingHearts() {
+    if (heartsStarted) return;
+    heartsStarted = true;
+
+    setInterval(function() {
+        if (document.hidden) return;
+
+        const heart = document.createElement("div");
+        heart.className = "heart";
+
+        const emojis = ["❤️", "💗", "💕", "🌸", "✨"];
+        heart.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.fontSize = (13 + Math.random() * 16) + "px";
+        heart.style.animationDuration = (6 + Math.random() * 5) + "s";
+
+        document.body.appendChild(heart);
+
+        setTimeout(function() {
+            heart.remove();
+        }, 12000);
+    }, 850);
+}
+</script>
+
+</body>
+</html>
