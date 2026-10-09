@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#2b0f1c">
+    <title>عالم ماما - هدية 10/10</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800&family=Aref+Ruqaa:wght@400;700&family=Amiri:ital,wght@0,400;0,700;1,400&display=swap');
+
+        /* =========================================
+           1. المتغيرات والإعدادات العامة
+        ========================================= */
+        :root {
+            --bg-deep: #1a0b16;
+            --bg-mid: #3a152d;
+            --bg-light: #5e1c41;
+            --gold: #dfb76c;
+            --gold-light: #fbe698;
+            --rose: #e65c87;
+            --rose-light: #ff8fab;
+            --white-glass: rgba(255, 255, 255, 0.08);
+            --white-glass-hover: rgba(255, 255, 255, 0.15);
+            --border-glass: rgba(223, 183, 108, 0.3);
+            --text-main: #fdf0f5;
+            --shadow-glow: 0 0 25px rgba(223, 183, 108, 0.4);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        
+        body, html {
+            width: 100%; height: 100%;
+            background: radial-gradient(circle at 50% 50%, var(--bg-mid) 0%, var(--bg-deep) 100%);
+            font-family: 'Cairo', sans-serif; color: var(--text-main);
+            overflow: hidden; /* نمنع السحب العشوائي للصفحة */
+        }
+
+        /* =========================================
+           2. الخلفية ومحرك الكانفاس
+        ========================================= */
+        #physics-canvas {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            z-index: 1; pointer-events: none;
+        }
+
+        .ambient-light {
+            position: fixed; border-radius: 50%; filter: blur(80px); z-index: 0;
+            animation: floatLight 10s infinite alternate ease-in-out;
+        }
+        .light-1 { top: -10%; left: -10%; width: 50vw; height: 50vw; background: rgba(230, 92, 135, 0.15); }
+        .light-2 { bottom: -10%; right: -10%; width: 60vw; height: 60vw; background: rgba(223, 183, 108, 0.1); animation-delay: -5s;}
+
+        @keyframes floatLight {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(30px, 50px) scale(1.1); }
+        }
+
+        /* =========================================
+           3. الحاويات الرئيسية والتنقل
+        ========================================= */
+        .app-container {
+            position: relative; z-index: 10; width: 100%; height: 100%;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+        }
+
+        .scene {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            opacity: 0; visibility: hidden; transition: all 1.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            transform: scale(0.9) translateY(30px);
+            overflow-y: auto; overflow-x: hidden;
+            padding: 20px;
+        }
+
+        .scene.active {
+            opacity: 1; visibility: visible; transform: scale(1) translateY(0);
+        }
+        
+        .scene.fade-out {
+            opacity: 0; visibility: hidden; transform: scale(1.1) translateY(-30px);
+        }
+
+        /* تأثيرات الزجاج (Glassmorphism) */
+        .glass-panel {
+            background: var(--white-glass);
+            backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--border-glass);
+            border-radius: 30px; padding: 40px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.2);
+            width: 100%; max-width: 600px; text-align: center;
+        }
+
+        /* =========================================
+           4. شاشة القفل (Password Screen)
+        ========================================= */
+        .lock-icon { font-size: 60px; margin-bottom: 10px; animation: heartbeat 2s infinite; display: inline-block; filter: drop-shadow(0 0 10px var(--rose)); }
+        
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            15% { transform: scale(1.2); }
+            30% { transform: scale(1); }
+            45% { transform: scale(1.2); }
+        }
+
+        .title-main { font-family: 'Aref Ruqaa', serif; font-size: 2.8rem; color: var(--gold-light); margin-bottom: 5px; text-shadow: 0 2px 10px rgba(0,0,0,0.5); }
+        .subtitle { font-size: 1.1rem; color: #dcb8c5; margin-bottom: 30px; font-weight: 300; }
+
+        .pass-container { display: flex; justify-content: center; gap: 15px; margin-bottom: 25px; direction: ltr; }
+        .pass-digit {
+            width: 55px; height: 65px; font-size: 28px; text-align: center;
+            background: rgba(0,0,0,0.3); color: var(--gold-light);
+            border: 2px solid var(--border-glass); border-radius: 15px;
+            font-family: 'Cairo', sans-serif; font-weight: bold;
+            transition: all 0.3s; outline: none; box-shadow: inset 0 2px 5px rgba(0,0,0,0.5);
+        }
+        .pass-digit:focus { border-color: var(--gold); box-shadow: 0 0 15px rgba(223, 183, 108, 0.4), inset 0 2px 5px rgba(0,0,0,0.5); transform: translateY(-3px); }
+        
+        .btn {
+            background: linear-gradient(135deg, var(--gold), #b8860b);
+            color: var(--bg-deep); border: none; padding: 15px 40px;
+            font-size: 18px; font-weight: 800; border-radius: 30px;
+            cursor: pointer; transition: all 0.3s; box-shadow: var(--shadow-glow);
+            font-family: 'Cairo', sans-serif; display: inline-flex; align-items: center; gap: 10px;
+        }
+        .btn:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 0 35px rgba(223, 183, 108, 0.6); }
+        .btn:active { transform: translateY(1px) scale(0.98); }
+        
+        .error-message { color: #ff4d4d; font-size: 14px; margin-top: 15px; min-height: 20px; opacity: 0; transition: opacity 0.3s; font-weight: 600;}
+
+        /* =========================================
+           5. شاشة الظرف الثلاثي الأبعاد (3D Envelope)
+        ========================================= */
+        .envelope-wrapper {
+            perspective: 1200px; width: 320px; height: 220px; margin: 40px auto;
+            cursor: pointer; position: relative;
+        }
+        .envelope-3d {
+            width: 100%; height: 100%; position: absolute; transform-style: preserve-3d;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .envelope-wrapper:hover .envelope-3d { transform: rotateY(15deg) rotateX(5deg); }
+        
+        .env-part { position: absolute; inset: 0; backface-visibility: hidden; border-radius: 12px; }
+        .env-back { background: linear-gradient(135deg, #b03a5e, #8c2647); transform: translateZ(-2px); box-shadow: 0 20px 40px rgba(0,0,0,0.5); }
+        .env-front { 
+            background: linear-gradient(135deg, var(--rose), #c7406a);
+            clip-path: polygon(0 0, 50% 50%, 100% 0, 100% 100%, 0 100%);
+            transform: translateZ(2px);
+        }
+        .env-flap {
+            background: linear-gradient(135deg, #ff7b9e, var(--rose));
+            clip-path: polygon(0 0, 100% 0, 50% 60%);
+            transform-origin: top; transition: transform 0.8s ease-in-out;
+            transform: translateZ(3px) rotateX(0deg);
+        }
+        .env-seal {
+            position: absolute; left: 50%; top: 55%; transform: translate(-50%, -50%) translateZ(4px);
+            width: 50px; height: 50px; background: radial-gradient(circle, var(--gold-light), var(--gold));
+            border-radius: 50%; box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+            display: grid; place-items: center; color: var(--bg-deep); font-size: 24px; transition: opacity 0.3s;
+        }
+        .env-letter {
+            position: absolute; bottom: 5px; left: 10px; right: 10px; height: 200px;
+            background: linear-gradient(to bottom, #fffdf8, #f5ecd8); border-radius: 8px;
+            transform: translateZ(0px); transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1);
+            padding: 20px; color: var(--bg-deep); display: flex; flex-direction: column; align-items: center; border: 1px solid #e0c8a0;
+        }
+        
+        .envelope-wrapper.is-open .env-flap { transform: translateZ(1px) rotateX(180deg); }
+        .envelope-wrapper.is-open .env-seal { opacity: 0; }
+        .envelope-wrapper.is-open .env-letter { transform: translateZ(5px) translateY(-120px); z-index: 10; }
+        
+        .instruction { animation: pulseOpacity 2s infinite; margin-top: 30px; font-weight: 600; color: var(--gold-light); }
+        @keyframes pulseOpacity { 50% { opacity: 0.5; } }
+
+        /* =========================================
+           6. شاشة الرسالة (بدون اهتزاز الشاشة)
+        ========================================= */
+        .message-board {
+            width: 100%; max-width: 800px; min-height: 55vh; /* تحديد ارتفاع ثابت يمنع السحب */
+            display: flex; flex-direction: column;
+            padding: 40px; background: var(--white-glass);
+            border-radius: 30px; border: 1px solid var(--border-glass);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5); position: relative;
+        }
+        
+        .quote-icon { font-size: 40px; color: var(--gold); opacity: 0.3; position: absolute; }
+        .quote-right { top: 20px; right: 20px; }
+        .quote-left { bottom: 20px; left: 20px; transform: rotate(180deg); }
+
+        .typewriter-text {
+            font-family: 'Amiri', serif; font-size: clamp(22px, 5vw, 32px);
+            line-height: 2.2; color: #fffaf0; text-align: right;
+            flex-grow: 1; position: relative; z-index: 2;
+        }
+        .cursor { display: inline-block; width: 3px; height: 1em; background: var(--gold); vertical-align: middle; animation: blink 1s step-end infinite; margin-right: 5px;}
+        @keyframes blink { 50% { opacity: 0; } }
+
+        .controls-row { display: flex; justify-content: space-between; margin-top: 30px; width: 100%; max-width: 800px; gap: 15px;}
+        .btn-outline {
+            background: transparent; border: 2px solid var(--gold); color: var(--gold);
+            padding: 12px 25px; border-radius: 20px; cursor: pointer; transition: 0.3s;
+            font-weight: bold; flex: 1;
+        }
+        .btn-outline:hover { background: var(--gold); color: var(--bg-deep); }
+
+        /* =========================================
+           7. شاشة شريط الذكريات (Timeline)
+        ========================================= */
+        .timeline-container { width: 100%; max-width: 600px; margin: 0 auto; position: relative; padding: 20px 0; }
+        .timeline-container::before {
+            content: ''; position: absolute; right: 30px; top: 0; height: 100%; width: 2px;
+            background: linear-gradient(to bottom, transparent, var(--gold), transparent);
+        }
+        .timeline-item {
+            position: relative; margin-bottom: 40px; padding-right: 70px;
+            opacity: 0; transform: translateX(50px); transition: 0.8s ease;
+        }
+        .timeline-item.visible { opacity: 1; transform: translateX(0); }
+        
+        .timeline-dot {
+            position: absolute; right: 15px; top: 5px; width: 32px; height: 32px;
+            background: var(--bg-deep); border: 3px solid var(--gold); border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; font-size: 14px;
+            box-shadow: 0 0 15px var(--gold); z-index: 2;
+        }
+        .timeline-content {
+            background: var(--white-glass); padding: 20px; border-radius: 15px;
+            border: 1px solid var(--border-glass); text-align: right;
+        }
+        .timeline-content h3 { color: var(--gold-light); font-family: 'Aref Ruqaa', serif; font-size: 24px; margin-bottom: 10px;}
+        .timeline-content p { color: #eed; line-height: 1.8; font-size: 16px; }
+
+        /* =========================================
+           8. شاشة فوانيس الأمنيات (Wishes)
+        ========================================= */
+        .lanterns-grid { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; margin-top: 40px; }
+        .lantern {
+            width: 100px; height: 140px; background: rgba(255, 255, 255, 0.05);
+            border: 2px solid var(--border-glass); border-radius: 50px 50px 10px 10px;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            cursor: pointer; position: relative; transition: 0.4s;
+            animation: floatLantern 4s infinite ease-in-out;
+        }
+        .lantern:nth-child(2) { animation-delay: 1s; }
+        .lantern:nth-child(3) { animation-delay: 2s; }
+        
+        @keyframes floatLantern {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        .lantern:hover { background: var(--white-glass-hover); box-shadow: 0 0 30px var(--gold); border-color: var(--gold); }
+        .lantern-flame {
+            width: 20px; height: 30px; background: #ffaa00; border-radius: 50% 50% 20% 20%;
+            box-shadow: 0 0 20px #ffaa00, 0 0 40px #ff5500; filter: blur(2px);
+            animation: flicker 0.5s infinite alternate; margin-bottom: 10px;
+        }
+        @keyframes flicker { 0% { transform: scale(1); opacity: 0.8;} 100% { transform: scale(1.1); opacity: 1;} }
+        
+        .lantern-text { color: var(--gold-light); font-weight: bold; font-size: 14px; }
+        
+        .wish-modal {
+            position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.8);
+            background: linear-gradient(135deg, #4a152d, #2b0f1c); padding: 40px;
+            border-radius: 20px; border: 2px solid var(--gold); box-shadow: 0 0 50px rgba(0,0,0,0.8);
+            z-index: 100; text-align: center; width: 90%; max-width: 400px;
+            opacity: 0; visibility: hidden; transition: 0.4s;
+        }
+        .wish-modal.active { opacity: 1; visibility: visible; transform: translate(-50%, -50%) scale(1); }
+        .wish-modal h3 { color: var(--gold-light); font-size: 28px; margin-bottom: 15px; font-family: 'Aref Ruqaa', serif; }
+        .wish-modal p { color: #fff; line-height: 2; font-size: 18px; margin-bottom: 25px; }
+
+        /* =========================================
+           9. شاشة النهاية (Finale)
+        ========================================= */
+        .finale-title { font-family: 'Aref Ruqaa', serif; font-size: 4rem; color: var(--gold-light); margin-bottom: 20px; line-height: 1.2; text-shadow: 0 0 20px var(--gold);}
+        .finale-text { font-size: 22px; color: #fdf0f5; margin-bottom: 40px; line-height: 1.8; }
+        .signature-box { border-top: 1px solid var(--border-glass); padding-top: 20px; margin-top: 20px; }
+        .signature-text { font-family: 'Aref Ruqaa', serif; font-size: 32px; color: var(--rose-light); }
+
+        /* إعدادات الشاشات الصغيرة */
+        @media(max-width: 600px){
+            .glass-panel, .message-board { padding: 25px 15px; }
+            .title-main { font-size: 2.2rem; }
+            .pass-digit { width: 45px; height: 55px; font-size: 24px; }
+            .typewriter-text { font-size: 20px; }
+            .finale-title { font-size: 3rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- الإضاءة المحيطية -->
+    <div class="ambient-light light-1"></div>
+    <div class="ambient-light light-2"></div>
+
+    <!-- محرك الكانفاس للفيزياء والجزيئات -->
+    <canvas id="physics-canvas"></canvas>
+
+    <div class="app-container">
+
+        <!-- Scene 1: Lock Screen -->
+        <div id="scene-lock" class="scene active">
+            <div class="glass-panel">
+                <div class="lock-icon">💖</div>
+                <h1 class="title-main">عالم ماما</h1>
+                <p class="subtitle">أدخلي تاريخ اليوم المميز لفتح هديتك</p>
+                
+                <div class="pass-container" id="pass-inputs">
+                    <input type="tel" class="pass-digit" maxlength="1" data-index="0">
+                    <input type="tel" class="pass-digit" maxlength="1" data-index="1">
+                    <input type="tel" class="pass-digit" maxlength="1" data-index="2">
+                    <input type="tel" class="pass-digit" maxlength="1" data-index="3">
+                </div>
+                
+                <p id="error-msg" class="error-message">الرمز غير صحيح، جربي (1010)</p>
+                <button class="btn" onclick="verifyPassword()" style="margin-top: 10px;">
+                    <span>فتح الهدية</span> 🗝️
+                </button>
+            </div>
+        </div>
+
+        <!-- Scene 2: Envelope Entrance -->
+        <div id="scene-envelope" class="scene">
+            <h2 class="title-main" style="font-size: 2rem; margin-bottom: 10px;">رسالة من القلب</h2>
+            <p class="subtitle">اضغطي على الظرف لتفتحي الرسالة</p>
+            
+            <div class="envelope-wrapper" id="envelope-elem" onclick="openEnvelope()">
+                <div class="envelope-3d">
+                    <div class="env-part env-back"></div>
+                    <div class="env-letter">
+                        <div style="color: #c7406a; font-size: 30px; margin-bottom: 10px;">♥</div>
+                        <h3 style="font-family: 'Aref Ruqaa', serif; font-size: 24px; text-align: center;">إلى ست الحبايب</h3>
+                        <p style="font-size: 12px; color: #8c2647; margin-top: auto;">10 / 10 / 2026</p>
+                    </div>
+                    <div class="env-part env-front"></div>
+                    <div class="env-part env-flap"></div>
+                    <div class="env-seal">M</div>
+                </div>
+            </div>
+            <div class="instruction" id="env-instruction">اضغطي هنا ♡</div>
+        </div>
+
+        <!-- Scene 3: The Message -->
+        <div id="scene-message" class="scene">
+            <div class="message-board">
+                <div class="quote-icon quote-right">❝</div>
+                <div class="quote-icon quote-left">❞</div>
+                
+                <div class="typewriter-text" id="typewriter-container">
+                    <span id="typed-text"></span><span class="cursor" id="text-cursor"></span>
+                </div>
+            </div>
+            
+            <div class="controls-row">
+                <button class="btn-outline" onclick="replayMessage()">إعادة القراءة ↺</button>
+                <button class="btn" onclick="goToScene('scene-timeline')">التالي ➔</button>
+            </div>
+        </div>
+
+        <!-- Scene 4: Memory Timeline -->
+        <div id="scene-timeline" class="scene">
+            <h2 class="title-main" style="font-size: 2.2rem; margin-bottom: 30px;">شريط الذكريات</h2>
+            
+            <div class="timeline-container" id="timeline-box">
+                <div class="timeline-item">
+                    <div class="timeline-dot">🍼</div>
+                    <div class="timeline-content">
+                        <h3>طفولتي</h3>
+                        <p>من أول يوم شيلتيني فيه، وعينك مابتفارقنيش. كل خطوة خطيتها كانت بدعوتك وسندتك ليا.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot">🕯️</div>
+                    <div class="timeline-content">
+                        <h3>سهر الليالي</h3>
+                        <p>شكرًا على كل مرة سهرتي فيها عشان كنت تعبان، وعلى كل خوف خبيتيه جواكي عشان تطمنيني.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot">🎓</div>
+                    <div class="timeline-content">
+                        <h3>النهاردة</h3>
+                        <p>أنا كبرت وبقيت راجل بفضل تربيتك. يوم 10/10 مش مجرد تاريخ، ده يوم ما الدنيا نورت بوجودك.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="controls-row" style="margin-top: 40px;">
+                <button class="btn-outline" onclick="goToScene('scene-message')">السابق</button>
+                <button class="btn" onclick="goToScene('scene-lanterns')">أمنياتي لكي ➔</button>
+            </div>
+        </div>
+
+        <!-- Scene 5: Interactive Wishes (Lanterns) -->
+        <div id="scene-lanterns" class="scene">
+            <h2 class="title-main" style="font-size: 2.2rem;">أمنيات من قلبي</h2>
+            <p class="subtitle" style="margin-bottom: 10px;">اضغطي على كل فانوس لتشوفي أمنيتي ليكي</p>
+            
+            <div class="lanterns-grid">
+                <div class="lantern" onclick="showWish(0)">
+                    <div class="lantern-flame"></div>
+                    <div class="lantern-text">الأولى</div>
+                </div>
+                <div class="lantern" onclick="showWish(1)">
+                    <div class="lantern-flame"></div>
+                    <div class="lantern-text">الثانية</div>
+                </div>
+                <div class="lantern" onclick="showWish(2)">
+                    <div class="lantern-flame"></div>
+                    <div class="lantern-text">الثالثة</div>
+                </div>
+            </div>
+            
+            <button class="btn" onclick="goToScene('scene-finale')" style="margin-top: 60px;">الاحتفال الكبير 🎉</button>
+        </div>
+
+        <!-- Scene 6: The Finale -->
+        <div id="scene-finale" class="scene">
+            <div class="glass-panel" style="background: rgba(255,255,255,0.03); border: none; box-shadow: none;">
+                <h1 class="finale-title">كل سنة وأنتِ طيبة يا أمي</h1>
+                <p class="finale-text">يا رب أشوف ضحكتك دايمًا، وقلبك مرتاح ومبسوط. ربنا يديكي الصحة والعافية ويقدرني أعوضك عن كل تعبك.</p>
+                
+                <div class="signature-box">
+                    <p style="color: #dcb8c5; font-size: 14px; margin-bottom: 5px;">بكل الحب، من ابنك:</p>
+                    <div class="signature-text">يوسف سعيد حامد ❤️</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- نافذة الأمنيات المنبثقة (Modal) -->
+    <div id="wish-modal" class="wish-modal">
+        <h3 id="wish-title">العنوان</h3>
+        <p id="wish-text">النص</p>
+        <button class="btn" onclick="closeWish()">آمين يا رب 🤍</button>
+    </div>
+
+    <script>
+        /* =========================================
+           1. إدارة الإدخال (شاشة الباسورد)
+        ========================================= */
+        const inputs = document.querySelectorAll('.pass-digit');
+        const correctPass = "1010";
+
+        inputs.forEach((input, index) => {
+            input.addEventListener('input', (e) => {
+                if (e.target.value.length > 0) {
+                    if (index < inputs.length - 1) inputs[index + 1].focus();
+                    else verifyPassword(); // المحاولة التلقائية عند إدخال آخر رقم
+                }
+            });
+            input.addEventListener('keydown', (e) => {
+                if (e.key === 'Backspace' && e.target.value === '' && index > 0) {
+                    inputs[index - 1].focus();
+                }
+            });
+        });
+
+        function verifyPassword() {
+            let entered = "";
+            inputs.forEach(inp => entered += inp.value);
+            const errorMsg = document.getElementById('error-msg');
+
+            if (entered === correctPass) {
+                errorMsg.style.opacity = '0';
+                startAudioEngine(); // تشغيل الموسيقى الهادئة
+                createParticlesBurst(window.innerWidth/2, window.innerHeight/2, 50, 'gold');
+                
+                setTimeout(() => {
+                    goToScene('scene-envelope');
+                }, 800);
+            } else {
+                errorMsg.style.opacity = '1';
+                inputs.forEach(inp => {
+                    inp.value = '';
+                    inp.style.borderColor = '#ff4d4d';
+                    setTimeout(() => inp.style.borderColor = 'var(--border-glass)', 1000);
+                });
+                inputs[0].focus();
+            }
+        }
+
+        /* =========================================
+           2. إدارة التنقل بين الشاشات (Scene Management)
+        ========================================= */
+        function goToScene(sceneId) {
+            document.querySelectorAll('.scene').forEach(scene => {
+                if (scene.classList.contains('active')) {
+                    scene.classList.remove('active');
+                    scene.classList.add('fade-out');
+                }
+            });
+
+            setTimeout(() => {
+                document.querySelectorAll('.scene').forEach(s => s.classList.remove('fade-out'));
+                const nextScene = document.getElementById(sceneId);
+                nextScene.classList.add('active');
+
+                // تفعيل الوظائف الخاصة بكل شاشة
+                if (sceneId === 'scene-timeline') animateTimeline();
+                if (sceneId === 'scene-finale') startFireworks();
+            }, 800); // يتزامن مع مدة انتقال CSS
+        }
+
+        /* =========================================
+           3. شاشة الظرف التفاعلي
+        ========================================= */
+        let isEnvelopeOpen = false;
+        function openEnvelope() {
+            if(isEnvelopeOpen) return;
+            isEnvelopeOpen = true;
+            
+            const env = document.getElementById('envelope-elem');
+            env.classList.add('is-open');
+            document.getElementById('env-instruction').style.opacity = '0';
+            
+            createParticlesBurst(window.innerWidth/2, window.innerHeight/2 + 100, 80, 'rose');
+
+            setTimeout(() => {
+                goToScene('scene-message');
+                setTimeout(typeWriterEffect, 1000);
+            }, 2500);
+        }
+
+        /* =========================================
+           4. نظام الكتابة الذكي (يمنع سحب الشاشة)
+        ========================================= */
+        const msgText = "يا ماما، ❤️\n\nيمكن مش بعرف أقولك كل يوم إنتِ غالية عندي قد إيه، بس والله إنتِ في قلبي في مكان محدش يقدر ياخده.\n\nأنا عارف إن كلمة «شكرًا» صغيرة قدام كل اللي عملتيه، وإن مفيش هدية تقدر تساوي لحظة واحدة من عمرك اللي اديتيهالي بحب.\n\nكل اللي بتمناه إني أشوفك مبسوطة، وأكون سبب في ضحكتك زي ما كنتِ دايمًا سبب في أماني وراحتي.\n\nبحبك يا ماما… حب أكبر من الكلام، وأعمق من أي رسالة، وهفضل طول عمري فخور إنك أمي.";
+        
+        let typeTimer;
+        function typeWriterEffect() {
+            clearInterval(typeTimer);
+            const target = document.getElementById('typed-text');
+            target.innerHTML = ''; 
+            let i = 0;
+            
+            typeTimer = setInterval(() => {
+                if (i >= msgText.length) {
+                    clearInterval(typeTimer);
+                    return;
+                }
+                
+                // تحويل السطور الجديدة إلى <br>
+                if(msgText.charAt(i) === '\n') {
+                    target.innerHTML += '<br>';
+                } else {
+                    target.innerHTML += msgText.charAt(i);
+                }
+                i++;
+            }, 45); // سرعة الكتابة
+        }
+
+        function replayMessage() {
+            createParticlesBurst(window.innerWidth/2, window.innerHeight/2, 30, 'gold');
+            typeWriterEffect();
+        }
+
+        /* =========================================
+           5. أنيميشن شريط الذكريات (Timeline)
+        ========================================= */
+        function animateTimeline() {
+            const items = document.querySelectorAll('.timeline-item');
+            items.forEach((item, index) => {
+                setTimeout(() => {
+                    item.classList.add('visible');
+                    // تأثير صوتي خفيف أو جزيئات عند ظهور كل عنصر
+                    const rect = item.getBoundingClientRect();
+                    createParticlesBurst(rect.left + 30, rect.top + 30, 15, 'rose');
+                }, index * 800);
+            });
+        }
+
+        /* =========================================
+           6. فوانيس الأمنيات (Modal)
+        ========================================= */
+        const wishes = [
+            { title: "الصحة والعافية 🌿", text: "يا رب يرزقك الصحة اللي مابتنتهيش، والعافية اللي تسندك طول العمر، ومأشوفش فيكي أي حاجة وحشة أبدًا." },
+            { title: "راحة البال 🕊️", text: "أتمنى من ربنا يريح قلبك وعقلك، ويبعد عنك أي هم أو ضيق، وتعيشي أيامك كلها في سلام وطمأنينة." },
+            { title: "الفرحة والرضا ✨", text: "يا رب أشوف ضحكتك منورة وشك كل يوم، ويرزقك رضا مابعده زعل، ويسعدك أضعاف ما أسعدتيني." }
+        ];
+
+        function showWish(index) {
+            const modal = document.getElementById('wish-modal');
+            document.getElementById('wish-title').innerText = wishes[index].title;
+            document.getElementById('wish-text').innerText = wishes[index].text;
+            
+            modal.classList.add('active');
+            
+            // انفجار جزيئات من منتصف الشاشة
+            createParticlesBurst(window.innerWidth/2, window.innerHeight/2, 60, 'gold');
+        }
+
+        function closeWish() {
+            document.getElementById('wish-modal').classList.remove('active');
+        }
+
+        /* =========================================
+           7. محرك الكانفاس الشامل (Canvas Physics Engine)
+           (يحتوي على: النجوم العائمة، تفاعلات الضغط، الألعاب النارية)
+        ========================================= */
+        const canvas = document.getElementById('physics-canvas');
+        const ctx = canvas.getContext('2d');
+        let cw, ch;
+        let particlesArray = [];
+        let fireworksArray = [];
+        let isFinale = false;
+
+        function resizeCanvas() {
+            cw = canvas.width = window.innerWidth;
+            ch = canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        // كلاس الجزيئات العادية (نجوم، قلوب صغيرة، شرار)
+        class Particle {
+            constructor(x, y, colorType) {
+                this.x = x;
+                this.y = y;
+                this.size = Math.random() * 4 + 1;
+                this.speedX = (Math.random() - 0.5) * 3;
+                this.speedY = (Math.random() - 0.5) * 3 - 1; // اتجاه خفيف للأعلى
+                this.life = 1;
+                this.decay = Math.random() * 0.02 + 0.01;
+                
+                this.type = Math.random() > 0.5 ? 'circle' : 'heart';
+                
+                if (colorType === 'gold') {
+                    this.color = `rgba(223, 183, 108, `;
+                } else if (colorType === 'rose') {
+                    this.color = `rgba(230, 92, 135, `;
+                } else {
+                    const colors = ['255, 143, 171', '253, 240, 245', '223, 183, 108'];
+                    this.color = `rgba(${colors[Math.floor(Math.random() * colors.length)]}, `;
+                }
+            }
+            
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                this.life -= this.decay;
+            }
+            
+            draw() {
+                ctx.save();
+                ctx.globalAlpha = Math.max(0, this.life);
+                ctx.fillStyle = this.color + this.life + ")";
+                
+                if (this.type === 'circle') {
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.fill();
+                } else {
+                    // رسم قلب
+                    ctx.translate(this.x, this.y);
+                    const s = this.size / 3;
+                    ctx.scale(s, s);
+                    ctx.beginPath();
+                    ctx.moveTo(0, 0);
+                    ctx.bezierCurveTo(0, -3, -5, -3, -5, 0);
+                    ctx.bezierCurveTo(-5, 3, 0, 5, 0, 8);
+                    ctx.bezierCurveTo(0, 5, 5, 3, 5, 0);
+                    ctx.bezierCurveTo(5, -3, 0, -3, 0, 0);
+                    ctx.fill();
+                }
+                ctx.restore();
+            }
+        }
+
+        // كلاس الألعاب النارية (شاشة النهاية)
+        class Firework {
+            constructor() {
+                this.x = Math.random() * cw;
+                this.y = ch + 10;
+                this.targetY = Math.random() * (ch / 2);
+                this.speed = Math.random() * 4 + 4;
+                this.angle = -Math.PI / 2 + (Math.random() - 0.5) * 0.5;
+                this.vx = Math.cos(this.angle) * this.speed;
+                this.vy = Math.sin(this.angle) * this.speed;
+                this.exploded = false;
+                this.particles = [];
+                this.hue = Math.random() > 0.5 ? 340 : 45; // وردي أو ذهبي
+            }
+            
+            update() {
+                if (!this.exploded) {
+                    this.x += this.vx;
+                    this.y += this.vy;
+                    if (this.vy < 0) this.vy += 0.05; // جاذبية خفيفة
+                    
+                    if (this.vy >= 0 || this.y <= this.targetY) {
+                        this.explode();
+                    }
+                } else {
+                    for (let i = this.particles.length - 1; i >= 0; i--) {
+                        let p = this.particles[i];
+                        p.x += p.vx;
+                        p.y += p.vy;
+                        p.vy += 0.1; // جاذبية
+                        p.life -= 0.015;
+                        if (p.life <= 0) this.particles.splice(i, 1);
+                    }
+                }
+            }
+            
+            explode() {
+                this.exploded = true;
+                for (let i = 0; i < 60; i++) {
+                    const angle = Math.random() * Math.PI * 2;
+                    const speed = Math.random() * 5 + 1;
+                    this.particles.push({
+                        x: this.x, y: this.y,
+                        vx: Math.cos(angle) * speed,
+                        vy: Math.sin(angle) * speed,
+                        life: 1,
+                        color: `hsl(${this.hue + Math.random()*20 - 10}, 100%, 60%)`
+                    });
+                }
+            }
+            
+            draw() {
+                if (!this.exploded) {
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, 2, 0, Math.PI * 2);
+                    ctx.fillStyle = `hsl(${this.hue}, 100%, 70%)`;
+                    ctx.fill();
+                } else {
+                    ctx.save();
+                    ctx.globalCompositeOperation = 'lighter';
+                    for (let p of this.particles) {
+                        ctx.beginPath();
+                        ctx.arc(p.x, p.y, 1.5, 0, Math.PI * 2);
+                        ctx.fillStyle = p.color;
+                        ctx.globalAlpha = p.life;
+                        ctx.fill();
+                    }
+                    ctx.restore();
+                }
+            }
+        }
+
+        // دالة إنشاء انفجار جزيئات في مكان معين
+        function createParticlesBurst(x, y, count, colorType = 'mixed') {
+            for (let i = 0; i < count; i++) {
+                particlesArray.push(new Particle(x, y, colorType));
+            }
+        }
+
+        // إضافة جزيئات عشوائية في الخلفية ببطء (Ambient Particles)
+        function addAmbientParticles() {
+            if (Math.random() < 0.05) { // احتمال ضعيف في كل إطار
+                particlesArray.push(new Particle(Math.random() * cw, ch + 10, 'mixed'));
+            }
+        }
+
+        // تشغيل الألعاب النارية في النهاية
+        function startFireworks() {
+            isFinale = true;
+        }
+
+        // الحلقة الرئيسية للمحرك
+        function animateEngine() {
+            // تفريغ الشاشة ببطء لعمل تأثير ذيل (Trails)
+            ctx.fillStyle = 'rgba(26, 11, 22, 0.2)';
+            ctx.fillRect(0, 0, cw, ch);
+            
+            addAmbientParticles();
+            
+            // تحديث ورسم الجزيئات العادية
+            for (let i = particlesArray.length - 1; i >= 0; i--) {
+                let p = particlesArray[i];
+                p.update();
+                p.draw();
+                if (p.life <= 0) particlesArray.splice(i, 1);
+            }
+            
+            // تحديث ورسم الألعاب النارية إذا كنا في شاشة النهاية
+            if (isFinale) {
+                if (Math.random() < 0.03 && fireworksArray.length < 8) {
+                    fireworksArray.push(new Firework());
+                }
+                
+                for (let i = fireworksArray.length - 1; i >= 0; i--) {
+                    let f = fireworksArray[i];
+                    f.update();
+                    f.draw();
+                    if (f.exploded && f.particles.length === 0) {
+                        fireworksArray.splice(i, 1);
+                    }
+                }
+            }
+            
+            requestAnimationFrame(animateEngine);
+        }
+        
+        animateEngine(); // تشغيل المحرك
+
+        /* =========================================
+           8. محرك الصوت المولد محلياً (Web Audio API Synthesizer)
+           موسيقى هادئة جداً (Lullaby style) تعمل بدون ملفات
+        ========================================= */
+        let audioCtx;
+        function startAudioEngine() {
+            if (audioCtx) return; // تم التشغيل مسبقاً
+            
+            try {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                
+                // نغمات سلم موسيقي هادئ (Pentatonic Scale)
+                const frequencies = [261.63, 293.66, 329.63, 392.00, 440.00, 523.25];
+                let index = 0;
+                
+                function playSoftTone() {
+                    if(audioCtx.state === 'suspended') audioCtx.resume();
+                    
+                    const osc = audioCtx.createOscillator();
+                    const gainNode = audioCtx.createGain();
+                    const filterNode = audioCtx.createBiquadFilter();
+                    
+                    // إعدادات الصوت الناعم
+                    osc.type = 'sine';
+                    
+                    // اختيار نغمة عشوائية من السلم الموسيقي لإعطاء إحساس بالهدوء
+                    const freq = frequencies[Math.floor(Math.random() * frequencies.length)];
+                    // أحياناً نلعب النغمة بأوكتاف أقل للدفء
+                    osc.frequency.value = Math.random() > 0.5 ? freq : freq / 2;
+                    
+                    filterNode.type = 'lowpass';
+                    filterNode.frequency.value = 800; // فلتر للصوت العالي ليجعله مكتوماً وهادئاً
+                    
+                    // إعدادات الـ Envelope (دخول وخروج بطيء جداً للتحكم في النعومة)
+                    const now = audioCtx.currentTime;
+                    gainNode.gain.setValueAtTime(0.0001, now);
+                    gainNode.gain.linearRampToValueAtTime(0.03, now + 2); // دخول بطيء (Fade In)
+                    gainNode.gain.exponentialRampToValueAtTime(0.0001, now + 6); // خروج بطيء (Fade Out)
+                    
+                    // التوصيل
+                    osc.connect(filterNode);
+                    filterNode.connect(gainNode);
+                    gainNode.connect(audioCtx.destination);
+                    
+                    osc.start(now);
+                    osc.stop(now + 6.5);
+                    
+                    // تكرار النغمة بعد فترة عشوائية (من 1.5 ثانية إلى 3 ثواني) لتكوين لحن مستمر
+                    setTimeout(playSoftTone, Math.random() * 1500 + 1500);
+                }
+                
+                // بدء تشغيل اللحن
+                playSoftTone();
+                
+            } catch (e) {
+                console.log("Audio API not supported");
+            }
+        }
+        
+    </script>
+</body>
+</html>
