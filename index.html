@@ -1,0 +1,1405 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#180d25">
+<title>هدية من القلب ❤️</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Amiri:wght@400;700&display=swap');
+
+:root {
+    --pink: #ffabc6;
+    --gold: #f3d6a0;
+    --bg: #180d25;
+    --cream: #fff7f9;
+    --accent: #ffabc6;
+    --accent2: #e67aa1;
+    --heading: #ffe1eb;
+    --paper-heading: #77445a;
+    --paper-decoration: #cda878;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    min-height: 100vh;
+    background:
+        radial-gradient(ellipse at 20% 10%, #49254f, transparent 45%),
+        radial-gradient(ellipse at 80% 85%, #442044, transparent 45%),
+        var(--bg);
+    color: var(--cream);
+    font-family: Cairo, sans-serif;
+    overflow-x: hidden;
+    transition: background 1s ease;
+}
+
+body.dad-theme {
+    --pink: #b9d7ff;
+    --gold: #f2d18c;
+    --accent: #b9d7ff;
+    --accent2: #628ec9;
+    --heading: #e0edff;
+    --paper-heading: #3b5278;
+    --paper-decoration: #b69a66;
+
+    background:
+        radial-gradient(ellipse at 20% 10%, #243d68, transparent 45%),
+        radial-gradient(ellipse at 80% 85%, #24304d, transparent 45%),
+        #0b1223;
+}
+
+button,
+input {
+    font-family: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+[hidden] {
+    display: none !important;
+}
+
+#stars {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 0;
+}
+
+.star {
+    position: absolute;
+    color: var(--gold);
+    animation: twinkle 3s ease-in-out infinite alternate;
+}
+
+@keyframes twinkle {
+    from { opacity: .15; transform: scale(.7); }
+    to { opacity: .9; transform: scale(1.2); }
+}
+
+@keyframes enter {
+    from { opacity: 0; transform: translateY(25px) scale(.98); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes pulse {
+    50% { transform: scale(1.09); }
+}
+
+@keyframes float {
+    from { transform: translateY(0) rotate(0deg); opacity: .9; }
+    to { transform: translateY(-110vh) rotate(35deg); opacity: 0; }
+}
+
+@keyframes cursorBlink {
+    50% { opacity: 0; }
+}
+
+@keyframes glow {
+    50% { box-shadow: 0 0 45px #ffffff18; }
+}
+
+/* شاشة الدخول */
+
+#lockScreen {
+    position: fixed;
+    inset: 0;
+    z-index: 20;
+    display: grid;
+    place-items: center;
+    padding: 22px;
+    background: #180d25;
+    transition: opacity .8s, visibility .8s;
+}
+
+body.dad-theme #lockScreen {
+    background: #0b1223;
+}
+
+#lockScreen.hide {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.login {
+    width: 100%;
+    max-width: 400px;
+    padding: 32px 25px;
+    text-align: center;
+    background: #ffffff09;
+    border: 1px solid #ffffff1c;
+    border-radius: 30px;
+    box-shadow: 0 25px 90px #0004;
+    animation: enter 1s ease;
+}
+
+.login-icon {
+    width: 94px;
+    height: 94px;
+    margin: auto auto 20px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    font-size: 43px;
+    background: linear-gradient(145deg, #ffdfeb, #e67aa1);
+    box-shadow: 0 0 45px #ffabc630;
+    animation: pulse 2s infinite;
+}
+
+body.dad-theme .login-icon {
+    background: linear-gradient(145deg, #e0edff, #628ec9);
+    box-shadow: 0 0 45px #628ec940;
+}
+
+.gold {
+    color: var(--gold);
+    font-size: 11px;
+    letter-spacing: 2px;
+}
+
+.login h1 {
+    font: 700 35px Amiri, serif;
+    margin: 13px 0;
+    color: var(--heading);
+}
+
+.login p {
+    color: #d8c6df;
+    font-size: 14px;
+    line-height: 2.2;
+}
+
+input {
+    display: block;
+    width: 100%;
+    margin-top: 23px;
+    padding: 15px;
+    text-align: center;
+    direction: ltr;
+    letter-spacing: 12px;
+    font-size: 23px;
+    color: white;
+    background: #ffffff08;
+    border: 1px solid #ffffff25;
+    border-radius: 14px;
+    outline: none;
+}
+
+input:focus {
+    border-color: var(--accent);
+}
+
+button.primary {
+    width: 100%;
+    margin-top: 13px;
+    padding: 14px;
+    border: 0;
+    border-radius: 14px;
+    background: linear-gradient(120deg, #ffe5ee, var(--accent));
+    color: #321b32;
+    font-weight: 800;
+    font-size: 15px;
+}
+
+#error {
+    min-height: 27px;
+    color: var(--accent);
+    font-size: 12px;
+    padding-top: 8px;
+}
+
+/* الموقع */
+
+#app {
+    display: none;
+    position: relative;
+    z-index: 1;
+}
+
+#app.active {
+    display: block;
+    animation: enter 1s ease;
+}
+
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 15px 5%;
+    border-bottom: 1px solid #ffffff12;
+}
+
+.brand {
+    font-size: 13px;
+    color: var(--accent);
+    font-weight: 800;
+}
+
+#musicBtn {
+    padding: 9px 13px;
+    border: 1px solid #ffffff20;
+    border-radius: 25px;
+    color: white;
+    background: #ffffff0a;
+    font-size: 11px;
+}
+
+main {
+    min-height: 85vh;
+}
+
+.scene {
+    display: none;
+    min-height: 83vh;
+    padding: 45px 18px 65px;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.scene.active {
+    display: flex;
+    animation: enter .8s ease both;
+}
+
+.scene-inner {
+    width: 100%;
+    max-width: 740px;
+}
+
+.scene-number {
+    color: var(--gold);
+    font-size: 11px;
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+}
+
+.scene h2 {
+    font: 700 clamp(32px, 7vw, 52px) Amiri, serif;
+    color: var(--heading);
+    line-height: 1.7;
+    margin-bottom: 10px;
+}
+
+.scene-intro {
+    max-width: 480px;
+    margin: 0 auto 25px;
+    color: #d9c7df;
+    font-size: 14px;
+    line-height: 2.2;
+}
+
+.big-icon {
+    font-size: 58px;
+    display: block;
+    margin-bottom: 14px;
+    animation: pulse 2.3s infinite;
+}
+
+/* الظرف */
+
+.envelope-area {
+    width: min(300px, 82vw);
+    height: 190px;
+    margin: 35px auto;
+    position: relative;
+    perspective: 900px;
+}
+
+.envelope {
+    position: absolute;
+    inset: 25px 0 0;
+    border-radius: 8px;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    box-shadow: 0 20px 50px #0004;
+}
+
+.envelope:before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-left: 150px solid transparent;
+    border-right: 150px solid transparent;
+    border-top: 100px solid var(--heading);
+    transform-origin: top;
+    transition: transform .8s ease;
+    z-index: 3;
+}
+
+.envelope.open:before {
+    transform: rotateX(180deg);
+}
+
+.envelope:after {
+    content: "♥";
+    position: absolute;
+    top: 65px;
+    left: 0;
+    right: 0;
+    z-index: 4;
+    color: #6c4568;
+    font-size: 32px;
+}
+
+body.dad-theme .envelope:after {
+    content: "★";
+    color: #294a7c;
+}
+
+.paper {
+    position: absolute;
+    inset: 12px 15px 5px;
+    border-radius: 5px;
+    background: #fff9f3;
+    transition: transform .8s ease;
+}
+
+.envelope.open .paper {
+    transform: translateY(-65px);
+}
+
+/* ورقة الرسالة */
+
+.letter-shell {
+    width: 100%;
+    max-width: 650px;
+    margin: 30px auto;
+    padding: 8px;
+    border-radius: 5px;
+    background: linear-gradient(135deg, #f5d8a4, #bd8b50, #f7e1b6);
+    box-shadow: 0 22px 65px #0004;
+    animation: enter .9s ease;
+}
+
+.letter {
+    position: relative;
+    padding: 30px clamp(18px, 5vw, 43px);
+    min-height: 340px;
+    background:
+        radial-gradient(ellipse at top left, #f7e8ce, transparent 65%),
+        #fffaf1;
+    color: #593d45;
+    text-align: right;
+    overflow: hidden;
+}
+
+.letter:before {
+    content: "❦";
+    position: absolute;
+    top: 3px;
+    left: 12px;
+    font-size: 50px;
+    color: var(--paper-decoration);
+    opacity: .5;
+}
+
+.letter:after {
+    content: "❦";
+    position: absolute;
+    bottom: -17px;
+    right: 13px;
+    font-size: 55px;
+    color: var(--paper-decoration);
+    opacity: .45;
+}
+
+.letter-top {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding-bottom: 17px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #d8bd91;
+}
+
+.letter-top small {
+    color: #a47b54;
+    font-size: 10px;
+    letter-spacing: 1px;
+}
+
+.letter-top h3 {
+    font: 700 28px Amiri, serif;
+    margin-top: 5px;
+    color: var(--paper-heading);
+}
+
+.letter-body {
+    position: relative;
+    z-index: 1;
+    min-height: 170px;
+    font: 19px/2.4 Amiri, serif;
+    white-space: pre-line;
+    overflow-wrap: anywhere;
+}
+
+.cursor:after {
+    content: "▍";
+    color: #b7597e;
+    animation: cursorBlink .7s infinite;
+}
+
+.letter-bottom {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    color: #a47b54;
+    font: 20px Amiri, serif;
+    padding-top: 20px;
+}
+
+/* الأزرار */
+
+.action {
+    margin-top: 18px;
+    padding: 13px 24px;
+    border: 1px solid var(--accent);
+    border-radius: 28px;
+    color: var(--heading);
+    background: #ffffff08;
+    font-size: 14px;
+    transition: .25s;
+}
+
+.action:hover {
+    background: #ffffff18;
+    transform: translateY(-2px);
+}
+
+.action:active {
+    transform: scale(.97);
+}
+
+/* البطاقات */
+
+.memories {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin: 25px auto;
+    max-width: 680px;
+}
+
+.memory {
+    padding: 20px 10px;
+    border-radius: 18px;
+    border: 1px solid #ffffff16;
+    background: #ffffff09;
+    opacity: 0;
+    transform: translateY(15px);
+    transition: .6s;
+}
+
+.memory.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.memory span {
+    display: block;
+    font-size: 32px;
+    margin-bottom: 8px;
+}
+
+.memory h4 {
+    color: var(--accent);
+    margin-bottom: 6px;
+}
+
+.memory p {
+    color: #d7c5dd;
+    font-size: 12px;
+    line-height: 2;
+}
+
+/* الخاتمة */
+
+.final-heart {
+    font-size: 85px;
+    animation: pulse 2s infinite;
+}
+
+.final-note {
+    margin: 30px auto;
+    padding: 25px;
+    max-width: 520px;
+    border: 1px solid var(--accent);
+    border-radius: 22px;
+    background: #ffffff08;
+    color: #f4e5f2;
+    font: 20px/2.4 Amiri, serif;
+    white-space: pre-line;
+}
+
+footer {
+    text-align: center;
+    padding: 22px 12px;
+    border-top: 1px solid #ffffff10;
+    color: #bca8c3;
+    font-size: 12px;
+    line-height: 2;
+}
+
+.heart {
+    position: fixed;
+    bottom: -40px;
+    z-index: 5;
+    pointer-events: none;
+    animation: float linear forwards;
+}
+
+@media(max-width:600px) {
+    .scene {
+        padding: 35px 14px 55px;
+    }
+
+    .letter {
+        padding: 25px 17px;
+    }
+
+    .letter-body {
+        font-size: 18px;
+        line-height: 2.3;
+    }
+
+    .memories {
+        grid-template-columns: 1fr;
+        max-width: 380px;
+    }
+
+    .memory {
+        display: flex;
+        align-items: center;
+        text-align: right;
+        gap: 12px;
+    }
+
+    .memory span {
+        margin: 0;
+    }
+
+    header {
+        padding: 13px 4%;
+    }
+
+    .brand {
+        font-size: 11px;
+    }
+}
+
+@media(prefers-reduced-motion:reduce) {
+    *, *:before, *:after {
+        animation-duration: .01ms !important;
+        transition-duration: .01ms !important;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div id="stars"></div>
+
+<!-- شاشة الدخول -->
+<div id="lockScreen">
+    <div class="login">
+        <div class="login-icon" id="loginIcon">💌</div>
+        <div class="gold">A LITTLE GIFT FROM THE HEART</div>
+        <h1 id="loginTitle">هدية مخصوص ليك ❤️</h1>
+
+        <p id="loginDescription">
+            فيه مفاجأة معمولة من القلب...
+            <br>
+            اكتب الرمز وافتح هديتك ✨
+        </p>
+
+        <form id="loginForm">
+            <input
+                id="password"
+                type="password"
+                inputmode="numeric"
+                maxlength="4"
+                placeholder="••••"
+                aria-label="رمز الدخول"
+                autocomplete="off"
+                required
+            >
+            <button class="primary" type="submit" id="loginButton">
+                افتح الهدية ✨
+            </button>
+        </form>
+
+        <div id="error" role="status" aria-live="polite"></div>
+    </div>
+</div>
+
+<!-- الموسيقى -->
+<audio id="music" loop preload="auto"></audio>
+
+<!-- الموقع -->
+<div id="app">
+
+<header>
+    <div class="brand" id="brand">♡ هدية من القلب</div>
+    <button id="musicBtn" type="button">♫ تشغيل الأغنية</button>
+</header>
+
+<main>
+
+    <!-- المشهد الأول -->
+    <section class="scene active" data-index="0">
+        <div class="scene-inner">
+            <div class="scene-number">حكاية صغيرة من القلب · 01</div>
+            <span class="big-icon" id="introIcon">🌷</span>
+            <h2 id="introTitle">إلى أغلى الناس ❤️</h2>
+            <p class="scene-intro" id="introText"></p>
+            <button class="action next" type="button" id="startButton">
+                يلا نبدأ حكايتنا ←
+            </button>
+        </div>
+    </section>
+
+    <!-- المشهد الثاني -->
+    <section class="scene" data-index="1">
+        <div class="scene-inner">
+            <div class="scene-number">رسالة من القلب · 02</div>
+            <h2 id="envelopeTitle">وصلتك رسالة مخصوص</h2>
+            <p class="scene-intro" id="envelopeText"></p>
+
+            <div class="envelope-area">
+                <div class="envelope" id="envelope">
+                    <div class="paper"></div>
+                </div>
+            </div>
+
+            <button class="action" id="openEnvelope" type="button">
+                افتح الظرف 💌
+            </button>
+
+            <button class="action" id="goLetter" type="button" hidden>
+                اقرأ رسالتك ←
+            </button>
+        </div>
+    </section>
+
+    <!-- المشهد الثالث -->
+    <section class="scene" data-index="2">
+        <div class="scene-inner">
+            <div class="scene-number">رسالة خاصة · 03</div>
+
+            <div class="letter-shell">
+                <article class="letter">
+                    <div class="letter-top">
+                        <small id="letterSubtitle">رسالة من القلب</small>
+                        <h3 id="letterHeading">إلى أغلى الناس ❤️</h3>
+                    </div>
+
+                    <div class="letter-body" id="letterText"></div>
+
+                    <div class="letter-bottom" id="letterSign">
+                        بكل الحب ❦
+                    </div>
+                </article>
+            </div>
+
+            <button class="action next" type="button" id="secondButton">
+                لسه عندي كلام كتير ليك ←
+            </button>
+        </div>
+    </section>
+
+    <!-- المشهد الرابع -->
+    <section class="scene" data-index="3">
+        <div class="scene-inner">
+            <div class="scene-number">كلام نفسي أقولهولك · 04</div>
+
+            <div class="letter-shell">
+                <article class="letter">
+                    <div class="letter-top">
+                        <small>كلمات من القلب</small>
+                        <h3 id="secondHeading">إنت نعمة كبيرة ❤️</h3>
+                    </div>
+
+                    <div class="letter-body" id="secondText"></div>
+
+                    <div class="letter-bottom" id="secondSign">
+                        ربنا يخليك ليا ❦
+                    </div>
+                </article>
+            </div>
+
+            <button class="action next" type="button">
+                فيه حاجة كمان نفسي أقولهالك ←
+            </button>
+        </div>
+    </section>
+
+    <!-- المشهد الخامس -->
+    <section class="scene" data-index="4">
+        <div class="scene-inner">
+            <div class="scene-number">حاجات من قلبي · 05</div>
+            <span class="big-icon" id="memoriesIcon">🤍</span>
+            <h2 id="memoriesTitle">إنت بالنسبة لي إيه؟</h2>
+            <p class="scene-intro" id="memoriesIntro"></p>
+
+            <div class="memories">
+                <article class="memory">
+                    <span id="memoryIcon1">🏡</span>
+                    <div>
+                        <h4 id="memoryTitle1">أماني</h4>
+                        <p id="memoryText1"></p>
+                    </div>
+                </article>
+
+                <article class="memory">
+                    <span id="memoryIcon2">🌸</span>
+                    <div>
+                        <h4 id="memoryTitle2">حناني</h4>
+                        <p id="memoryText2"></p>
+                    </div>
+                </article>
+
+                <article class="memory">
+                    <span id="memoryIcon3">🤲</span>
+                    <div>
+                        <h4 id="memoryTitle3">دعواتي</h4>
+                        <p id="memoryText3"></p>
+                    </div>
+                </article>
+            </div>
+
+            <button class="action next" type="button" id="finalButton">
+                تعال لآخر رسالة ❤️
+            </button>
+        </div>
+    </section>
+
+    <!-- المشهد السادس -->
+    <section class="scene" data-index="5">
+        <div class="scene-inner">
+            <div class="scene-number">آخر رسالة... وحب ملوش نهاية · 06</div>
+            <div class="final-heart" id="finalIcon">💖</div>
+            <h2 id="finalHeading">بحبك من كل قلبي</h2>
+
+            <div class="final-note" id="finalText"></div>
+
+            <p class="scene-intro" id="finalIntro"></p>
+
+            <button class="action" id="replay" type="button">
+                نبدأ الحكاية من جديد ↻
+            </button>
+        </div>
+    </section>
+
+</main>
+
+<footer>
+    <span id="footerText">معمولة بكل الحب ❤️</span>
+    <br>
+    <span id="footerSub">هدية صغيرة من القلب</span>
+</footer>
+
+</div>
+
+<script>
+"use strict";
+
+/* ======================================
+   بيانات ماما وبابا
+   ====================================== */
+
+const PEOPLE = {
+    "1010": {
+        type: "mom",
+        name: "أمي",
+        greeting: "يا أمي",
+        icon: "🌷",
+        finalIcon: "💖",
+        music: "Albumaty.Com_hsyn_algsmy_amy_gnt.mp3",
+        brand: "♡ حكاية حب لأمي",
+        introTitle: "أمي الحبيبة...",
+        introText:
+            "قبل ما تكملي، عايزك تعرفي إن كل تفصيلة هنا معمولة علشانك. خدي نفسًا هاديًا وتعالي نبدأ حكايتنا.",
+        envelopeTitle: "وصلتك رسالة مخصوص",
+        envelopeText:
+            "الرسالة دي مش مجرد كلام... دي حاجات جوا قلبي يمكن مقلتهاش كفاية.",
+        letterSubtitle: "إلى أغلى إنسانة في حياتي",
+        letterHeading: "أمي الحبيبة ❤️",
+        letterSign: "بحبك يا أمي ❦",
+        secondHeading: "إنتِ نعمة كبيرة ❤️",
+        secondSign: "ربنا يخليكي ليا ❦",
+        memoriesTitle: "إنتِ بالنسبة لي إيه؟",
+        memoriesIntro:
+            "فيه حاجات مهما حاولنا نوصفها، تفضل أكبر من الكلام.",
+        memories: [
+            {
+                icon: "🏡",
+                title: "أماني",
+                text: "وجودك جنبي بيطمن قلبي."
+            },
+            {
+                icon: "🌸",
+                title: "حناني",
+                text: "قلبك أحن مكان في الدنيا."
+            },
+            {
+                icon: "🤲",
+                title: "دعواتي ليكي",
+                text: "ربنا يحفظك ويبارك في عمرك."
+            }
+        ],
+        letterText:
+`مش عارف أبدأ كلامي منين،
+ولا إزاي أوصفلك قد إيه إنتِ غالية عندي.
+
+شكرًا على كل مرة تعبتي عشاني،
+وكل دعوة خرجت من قلبك،
+وكل مرة كنتِ فيها جنبي حتى من غير كلام.
+
+يمكن ساعات مقصر في التعبير،
+ويمكن مش بقولك كل يوم إنتِ غالية عندي قد إيه،
+بس الحقيقة إن مفيش كلام يوصف مكانتك في قلبي.
+
+نفسي أشوفك دايمًا مبسوطة،
+وأكون سبب في ضحكتك،
+وأفرح قلبك زي ما إنتِ طول عمرك بتحاولي تفرحيني.
+
+ربنا يخليكي ليا يا أمي،
+ويباركلي في عمرك وصحتك،
+وما يحرمنيش أبدًا من حنانك ودعواتك.
+
+بحبك حب أكبر من أي كلام،
+وهفضل طول عمري فخور إنك أمي. ❤️`,
+        secondText:
+`عارفة يا أمي إيه أمنيتي؟
+
+إني أكبر وأحقق حاجات تفرح قلبك،
+وأشوفك مبسوطة وفخورة بيا،
+وأقدر أرد ولو جزء بسيط من تعبك عشاني.
+
+مش لازم أقول كلام كتير علشان تعرفي،
+بس حبيت أسيبلك الرسالة دي،
+علشان كل ما تشوفيها تفتكري إن ابنك بيحبك جدًا.
+
+ربنا يديكي الصحة وراحة البال،
+ويجعل أيامك كلها فرحة ورضا،
+ويقدرني أكون دايمًا عند حسن ظنك.`,
+        finalHeading: "بحبك يا أمي",
+        finalText:
+`يا رب احفظ أمي بعينك التي لا تنام،
+وارزقها الصحة وراحة البال،
+وعوّض قلبها عن كل تعب بفرحة.
+
+يا رب أقدر أفرحها وأكون ابنًا صالحًا ليها،
+وما يحرمنيش أبدًا من وجودها ودعواتها.
+
+إنتِ أجمل نعمة في حياتي...
+ربنا يخليكي ليا يا أمي. ❤️`,
+        finalIntro:
+            "مهما كبرت، هفضل محتاج دعواتك وحنانك، وهفضل أحمد ربنا إنك أمي.",
+        footer: "معمولة بكل الحب لأجمل أم في الدنيا ❤️",
+        footerSub: "ربنا يخليكي ليا يا أمي 🌷",
+        startButton: "يلا نبدأ حكايتنا ←",
+        secondButton: "لسه عندي كلام كتير ليكي ←",
+        finalButton: "تعالي لآخر رسالة ❤️",
+        replayButton: "نبدأ الحكاية من جديد ↻",
+        openButton: "افتحي الظرف 💌",
+        goButton: "اقري جوابك يا أمي ←",
+        wrongPassword: "الرمز مش صحيح، جربي تاني ❤️"
+    },
+
+    "2403": {
+        type: "dad",
+        name: "أبويا",
+        greeting: "يا بابا",
+        icon: "👑",
+        finalIcon: "💙",
+        music: "1152984188_tk (5).mp3",
+        brand: "★ حكاية تقدير لأبويا",
+        introTitle: "أبويا وسندي...",
+        introText:
+            "النهارده مش عيد ميلاد ولا مناسبة معينة... أنا بس حبيت أعملك حاجة تليق بمكانتك عندي. تعال نبدأ حكاية من القلب.",
+        envelopeTitle: "رسالة مخصوص لأبويا",
+        envelopeText:
+            "يمكن مش بعرف أقول كل اللي جوايا، بس الرسالة دي فيها كلام نفسي تسمعه مني.",
+        letterSubtitle: "إلى السند والأمان",
+        letterHeading: "أبويا الغالي 💙",
+        letterSign: "ابنك اللي بيحبك ❦",
+        secondHeading: "أنت قدوتي وسندي 💙",
+        secondSign: "ربنا يخليك ليا يا بابا ❦",
+        memoriesTitle: "أنت بالنسبة لي إيه؟",
+        memoriesIntro:
+            "فيه حاجات كتير الأب بيعملها من غير ما يتكلم عنها، بس أثرها بيفضل جوانا طول العمر.",
+        memories: [
+            {
+                icon: "🛡️",
+                title: "سندي",
+                text: "وجودك في حياتي بيديني قوة وأمان."
+            },
+            {
+                icon: "⭐",
+                title: "قدوتي",
+                text: "بتعلم منك معنى المسؤولية والجدعنة."
+            },
+            {
+                icon: "🤲",
+                title: "دعواتي ليك",
+                text: "ربنا يديك الصحة وراحة البال."
+            }
+        ],
+        letterText:
+`يا بابا، يمكن الكلام ده مش بقولهولك كل يوم،
+بس إنت غالي عندي أكتر ما تتخيل.
+
+شكرًا على كل تعب تعبته عشاني،
+وعلى كل مرة حاولت توفرلي حياة أحسن،
+وعلى كل مجهود بذلته حتى لو أنا ماخدتش بالي منه وقتها.
+
+أنا عارف إن فيه حاجات كتير بتعملها من غير ما تتكلم،
+وإنك ساعات بتشيل مسؤوليات كتير علشاننا،
+وعلشان تشوفنا بخير ومحتاجينش حاجة.
+
+يمكن ساعات مقصر في إني أعبّر عن تقديري ليك،
+لكن ده مش معناه إني مش حاسس بتعبك ولا بقيمتك.
+
+نفسي أكبر وأحقق حاجات تفرح قلبك،
+وتبقى فخور بيا زي ما أنا فخور إنك أبويا.
+
+ربنا يحفظك لينا،
+ويديك الصحة وراحة البال،
+ويقدرني أردلك ولو جزء بسيط من فضلك عليا.
+
+بحبك يا بابا، وربنا يخليك ليا دايمًا. 💙`,
+        secondText:
+`عارف يا بابا إيه اللي بتمناه؟
+
+إني أشوفك دايمًا مرتاح ومبسوط،
+وإنك تشوف تعبي بيجيب نتيجة،
+وإني أكون ابن تقدر تفتخر بيه.
+
+نفسي الأيام الجاية تحمل لينا حاجات حلوة،
+وأقدر أساعدك وأخفف عنك،
+وأفرحك بنجاحي بدل ما أفضل بس أقولك إني هنجح.
+
+يمكن لسه قدامي طريق طويل،
+بس وجودك في حياتي نعمة كبيرة،
+ورضاك ودعواتك من الحاجات اللي بتفرق معايا جدًا.
+
+ربنا يبارك في عمرك وصحتك،
+ويجزيك عن كل تعب خير،
+ويجعل اللي جاي في حياتك أجمل وأريح.`,
+        finalHeading: "ربنا يخليك ليا يا بابا",
+        finalText:
+`يا رب احفظ أبويا،
+وارزقه الصحة وراحة البال،
+ووسع رزقه وبارك في عمره.
+
+يا رب فرّح قلبه زي ما تعب علشان يفرّحنا،
+وعوضه عن كل يوم شقي فيه،
+واكتبله أيام جاية كلها خير ورضا.
+
+نفسي أشوفك دايمًا بخير،
+وأكون سبب في فرحتك،
+وتبقى فخور بيا وباللي هحققه في حياتي.
+
+أنت سندي وفخري...
+بحبك يا بابا. 💙`,
+        finalIntro:
+            "يمكن مش بقولها كتير، بس أنا مقدر كل حاجة بتعملها عشاني. ربنا يديمك في حياتي.",
+        footer: "هدية من القلب لأغلى أب في الدنيا 💙",
+        footerSub: "ربنا يحفظك ليا يا بابا 👑",
+        startButton: "يلا نبدأ الحكاية يا بابا ←",
+        secondButton: "لسه عندي كلام كتير ليك ←",
+        finalButton: "تعال لآخر رسالة 💙",
+        replayButton: "نبدأ الحكاية من جديد ↻",
+        openButton: "افتح الظرف 💌",
+        goButton: "اقرأ رسالتك يا بابا ←",
+        wrongPassword: "الرمز مش صحيح، حاول تاني ❤️"
+    }
+};
+
+/* ======================================
+   عناصر الموقع
+   ====================================== */
+
+const lockScreen = document.getElementById("lockScreen");
+const app = document.getElementById("app");
+const music = document.getElementById("music");
+const musicBtn = document.getElementById("musicBtn");
+const passwordInput = document.getElementById("password");
+const errorBox = document.getElementById("error");
+const scenes = [...document.querySelectorAll(".scene")];
+
+let person = null;
+let current = 0;
+let typingTimer = null;
+let typingToken = 0;
+let envelopeOpened = false;
+let heartsTimer = null;
+
+/* ======================================
+   النجوم
+   ====================================== */
+
+const stars = document.getElementById("stars");
+
+for (let i = 0; i < 65; i++) {
+    const star = document.createElement("span");
+
+    star.className = "star";
+    star.textContent = Math.random() > 0.5 ? "✦" : "·";
+    star.style.left = Math.random() * 100 + "%";
+    star.style.top = Math.random() * 100 + "%";
+    star.style.fontSize = (8 + Math.random() * 13) + "px";
+    star.style.animationDelay = Math.random() * 4 + "s";
+
+    stars.appendChild(star);
+}
+
+/* ======================================
+   إعداد الموقع حسب الرمز
+   ====================================== */
+
+function setText(id, value) {
+    const element = document.getElementById(id);
+
+    if (element && value !== undefined) {
+        element.textContent = value;
+    }
+}
+
+function setupPerson(data) {
+    person = data;
+
+    document.body.classList.toggle("dad-theme", data.type === "dad");
+
+    setText("loginIcon", data.icon);
+    setText("loginTitle", "مفاجأة ليك يا " + data.name);
+    setText(
+        "loginDescription",
+        "عملتلك حاجة مخصوص من القلب...\nاكتب الرمز وافتح هديتك ❤️"
+    );
+
+    setText("brand", data.brand);
+
+    setText("introIcon", data.icon);
+    setText("introTitle", data.introTitle);
+    setText("introText", data.introText);
+    setText("startButton", data.startButton);
+
+    setText("envelopeTitle", data.envelopeTitle);
+    setText("envelopeText", data.envelopeText);
+    setText("openEnvelope", data.openButton);
+    setText("goLetter", data.goButton);
+
+    setText("letterSubtitle", data.letterSubtitle);
+    setText("letterHeading", data.letterHeading);
+    setText("letterSign", data.letterSign);
+
+    setText("secondHeading", data.secondHeading);
+    setText("secondSign", data.secondSign);
+    setText("secondButton", data.secondButton);
+
+    setText("memoriesIcon", data.icon);
+    setText("memoriesTitle", data.memoriesTitle);
+    setText("memoriesIntro", data.memoriesIntro);
+
+    data.memories.forEach((memory, index) => {
+        const n = index + 1;
+
+        setText("memoryIcon" + n, memory.icon);
+        setText("memoryTitle" + n, memory.title);
+        setText("memoryText" + n, memory.text);
+    });
+
+    setText("finalIcon", data.finalIcon);
+    setText("finalHeading", data.finalHeading);
+    setText("finalIntro", data.finalIntro);
+    setText("finalButton", data.finalButton);
+    setText("replay", data.replayButton);
+
+    setText("footerText", data.footer);
+    setText("footerSub", data.footerSub);
+
+    music.pause();
+
+    music.src = new URL(data.music, document.baseURI).href;
+    music.load();
+
+    music.volume = 0.65;
+    musicBtn.textContent = "♫ تشغيل الأغنية";
+}
+
+/* ======================================
+   تأثير الكتابة حرفًا حرفًا
+   ====================================== */
+
+function typeWriter(element, text, speed = 34) {
+    clearTimeout(typingTimer);
+
+    const token = ++typingToken;
+
+    element.textContent = "";
+    element.classList.add("cursor");
+
+    let i = 0;
+
+    function step() {
+        if (token !== typingToken) return;
+
+        if (i >= text.length) {
+            element.classList.remove("cursor");
+            return;
+        }
+
+        const char = text[i++];
+        element.textContent += char;
+
+        let delay = speed;
+
+        if (char === "\n") delay = 180;
+        if ("،؛:".includes(char)) delay = 150;
+        if (".!?؟".includes(char)) delay = 260;
+
+        typingTimer = setTimeout(step, delay);
+    }
+
+    step();
+}
+
+/* ======================================
+   التنقل بين المشاهد
+   ====================================== */
+
+function showScene(index) {
+    if (index < 0 || index >= scenes.length) return;
+
+    current = index;
+
+    clearTimeout(typingTimer);
+    typingToken++;
+
+    scenes.forEach((scene, i) => {
+        scene.classList.toggle("active", i === index);
+    });
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+
+    if (index === 2 && person) {
+        typeWriter(
+            document.getElementById("letterText"),
+            person.letterText
+        );
+    }
+
+    if (index === 3 && person) {
+        typeWriter(
+            document.getElementById("secondText"),
+            person.secondText
+        );
+    }
+
+    if (index === 4) {
+        document.querySelectorAll(".memory").forEach((card, i) => {
+            card.classList.remove("show");
+
+            setTimeout(() => {
+                if (current === 4) {
+                    card.classList.add("show");
+                }
+            }, 250 + i * 300);
+        });
+    }
+
+    if (index === 5 && person) {
+        typeWriter(
+            document.getElementById("finalText"),
+            person.finalText,
+            30
+        );
+    }
+}
+
+/* ======================================
+   الدخول بالرمز الصحيح
+   ====================================== */
+
+document.getElementById("loginForm").addEventListener("submit", async event => {
+    event.preventDefault();
+
+    const entered = passwordInput.value.trim();
+    const selectedPerson = PEOPLE[entered];
+
+    if (!selectedPerson) {
+        errorBox.textContent =
+            "الرمز مش صحيح، تأكد منه وحاول تاني ❤️";
+
+        passwordInput.value = "";
+        passwordInput.focus();
+        return;
+    }
+
+    errorBox.textContent = "";
+
+    setupPerson(selectedPerson);
+
+    lockScreen.classList.add("hide");
+    app.classList.add("active");
+
+    showScene(0);
+    startHearts();
+
+    /*
+       تشغيل الموسيقى بعد ضغط المستخدم على زر الدخول.
+       لو المتصفح رفض التشغيل، يقدر يشغلها من زر الأغنية.
+    */
+
+    try {
+        await music.play();
+        musicBtn.textContent = "♫ إيقاف الأغنية";
+    } catch (error) {
+        musicBtn.textContent = "♫ تشغيل الأغنية";
+    }
+});
+
+/* ======================================
+   أزرار التنقل
+   ====================================== */
+
+document.querySelectorAll(".next").forEach(button => {
+    button.addEventListener("click", () => {
+        showScene(current + 1);
+    });
+});
+
+/* ======================================
+   فتح الظرف
+   ====================================== */
+
+document.getElementById("openEnvelope").addEventListener("click", function() {
+    if (envelopeOpened) return;
+
+    envelopeOpened = true;
+
+    document.getElementById("envelope").classList.add("open");
+    this.textContent = "الرسالة اتفتحت ❤️";
+
+    setTimeout(() => {
+        document.getElementById("goLetter").hidden = false;
+    }, 850);
+});
+
+document.getElementById("goLetter").addEventListener("click", () => {
+    showScene(2);
+});
+
+/* ======================================
+   التحكم في الموسيقى
+   ====================================== */
+
+musicBtn.addEventListener("click", async () => {
+    if (music.paused) {
+        try {
+            await music.play();
+            musicBtn.textContent = "♫ إيقاف الأغنية";
+        } catch (error) {
+            musicBtn.textContent = "تعذر التشغيل";
+        }
+    } else {
+        music.pause();
+        musicBtn.textContent = "♫ تشغيل الأغنية";
+    }
+});
+
+music.addEventListener("play", () => {
+    musicBtn.textContent = "♫ إيقاف الأغنية";
+});
+
+music.addEventListener("pause", () => {
+    musicBtn.textContent = "♫ تشغيل الأغنية";
+});
+
+/* ======================================
+   القلوب والنجوم المتحركة
+   ====================================== */
+
+function startHearts() {
+    if (heartsTimer) return;
+
+    heartsTimer = setInterval(() => {
+        if (
+            document.hidden ||
+            !app.classList.contains("active") ||
+            !person
+        ) {
+            return;
+        }
+
+        const heart = document.createElement("span");
+
+        heart.className = "heart";
+
+        const momSymbols = ["❤️", "💕", "💗", "🌸", "✨"];
+        const dadSymbols = ["💙", "⭐", "✨", "🤍", "💫"];
+
+        const symbols = person.type === "dad"
+            ? dadSymbols
+            : momSymbols;
+
+        heart.textContent =
+            symbols[Math.floor(Math.random() * symbols.length)];
+
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.fontSize = (14 + Math.random() * 14) + "px";
+        heart.style.animationDuration = (6 + Math.random() * 5) + "s";
+
+        document.body.appendChild(heart);
+
+        setTimeout(() => heart.remove(), 12000);
+    }, 1100);
+}
+
+/* ======================================
+   إعادة مشاهدة المفاجأة
+   ====================================== */
+
+document.getElementById("replay").addEventListener("click", () => {
+    envelopeOpened = false;
+
+    document.getElementById("envelope").classList.remove("open");
+
+    if (person) {
+        setText("openEnvelope", person.openButton);
+        setText("goLetter", person.goButton);
+    }
+
+    document.getElementById("goLetter").hidden = true;
+
+    document.querySelectorAll(".memory").forEach(card => {
+        card.classList.remove("show");
+    });
+
+    showScene(0);
+});
+</script>
+
+</body>
+</html>
